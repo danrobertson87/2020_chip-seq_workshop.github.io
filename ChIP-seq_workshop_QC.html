@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>Quality Control</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/yeti.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/pagedtable-1.1/css/pagedtable.css" rel="stylesheet" />
+<script src="site_libs/pagedtable-1.1/js/pagedtable.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 45px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 50px;
+  margin-top: -50px;
+}
+.section h2 {
+  padding-top: 50px;
+  margin-top: -50px;
+}
+.section h3 {
+  padding-top: 50px;
+  margin-top: -50px;
+}
+.section h4 {
+  padding-top: 50px;
+  margin-top: -50px;
+}
+.section h5 {
+  padding-top: 50px;
+  margin-top: -50px;
+}
+.section h6 {
+  padding-top: 50px;
+  margin-top: -50px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Home</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="ChIP-seq_workshop_intro.html">Getting Started</a>
+</li>
+<li>
+  <a href="ChIP-seq_workshop_QC.html">Quality Control</a>
+</li>
+<li>
+  <a href="ChIP-seq_workshop_map.html">Mapping and Filtering</a>
+</li>
+<li>
+  <a href="ChIP-seq_workshop_visualisation.html">Visualisation</a>
+</li>
+<li>
+  <a href="ChIP-seq_workshop_analysis.html">Analysis</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Quality Control</h1>
+
+</div>
+
+
+<head>
+<script src="https://kit.fontawesome.com/ece750edd7.js" crossorigin="anonymous"></script>
+</head>
+<div id="fastq-files" class="section level3">
+<h3>FastQ files</h3>
+<p>Sequencing data will typically be provided to you in fastq format (.fq or .fastq) or as a compressed gzipped fastq (.fq.gz) in order to save space. We can view a gzipped file with the zless command, let's take a look:</p>
+<pre class="bash"><code>cd ChIP-seq_workshop/fastq # Move into the fastq directory (if not already)
+zless Input_R1.fq.gz | head -n 12</code></pre>
+<p><a href="https://en.wikipedia.org/wiki/FASTQ_format">Fastq</a> files contain 4 lines per sequenced read: * Line 1 begins with an '@' character and is followed by a sequence identifier and an optional description * Line 2 is the raw sequence * Line 3 begins with a '+' character and is optionally followed by the same sequence identifier * Line 4 encodes the Phred quality score for the sequence in Line 2 as ASCII characters</p>
+</div>
+<div id="quality-control" class="section level2">
+<h2>3. Quality control</h2>
+<p>Next we want to assess the quality of our sequencing data and check for any biases and contamination.</p>
+<div id="fastq-screen" class="section level3">
+<h3>FastQ screen</h3>
+<p>When running a sequencing pipeline it is useful to know that your sequencing runs contain the types of sequence they're supposed to. <a href="http://www.bioinformatics.babraham.ac.uk/projects/fastq_screen/">FastQ Screen</a> allows you to set up a standard set of libraries against which all of your sequences can be searched. Your search libraries might contain the genomes of all of the organisms you work on, along with PhiX, Vectors or other contaminants commonly seen in sequencing experiments. We will run a screen of our sequences against human, mouse, rat, e.coli and s.cerevisiae (defaults):</p>
+<pre class="bash"><code>cd .. #Move up a directory again
+fastq_screen fastq/*fq.gz --outdir fastq # * is a wild card character</code></pre>
+<p>Once complete take a look at the output images in your browser via your public html folder. This shows that most of your reads align to the yeast genome and that no reads align uniquely to other organisms:</p>
+<p><img src="images/Reb1_R1_screen.png" width=1200></p>
+</div>
+<div id="fastqc" class="section level3">
+<h3>FastQC</h3>
+<p><a href="http://www.bioinformatics.babraham.ac.uk/projects/fastqc/">FastQC</a> provides simple quality control checks on raw sequence data coming from high throughput sequencing pipelines. It provides a modular set of analyses which you can use to get a quick impression of whether your data has any problems of which you should be aware before proceeding.</p>
+<pre class="bash"><code>fastqc fastq/*.fq.gz</code></pre>
+<p>FastQC will create report files for each of your datasets which we can view in the browser. We will go through each of the images during the workshop. For future reference, specific guidance on how to interpret the output of each module is provided in the <a href="http://www.bioinformatics.babraham.ac.uk/projects/fastqc/Help/">fastqc help pages</a>.</p>
+<p>An example of poor quality sequencing at the end of short reads:</p>
+<p><img src="images/Poor_sequence_quality.png" width=700></p>
+<p>The software gives a <em>pass</em>, <em>fail</em> or <em>warning</em> flag for each test based on what we would expect from a regular DNA-sequencing run. It is important to realise that FastQC does not understand the origin of your data and that different datasets will have different characteristics. For instance RNA sequencing often involves the use of <strong>random hexamer primers</strong> that are <a href="https://sequencing.qcfail.com/articles/positional-sequence-bias-in-random-primed-libraries/">not as random as you might expect</a>. The profile below in the first ~15 bases is perfectly normal for these samples but will be flagged as an error by FastQC:</p>
+<p><img src="images/Random_hexamer_priming.png" width=700></p>
+<p>Bisulfite treatment (used to investigate DNA methylation) converts most Cs in the genome to Ts, as we can see below. FastQC will not be happy with this profile, the point is, understand what you have sequenced and what you expect to see rather than blindly trusting the FastQC flag system!</p>
+<p><img src="images/bisulfite.png" width=700></p>
+<p>Visit the <a href="https://sequencing.qcfail.com/author/simon/">QCFail</a> website for more examples and advice on quality control for NGS datasets.</p>
+</div>
+<div id="multiqc" class="section level3">
+<h3>MultiQC</h3>
+<p>We can view summaries of multiple reports at once by using <a href="http://multiqc.info/">multiqc</a>:</p>
+<pre class="bash"><code>multiqc -o fastq fastq</code></pre>
+<p>MultiQC searches for report files in a directory and compiles them into a single report. Open the multiqc report via a web browser to see how the raw datasets compare. Here we have the output of FastQ_screen and FastQC, but MultiQC works with the outputs of many tools other tools which we'll see later.</p>
+<p>If we look at the <em>adapter content</em> and <em>over represented sequences</em> sections we can see a small amount of contamination particularly in the second replicates.</p>
+</div>
+</div>
+<div id="shell-scripts-pipelining-and-parallelisation" class="section level2">
+<h2>4. Shell scripts, pipelining and parallelisation</h2>
+<p>Up until now we have run command line tools on each one of our datasets in serial, this means they run one after the other. In this tutorial we only have a few small datasets and the tools run relatively quickly, but this approach won't scale well to multiple large datasets. A more efficient approach is to create a <strong>script</strong> that will run all of our datasets in <strong>parallel</strong>.</p>
+<div id="parallel" class="section level3">
+<h3>parallel</h3>
+<p>Unix has a program called <strong>parallel</strong> which allows you to run tools on multiple datasets at the same time. The following command would list all of your gzipped fastq files and pipe them into parallel.</p>
+<pre class="bash"><code>ls fastq/*fq.gz | parallel -j 4 fastqc {} &amp;
+ps f</code></pre>
+<ul>
+<li><em>ls</em> lists files ending with .fq.gz in your fastq directory and pipes the names in to parallel</li>
+<li>The parallel <em>-j</em> flag stands for <em>juggle</em> and tells parallel to run 4 processes at the same time.</li>
+<li>In this case we are running fastqc and the <em>{}</em> is a place holder for the filenames we are piping in.</li>
+<li>The <em>&amp;</em> character runs these jobs in the background so we can continue to use the terminal.</li>
+<li><em>ps</em> is the <em>process status</em> tool which shows jobs running in the current session, we should see 4 instances of fastqc running.</li>
+</ul>
+</div>
+<div id="shell-scripts" class="section level3">
+<h3>Shell scripts</h3>
+<p>Putting all of your commands into a script is good practice for keeping track of your analyses and for reproducibility. We want to write scripts so they can be used again on different datasets and avoid <em>hardcoding</em> the names of files.</p>
+<p>First, let's create a file that lists our sample names so we can feed this into our pipeline. We could just type this manually or use a bit of text processing like the code below which will be explained in the tutorial:</p>
+<pre class="bash"><code>ls fastq/*fq.gz | parallel basename | sed s/.fq.gz// &gt; samples.txt</code></pre>
+<p>Now let's create our pipeline script. We'll start by creating and opening a new file called <strong>pipeline.sh</strong>. The .sh stands for shell which is essentially just a name for the command line environment.</p>
+<pre class="bash"><code>emacs -nw pipeline.sh</code></pre>
+<p><strong>Emacs</strong> is a Unix text editor and the -nw flag opens a new window for editing. Here we are going to paste all of the commands we have used so far (click the mouse wheel to paste in the terminal):</p>
+<pre><code>##PREPARATION
+
+##Create a web directory to view output                         
+ln -s $PWD ~/public_html/
+##Create a folder for fastq files
+mkdir fastq
+##Link the raw data to the fastq folder
+ln -s /homes/library/training/ChIP-seq_workshop/data/*fq.gz fastq/
+
+##QC
+
+##FastQ Screen
+fastq_screen fastq/*.fq.gz --outdir fastq
+##FastQC
+fastqc fastq/*.fq.gz
+##Multi QC
+multiqc -o fastq fastq
+
+##PREPROCESSING </code></pre>
+<p>The <strong>#</strong> symbol indicates a comment line and anything preceeded by a # will not be run by the command line. It is good practice to comment your code.</p>
+<p><strong>TASK:</strong> See if you can adapt the QC portion of the script to use parallel.</p>
+<p><strong>HINT:</strong> <code>cat samples.txt</code> will print the names of the samples.</p>
+<p><strong>EXTRA HINT:</strong> <code>cat samples.txt | parallel -j 4 fastq_screen {}.fq.gz</code>.</p>
+<p>To save and exit the file press <strong>ctrl-x</strong>, followed by <strong>ctrl-c</strong> and then <strong>y</strong> to save.</p>
+<p>Because we are using RStudio you can alternatively create a new text file in the menus, edit it directly in the editor and save it as <em>pipeline.sh</em> in this folder.</p>
+<p>Let's move on with our ChIP-seq analysis. Everytime we run a tool that creates new output we should add it to our pipeline.sh file.</p>
+<p>Look out for the <strong>blue</strong> code chunks like the one below and paste these commands to your script. We will learn how to run this script and the full analysis in one go later on.</p>
+<div class="blue">
+<pre class="bash"><code>#Paste Blue code chunks into your pipeline.sh script</code></pre>
+</div>
+<p>Although shell scripts save all of your commands they do not necessarily track the versions of software that you use or the current state of your environment and other tool dependencies. More advanced methods of <em>pipelining</em> and <em>containerisation</em> are recommended for fully reproducible analysis and sustainable programming.</p>
+</div>
+</div>
+<div id="pre-processing-quality-trimming-and-adapter-removal" class="section level2">
+<h2>5. Pre-processing: Quality trimming and adapter removal</h2>
+<p>From the FastQC report we can see that the overall quality of our sequencing is good, however it is good practice to perform some pre-processing and filtering of reads. Poor quality sequencing can make a read less alignable so it is good practice to <strong>quality trim</strong> the ends of reads until we get to the high quality portion. Trimming is not always neccessary as some mapping programs will trim the reads for you or perform <strong>soft clipping</strong> where only part of a read is required to align but studies have shown that pre-processing generally improves alignment rate if done correctly.</p>
+<p>Sequencing libraries are normally constructed by ligating adapters to fragments of DNA or RNA. If your read length is longer than your fragment then <a href="https://sequencing.qcfail.com/articles/read-through-adapters-can-appear-at-the-ends-of-sequencing-reads/">sequenced reads will contain the adapter sequence</a>. <strong>Adapter removal</strong> is also a necessary consideration for your QC workflow, especially if adapters are detected by FastQC.</p>
+<p>An example of adapter contamination at the end of reads: <img src="images/Adapter_contamination.png" width=700></p>
+<p>Once reads have been trimmed they will vary in length. You may want to <strong>filter</strong> out reads that are now too short to be uniquely mapped. Normally a cutoff of 20-30bp is standard.</p>
+<p>Trim with caution and think about the consequences of having different length reads later on in your pipeline. In fact, it is possible to overtrim your reads and aggressively remove valid data.</p>
+<div id="cutadapt" class="section level3">
+<h3>Cutadapt</h3>
+<p><a href="http://cutadapt.readthedocs.org/en/stable/index.html">Cutadapt</a> finds and removes unwanted sequences from your high-throughput sequencing reads. Cutadapt can perform quality trimming, adapter removal and read filtering as well as many other operations to prepare your reads for optimal alignment. We will run cutadapt with the following parameters:</p>
+<ul>
+<li>-a : The sequence of the adapter to remove</li>
+<li>-q : Trim reads from the 3' end with the given quality threshold (Phred score)</li>
+<li>--minimum-length : Filter out reads below this length</li>
+</ul>
+<p>We will also run FastQC on the trimmed dataset.</p>
+<div class="blue">
+<pre class="bash"><code>cat samples.txt | parallel -j 4 &quot;cutadapt -a AGATCGGAAGAG -q 20 --minimum-length 36 -o fastq/{}.trim.fq.gz fastq/{}.fq.gz &gt; fastq/{}.trim.cutadapt_report.txt&quot;
+cat samples.txt | parallel -j 4 fastqc fastq/{}.trim.fq.gz</code></pre>
+</div>
+<p>To view a cutadapt report:</p>
+<pre class="bash"><code>less fastq/Reb1_R1.trim.cutadapt_report.txt</code></pre>
+<p>Let's compare the fastqc reports using <a href="http://multiqc.info/">multiqc</a>. As you have run it already you need to use the force (-f) flag to get it to overwrite the current report.</p>
+<div class="blue">
+<pre class="bash"><code>multiqc -f -o fastq fastq</code></pre>
+</div>
+<p>Open the multiqc report via a web browser to see how the raw and trimmed datasets compare.</p>
+<p>Remember to add the cutadapt, fastqc and multiqc steps to your <strong>pipeline.sh</strong> file.</p>
+</div>
+<div id="other-qc-software-worth-investigating" class="section level3">
+<h3>Other QC software worth investigating</h3>
+<ul>
+<li><a href="http://www.usadellab.org/cms/?page=trimmomatic">Trimmomatic</a> is very good and runs with Java</li>
+<li><a href="http://www.bioinformatics.babraham.ac.uk/projects/trim_galore/">Trim Galore!</a></li>
+</ul>
+</div>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,45 @@
+---
+title: "WCB Chip-Seq Workshop"
+author:  "WCB Bioinformatics Core Facility"
+output:
+  html_document:
+    fig_width: 1
+    df_print: paged
+    css: "style.css"
+---
+
+
+<head>
+<script src="https://kit.fontawesome.com/ece750edd7.js" crossorigin="anonymous"></script>
+</head>
+
+
+```{r global_options, include=FALSE}
+knitr::opts_chunk$set(warning=FALSE, message=FALSE)
+```
+
+This workshop is designed as an introduction to ChIP-seq data analysis and will guide you through the following steps:
+
+* Assessing raw sequence data and performing quality control
+* Aligning sequence reads to a reference genome
+* Filtering alignments for further analysis
+* Assessing the quality of your ChIP-seq experiment
+* Visualising alignments on a genome browser
+* Summarising ChIP-seq profiles across genes
+* Peak calling
+* Motif discovery
+* Introduction to useful packages in R
+
+There is no such thing as a default pipeline. Although we mostly use standard parameters in this tutorial we hope to make you aware of the considerations you should take at each step. Make sure you understand your data and where it has come from. Use the correct tools for your dataset and read the tool documentation to see how different parameters affect your output!
+
+This is the homepage for Chip-Seq training at the WCB Bioinformatics Core Facility at the University of Edinburgh. These courses are run annually by a qualified tutor but also provided for self study.
+
+<br>
+
+![](images/CELL_BIOLOGY_RGB.png){ width=50% }
+
+<br>
+
+----
+
+For more information contact [Shaun Webb](mailto:shaun.webb@ed.ac.uk).

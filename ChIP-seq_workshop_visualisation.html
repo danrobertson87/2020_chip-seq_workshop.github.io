@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>Visualisation</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/yeti.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/pagedtable-1.1/css/pagedtable.css" rel="stylesheet" />
+<script src="site_libs/pagedtable-1.1/js/pagedtable.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 45px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 50px;
+  margin-top: -50px;
+}
+.section h2 {
+  padding-top: 50px;
+  margin-top: -50px;
+}
+.section h3 {
+  padding-top: 50px;
+  margin-top: -50px;
+}
+.section h4 {
+  padding-top: 50px;
+  margin-top: -50px;
+}
+.section h5 {
+  padding-top: 50px;
+  margin-top: -50px;
+}
+.section h6 {
+  padding-top: 50px;
+  margin-top: -50px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Home</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="ChIP-seq_workshop_intro.html">Getting Started</a>
+</li>
+<li>
+  <a href="ChIP-seq_workshop_QC.html">Quality Control</a>
+</li>
+<li>
+  <a href="ChIP-seq_workshop_map.html">Mapping and Filtering</a>
+</li>
+<li>
+  <a href="ChIP-seq_workshop_visualisation.html">Visualisation</a>
+</li>
+<li>
+  <a href="ChIP-seq_workshop_analysis.html">Analysis</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Visualisation</h1>
+
+</div>
+
+
+<head>
+<script src="https://kit.fontawesome.com/ece750edd7.js" crossorigin="anonymous"></script>
+</head>
+<div id="creating-tracks" class="section level2">
+<h2>7. Creating Tracks</h2>
+<div id="converting-bam-files-to-bigwig" class="section level3">
+<h3>Converting BAM files to bigWig</h3>
+<p>Visually inspecting data via a genome browser is often the first step in any analysis. Has the sequencing worked as expected? Are there noticeable differences between my samples by eye? BAM files are typically large and contain detailed information for every read, thus they are slow to access and view on a genome browser. If we are only interested in read profiles we can convert our BAM files to graphs of sequencing depth per base. The <strong>wiggle</strong> file format has three columns to represent a genomic interval and a 4th as a score which will represent the number of reads overlapping that region. We will create a compressed version of this format called <strong>bigWig</strong> for use with genome browsers. To do this we are going to use the <a href="https://deeptools.readthedocs.io">deepTools</a> package which has a lot of useful tools particularly for ChIP-seq analysis.</p>
+<p>The <a href="https://deeptools.readthedocs.io/en/develop/content/tools/bamCoverage.html">bamCoverage</a> tool in deepTools has many different options for normalising, smoothing and filtering your BAM files before converting to bigWig and the documentation is worth a read.</p>
+<div class="blue">
+<pre class="bash"><code>cat samples.txt | parallel -j 4 bamCoverage -bs 1 --normalizeUsing BPM -e 200 -b bwa_out/{}/{}.uniq.bam --outFileName bwa_out/{}/{}.uniq.bw</code></pre>
+</div>
+<ul>
+<li><strong>-bs</strong> is the bin size. We set this to 1, but we could smooth our read coverage into larger bins across the genome.</li>
+<li><strong>--normalizeUsing BPM</strong> is a normalisation strategy akin to TPM in RNA-seq and stands for &quot;bins per million&quot;. There are several strategies to choose or we can ignore normalisation.</li>
+<li><strong>-e 200</strong> extends our reads to 200b as this is the average fragment length. With paired end data the reads would be extended to match the ends of both reads but with single end we must supply a value.</li>
+</ul>
+</div>
+<div id="igv" class="section level3">
+<h3>IGV</h3>
+<p><a href="https://www.broadinstitute.org/igv/">IGV</a> (Integrative genomics viewer) is a powerful genome browser from the Broad institute. It is perfect for viewing your sequencing files as loading data is easy, common formats are understood, views are customisable and navigation is quick.</p>
+<p>First let's put all of our visualisation files in one folder.</p>
+<div class="blue">
+<pre class="bash"><code>mkdir visualisation
+ln -s $PWD/bwa_out/*/*bw visualisation
+ln -s $PWD/bwa_out/*/*uniq.bam* visualisation</code></pre>
+</div>
+<p>It is best to download the <a href="https://www.broadinstitute.org/igv/">desktop app</a> for use on your own machine but if you are using a university managed computer you can access the web app at <a href="https://igv.org/app/" class="uri">https://igv.org/app/</a>.</p>
+<p>Open IGV and set the genome to <strong>sacCer3</strong>, then find your <em>visualisation</em> folder online. In the desktop version you can drag and drop files into IGV. If you are using the webapp you will need to download the files you require and open them using the <em>tracks</em> menu.</p>
+<p>Open a BAM file and a corresponding bigWig file into IGV.</p>
+<p><img src="images/IGV.png" width=1200></p>
+<p>Now let's customise our view:</p>
+<p>DESKTOP APP</p>
+<ol style="list-style-type: decimal">
+<li>Use the horizontal panel dividers to set the 3 panels to approximately equal height.</li>
+<li>Select <strong>Tracks-&gt;Fit Data To Window</strong> To automatically set track heights to fill the view</li>
+<li>Right click on the Refseq genes track and switch between display modes <strong>Collapsed</strong>, <strong>Expanded</strong> and <strong>Squished</strong>.</li>
+<li>Use the right click menu on the bigwig track name to customise the display. Try the following:</li>
+<li>Rename the track</li>
+<li>Change the track colour</li>
+<li>Change the graph type</li>
+<li>Change the windowing function</li>
+<li>Set a minimum, mid and maximum Y-axis</li>
+<li>Set the scale to <strong>Autoscale</strong>. This automatically sets the Y-axis to the height of the tallest peak in your view.</li>
+</ol>
+<p>WEB APP</p>
+<ol style="list-style-type: decimal">
+<li>Use the cog on the Ensembl genes track to switch between display modes <strong>Collapsed</strong>, <strong>Expanded</strong> and <strong>Squished</strong>.</li>
+<li>Customise the bigwig track by trying the following:</li>
+<li>Rename the track</li>
+<li>Change the track colour</li>
+<li>Change the track height</li>
+<li>Set a minimum and maximum Y-axis</li>
+<li>Set the scale to <strong>Autoscale</strong>. This automatically sets the Y-axis to the height of the tallest peak in your view.</li>
+</ol>
+<p>Next let's navigate the chromosome:</p>
+<ul>
+<li>Use the <em>+</em> / <em>-</em> zoom bar at the top right</li>
+<li>Drag and highlight an area to zoom on the genome ruler</li>
+<li>Type a position or gene identifier in to the search box</li>
+<li>If we zoom in close enough our BAM file will load and we can investigate alignments of individual reads</li>
+<li>Can you identify <strong>mismatches</strong> in read alignment?</li>
+<li>Can you find any obvious peaks in the ChIP-seq samples?</li>
+</ul>
+</div>
+<div id="other-genome-browsers" class="section level3">
+<h3>Other genome browsers</h3>
+<ul>
+<li><a href="http://www.ensembl.org">Ensembl</a> and <a href="https://genome.ucsc.edu/">UCSC</a> websites have online genome browsers where you can view your data alongside published experimental data and genomic annotations in their databases.</li>
+</ul>
+</div>
+</div>
+<div id="tidy-up" class="section level2">
+<h2>Tidy Up!</h2>
+<p>Files are large, disk space is expensive, remove any unwanted or temporary files from your folder. We should always keep the raw data (fastq) and our final processed datasets (BAM, bigWig etc) and the script we used to generate them. SAM files are large and should be removed once converted to BAM.</p>
+<div class="blue">
+<pre class="bash"><code>rm fastq/*trim*fq.gz #Remove trimmed fastq temp files
+rm bwa_out/*/*.sam #Remove sam files</code></pre>
+</div>
+</div>
+<div id="finish-your-script" class="section level2">
+<h2>8. Finish your script</h2>
+<p>Let's summarise what we have done so far</p>
+<ul>
+<li>Assess raw sequence data and perform quality control</li>
+<li>Align reads to a reference genome</li>
+<li>Filter alignments for further analyses</li>
+<li>Visualise alignments on a genome browser</li>
+</ul>
+<p>We now have our alignments (BAM) and visualisation files (bigWig) and this is normally a branching point for downstream analyses that quantify and annotate the data.</p>
+<p>Your pipeline.sh script should look something like <a href="http://bifx-core.bio.ed.ac.uk/training/ChIP-seq_workshop/pipeline.sh">this</a> and we can run everything from start to end in one go.</p>
+<pre class="bash"><code>mkdir CS_workshop_tmp #Create a temporary directory
+cd CS_workshop_tmp #Move into that directory
+cp ../pipeline.sh ../samples.txt . #Copy the pipeline and samples file into the new directory
+nohup sh pipeline.sh &gt; pipeline.log &amp; #Run the shell script (See Below)
+cd .. #Move back to the main directory</code></pre>
+<ul>
+<li>The <strong>nohup</strong> command stands for <em>no hangup</em> and keeps the process running even if you log out of your command line session.</li>
+<li>We use the tool <strong>sh</strong> and the name of our script to run our commands through the shell.</li>
+<li>We then redirect <strong>&gt;</strong> the output to a log file to keep track of any errors.</li>
+<li>We use the <strong>&amp;</strong> to run everything in the background to continue using the terminal.</li>
+</ul>
+<p>You can keep track of your pipeline by using <strong>ps</strong> or looking at the log file.</p>
+<pre class="bash"><code>ps f
+tail CS_workshop_tmp/pipeline.log #Shows the end of a file</code></pre>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

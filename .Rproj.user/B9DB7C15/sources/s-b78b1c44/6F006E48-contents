@@ -1,0 +1,106 @@
+---
+title: "Getting Started"
+output: 
+  html_document:
+    df_print: paged
+    css: "style.css"
+---
+
+<head>
+<script src="https://kit.fontawesome.com/ece750edd7.js" crossorigin="anonymous"></script>
+</head>
+
+
+```{r global_options, include=FALSE}
+knitr::opts_chunk$set(warning=FALSE, message=FALSE)
+```
+
+----
+
+## Getting Started with Linux and RStudio
+
+We are using the Linux command line to run most of the tools we use today so we will start with a brief introduction. If you are new to Linux and wish to use the command line more often it is a good idea to learn about job control and how to track your processes. We can arrange a separate tutorial if required.
+
+###Logging in
+We have several servers that you can login to. For the purpose of this practical we will use bifx-core2 which has been reserved for training today. No matter where you login, you will have access to the same files and programs.
+
+There are several options to login to our machines. You can use the **Terminal** app on a Mac or login via **X2G0** if you want a graphical interface. Alternatively you can use **RStudio** which is an environment built for R programming but also gives you access to the command line terminal, your file structure and several other graphical features. 
+
+1. Open this link in a new window: [bifx-rta.bio.ed.ac.uk](http://bifx-rta.bio.ed.ac.uk:8787)
+2. Login with your user credentials for our servers (not the same as EASE)
+3. Familiarise yourself with the different panels and locate the Terminal.
+
+
+### 1. Web directory 
+
+In order to view files created on the server, we need to create a public_html directory.
+
+After logging in you should be in your $HOME directory, check with;
+```bash
+pwd
+```
+This should show the PATH of your present working directory, which should now be your home directory as you have just logged in. You can return to this place at any time using the change directory command. 
+
+```bash
+cd
+```
+You have permissions to create files and directories under your home folder. Lets create some now which we will use later on. 
+
+```bash
+mkdir ~/public_html
+mkdir ~/public_html/TMP
+```
+
+Here we have used the absolute path name for each directory using ~/ as a shortcut for your $HOME directory. Nested directories are separated by the forward slash '/' sign. 
+
+
+As you have created  ~/public_html, contents of this directory are available online with any web browser 
+
+To see it enter the following URL, changing yourUserName to what ever your username is. 
+
+http://bifx-core.bio.ed.ac.uk/~yourUserName
+
+## 2. ChIP-seq sequencing data
+
+The datasets used in this exercise are derived from a single end ChIP-seq experiment (actually ChIP-exo) in *S.cerevisiae*. There are 2 biological replicates (though we recommend using 3 or more!) Reb1_R1 and Reb1_R2 as well as their corresponding input controls Input_R1 and Input_R2. For this experiment immunoprecipitation was performed with antibodies against Reb1. Reb1 recognizes a specific sequence (TTACCCG) and is involved in many aspects of transcriptional regulation by all three yeast RNA polymerases and promotes formation of nucleosome-free regions (NFRs). You can find the original publication [here](http://www.sciencedirect.com/science/article/pii/S0092867411013511). For the purpose of this workshop we have randomly subsampled and filtered out poor quality reads to speed up runtime.
+
+| Dataset | Description |
+| ------- | ----------- |
+| Reb1_R1 | ChIP experiment, replicate 1 |
+| Reb1_R2 | ChIP experiment, replicate 2 |
+| Input_R1 | Input DNA, replicate 1 |
+| Input_R2 | Input DNA, replicate 2 |
+
+### Obtaining data
+
+First, make a new directory for this tutorial and move into that directory. Then link the directory to your public html folder as we are going to make everything public in this tutorial.
+
+```bash
+cd 
+mkdir ChIP-seq_workshop
+cd ChIP-seq_workshop
+ln -s $PWD ~/public_html/
+```
+Next, create a subfolder called **fastq** for all of our sequence files and link the raw datasets to this folder:
+
+```bash
+mkdir fastq
+ln -s /homes/library/training/ChIP-seq_workshop/data/*fq.gz fastq
+```
+
+When you receive data from a sequencing centre the file should also be provided with an alphanumeric string known as an **md5 checksum**. We can think of this as a files passport or fingerprint and use it to verify our data and ensure it wasn't corrupted or truncated during download. The md5 checksums for these files are below. Lets check that now using the `md5sum` command:
+
+|md5 checksum|filename|
+|------------|--------|
+|914b4dda687a76b0d50e545e3ce705d6|Input_R1.fq.gz|
+|f421ed18b71a801b236612cdde49dbaf|Input_R2.fq.gz|
+|dd363301ad237ecb6c81c59ae97995a2|Reb1_R1.fq.gz|
+|06623f9e556876dd6c4d1dfdc4348698|Reb1_R2.fq.gz|
+
+```bash
+cd fastq #Move into the fastq directory
+md5sum *.fq.gz > md5
+cat md5 #prints out the contents of md5
+#To check the files and md5 sums match at any time
+md5sum -c md5 
+```
