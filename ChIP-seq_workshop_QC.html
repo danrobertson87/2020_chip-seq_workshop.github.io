@@ -309,6 +309,7 @@ $(document).ready(function () {
 <head>
 <script src="https://kit.fontawesome.com/ece750edd7.js" crossorigin="anonymous"></script>
 </head>
+<p><br></p>
 <div id="fastq-files" class="section level3">
 <h3>FastQ files</h3>
 <p>Sequencing data will typically be provided to you in fastq format (.fq or .fastq) or as a compressed gzipped fastq (.fq.gz) in order to save space. We can view a gzipped file with the zless command, let's take a look:</p>
@@ -316,9 +317,10 @@ $(document).ready(function () {
 zless Input_R1.fq.gz | head -n 12</code></pre>
 <p><a href="https://en.wikipedia.org/wiki/FASTQ_format">Fastq</a> files contain 4 lines per sequenced read: * Line 1 begins with an '@' character and is followed by a sequence identifier and an optional description * Line 2 is the raw sequence * Line 3 begins with a '+' character and is optionally followed by the same sequence identifier * Line 4 encodes the Phred quality score for the sequence in Line 2 as ASCII characters</p>
 </div>
-<div id="quality-control" class="section level2">
-<h2>3. Quality control</h2>
+<div id="quality-control" class="section level3">
+<h3>3. Quality control</h3>
 <p>Next we want to assess the quality of our sequencing data and check for any biases and contamination.</p>
+</div>
 <div id="fastq-screen" class="section level3">
 <h3>FastQ screen</h3>
 <p>When running a sequencing pipeline it is useful to know that your sequencing runs contain the types of sequence they're supposed to. <a href="http://www.bioinformatics.babraham.ac.uk/projects/fastq_screen/">FastQ Screen</a> allows you to set up a standard set of libraries against which all of your sequences can be searched. Your search libraries might contain the genomes of all of the organisms you work on, along with PhiX, Vectors or other contaminants commonly seen in sequencing experiments. We will run a screen of our sequences against human, mouse, rat, e.coli and s.cerevisiae (defaults):</p>
@@ -347,10 +349,10 @@ fastq_screen fastq/*fq.gz --outdir fastq # * is a wild card character</code></pr
 <p>MultiQC searches for report files in a directory and compiles them into a single report. Open the multiqc report via a web browser to see how the raw datasets compare. Here we have the output of FastQ_screen and FastQC, but MultiQC works with the outputs of many tools other tools which we'll see later.</p>
 <p>If we look at the <em>adapter content</em> and <em>over represented sequences</em> sections we can see a small amount of contamination particularly in the second replicates.</p>
 </div>
-</div>
-<div id="shell-scripts-pipelining-and-parallelisation" class="section level2">
-<h2>4. Shell scripts, pipelining and parallelisation</h2>
+<div id="shell-scripts-pipelining-and-parallelisation" class="section level3">
+<h3>4. Shell scripts, pipelining and parallelisation</h3>
 <p>Up until now we have run command line tools on each one of our datasets in serial, this means they run one after the other. In this tutorial we only have a few small datasets and the tools run relatively quickly, but this approach won't scale well to multiple large datasets. A more efficient approach is to create a <strong>script</strong> that will run all of our datasets in <strong>parallel</strong>.</p>
+</div>
 <div id="parallel" class="section level3">
 <h3>parallel</h3>
 <p>Unix has a program called <strong>parallel</strong> which allows you to run tools on multiple datasets at the same time. The following command would list all of your gzipped fastq files and pipe them into parallel.</p>
@@ -404,14 +406,14 @@ multiqc -o fastq fastq
 </div>
 <p>Although shell scripts save all of your commands they do not necessarily track the versions of software that you use or the current state of your environment and other tool dependencies. More advanced methods of <em>pipelining</em> and <em>containerisation</em> are recommended for fully reproducible analysis and sustainable programming.</p>
 </div>
-</div>
-<div id="pre-processing-quality-trimming-and-adapter-removal" class="section level2">
-<h2>5. Pre-processing: Quality trimming and adapter removal</h2>
+<div id="pre-processing-quality-trimming-and-adapter-removal" class="section level3">
+<h3>5. Pre-processing: Quality trimming and adapter removal</h3>
 <p>From the FastQC report we can see that the overall quality of our sequencing is good, however it is good practice to perform some pre-processing and filtering of reads. Poor quality sequencing can make a read less alignable so it is good practice to <strong>quality trim</strong> the ends of reads until we get to the high quality portion. Trimming is not always neccessary as some mapping programs will trim the reads for you or perform <strong>soft clipping</strong> where only part of a read is required to align but studies have shown that pre-processing generally improves alignment rate if done correctly.</p>
 <p>Sequencing libraries are normally constructed by ligating adapters to fragments of DNA or RNA. If your read length is longer than your fragment then <a href="https://sequencing.qcfail.com/articles/read-through-adapters-can-appear-at-the-ends-of-sequencing-reads/">sequenced reads will contain the adapter sequence</a>. <strong>Adapter removal</strong> is also a necessary consideration for your QC workflow, especially if adapters are detected by FastQC.</p>
 <p>An example of adapter contamination at the end of reads: <img src="images/Adapter_contamination.png" width=700></p>
 <p>Once reads have been trimmed they will vary in length. You may want to <strong>filter</strong> out reads that are now too short to be uniquely mapped. Normally a cutoff of 20-30bp is standard.</p>
 <p>Trim with caution and think about the consequences of having different length reads later on in your pipeline. In fact, it is possible to overtrim your reads and aggressively remove valid data.</p>
+</div>
 <div id="cutadapt" class="section level3">
 <h3>Cutadapt</h3>
 <p><a href="http://cutadapt.readthedocs.org/en/stable/index.html">Cutadapt</a> finds and removes unwanted sequences from your high-throughput sequencing reads. Cutadapt can perform quality trimming, adapter removal and read filtering as well as many other operations to prepare your reads for optimal alignment. We will run cutadapt with the following parameters:</p>
@@ -440,7 +442,19 @@ cat samples.txt | parallel -j 4 fastqc fastq/{}.trim.fq.gz</code></pre>
 <li><a href="http://www.usadellab.org/cms/?page=trimmomatic">Trimmomatic</a> is very good and runs with Java</li>
 <li><a href="http://www.bioinformatics.babraham.ac.uk/projects/trim_galore/">Trim Galore!</a></li>
 </ul>
+<div class="key-points">
+<h2>
+<i class="fas fa-thumbtack"></i>Key Aims:
+</h2>
+<h2 id="section"></h2>
+<ul>
+<li>Check for contaminants</li>
+<li>Asses sequence quality</li>
+<li>Understand scripting</li>
+<li>Trim your data</li>
+</ul>
 </div>
+<p><br></p>
 </div>
 
 

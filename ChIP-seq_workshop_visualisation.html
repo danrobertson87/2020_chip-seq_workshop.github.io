@@ -309,8 +309,10 @@ $(document).ready(function () {
 <head>
 <script src="https://kit.fontawesome.com/ece750edd7.js" crossorigin="anonymous"></script>
 </head>
-<div id="creating-tracks" class="section level2">
-<h2>7. Creating Tracks</h2>
+<p><br></p>
+<div id="creating-tracks" class="section level3">
+<h3>8. Creating Tracks</h3>
+</div>
 <div id="converting-bam-files-to-bigwig" class="section level3">
 <h3>Converting BAM files to bigWig</h3>
 <p>Visually inspecting data via a genome browser is often the first step in any analysis. Has the sequencing worked as expected? Are there noticeable differences between my samples by eye? BAM files are typically large and contain detailed information for every read, thus they are slow to access and view on a genome browser. If we are only interested in read profiles we can convert our BAM files to graphs of sequencing depth per base. The <strong>wiggle</strong> file format has three columns to represent a genomic interval and a 4th as a score which will represent the number of reads overlapping that region. We will create a compressed version of this format called <strong>bigWig</strong> for use with genome browsers. To do this we are going to use the <a href="https://deeptools.readthedocs.io">deepTools</a> package which has a lot of useful tools particularly for ChIP-seq analysis.</p>
@@ -324,6 +326,33 @@ $(document).ready(function () {
 <li><strong>-e 200</strong> extends our reads to 200b as this is the average fragment length. With paired end data the reads would be extended to match the ends of both reads but with single end we must supply a value.</li>
 </ul>
 </div>
+<div id="finish-your-script" class="section level3">
+<h3>9. Finish your script</h3>
+<p>We now have our alignments (BAM) and visualisation files (bigWig) and this is normally a branching point for downstream analyses that quantify and annotate the data.</p>
+<p>Your pipeline.sh script should look something like <a href="http://bifx-core.bio.ed.ac.uk/training/ChIP-seq_workshop/pipeline.sh">this</a> and we can run everything from start to end in one go.</p>
+<pre class="bash"><code>mkdir CS_workshop_tmp #Create a temporary directory
+cd CS_workshop_tmp #Move into that directory
+cp ../pipeline.sh ../samples.txt . #Copy the pipeline and samples file into the new directory
+nohup sh pipeline.sh &gt; pipeline.log &amp; #Run the shell script (See Below)
+cd .. #Move back to the main directory</code></pre>
+<ul>
+<li>The <strong>nohup</strong> command stands for <em>no hangup</em> and keeps the process running even if you log out of your command line session.</li>
+<li>We use the tool <strong>sh</strong> and the name of our script to run our commands through the shell.</li>
+<li>We then redirect <strong>&gt;</strong> the output to a log file to keep track of any errors.</li>
+<li>We use the <strong>&amp;</strong> to run everything in the background to continue using the terminal.</li>
+</ul>
+<p>You can keep track of your pipeline by using <strong>ps</strong> or looking at the log file.</p>
+<pre class="bash"><code>ps f
+tail CS_workshop_tmp/pipeline.log #Shows the end of a file</code></pre>
+</div>
+<div id="tidy-up" class="section level2">
+<h2>Tidy Up!</h2>
+<p>Files are large, disk space is expensive, remove any unwanted or temporary files from your folder. We should always keep the raw data (fastq) and our final processed datasets (BAM, bigWig etc) and the script we used to generate them. SAM files are large and should be removed once converted to BAM.</p>
+<div class="blue">
+<pre class="bash"><code>rm fastq/*trim*fq.gz #Remove trimmed fastq temp files
+rm bwa_out/*/*.sam #Remove sam files</code></pre>
+</div>
+<p><em>BREAK</em></p>
 <div id="igv" class="section level3">
 <h3>IGV</h3>
 <p><a href="https://www.broadinstitute.org/igv/">IGV</a> (Integrative genomics viewer) is a powerful genome browser from the Broad institute. It is perfect for viewing your sequencing files as loading data is easy, common formats are understood, views are customisable and navigation is quick.</p>
@@ -376,41 +405,18 @@ ln -s $PWD/bwa_out/*/*uniq.bam* visualisation</code></pre>
 <ul>
 <li><a href="http://www.ensembl.org">Ensembl</a> and <a href="https://genome.ucsc.edu/">UCSC</a> websites have online genome browsers where you can view your data alongside published experimental data and genomic annotations in their databases.</li>
 </ul>
-</div>
-</div>
-<div id="tidy-up" class="section level2">
-<h2>Tidy Up!</h2>
-<p>Files are large, disk space is expensive, remove any unwanted or temporary files from your folder. We should always keep the raw data (fastq) and our final processed datasets (BAM, bigWig etc) and the script we used to generate them. SAM files are large and should be removed once converted to BAM.</p>
-<div class="blue">
-<pre class="bash"><code>rm fastq/*trim*fq.gz #Remove trimmed fastq temp files
-rm bwa_out/*/*.sam #Remove sam files</code></pre>
-</div>
-</div>
-<div id="finish-your-script" class="section level2">
-<h2>8. Finish your script</h2>
-<p>Let's summarise what we have done so far</p>
+<div class="key-points">
+<h2>
+<i class="fas fa-thumbtack"></i>Key Aims:
+</h2>
+<h2 id="section"></h2>
 <ul>
-<li>Assess raw sequence data and perform quality control</li>
-<li>Align reads to a reference genome</li>
-<li>Filter alignments for further analyses</li>
+<li>Create tracks from our data</li>
 <li>Visualise alignments on a genome browser</li>
 </ul>
-<p>We now have our alignments (BAM) and visualisation files (bigWig) and this is normally a branching point for downstream analyses that quantify and annotate the data.</p>
-<p>Your pipeline.sh script should look something like <a href="http://bifx-core.bio.ed.ac.uk/training/ChIP-seq_workshop/pipeline.sh">this</a> and we can run everything from start to end in one go.</p>
-<pre class="bash"><code>mkdir CS_workshop_tmp #Create a temporary directory
-cd CS_workshop_tmp #Move into that directory
-cp ../pipeline.sh ../samples.txt . #Copy the pipeline and samples file into the new directory
-nohup sh pipeline.sh &gt; pipeline.log &amp; #Run the shell script (See Below)
-cd .. #Move back to the main directory</code></pre>
-<ul>
-<li>The <strong>nohup</strong> command stands for <em>no hangup</em> and keeps the process running even if you log out of your command line session.</li>
-<li>We use the tool <strong>sh</strong> and the name of our script to run our commands through the shell.</li>
-<li>We then redirect <strong>&gt;</strong> the output to a log file to keep track of any errors.</li>
-<li>We use the <strong>&amp;</strong> to run everything in the background to continue using the terminal.</li>
-</ul>
-<p>You can keep track of your pipeline by using <strong>ps</strong> or looking at the log file.</p>
-<pre class="bash"><code>ps f
-tail CS_workshop_tmp/pipeline.log #Shows the end of a file</code></pre>
+</div>
+<p><br></p>
+</div>
 </div>
 
 

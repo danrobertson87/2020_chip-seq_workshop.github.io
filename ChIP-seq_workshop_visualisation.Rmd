@@ -10,8 +10,10 @@ output:
 <script src="https://kit.fontawesome.com/ece750edd7.js" crossorigin="anonymous"></script>
 </head>
 
+<br>
 
-## 7. Creating Tracks
+
+### 8. Creating Tracks
 
 ### Converting BAM files to bigWig
 
@@ -28,6 +30,44 @@ cat samples.txt | parallel -j 4 bamCoverage -bs 1 --normalizeUsing BPM -e 200 -b
 * **-bs** is the bin size. We set this to 1, but we could smooth our read coverage into larger bins across the genome.
 * **--normalizeUsing BPM** is a normalisation strategy akin to TPM in RNA-seq and stands for "bins per million". There are several strategies to choose or we can ignore normalisation.
 * **-e 200** extends our reads to 200b as this is the average fragment length. With paired end data the reads would be extended to match the ends of both reads but with single end we must supply a value.
+
+
+### 9. Finish your script 
+
+We now have our alignments (BAM) and visualisation files (bigWig) and this is normally a branching point for downstream analyses that quantify and annotate the data.  
+
+Your pipeline.sh script should look something like [this](http://bifx-core.bio.ed.ac.uk/training/ChIP-seq_workshop/pipeline.sh) and we can run everything from start to end in one go.
+
+```bash
+mkdir CS_workshop_tmp #Create a temporary directory
+cd CS_workshop_tmp #Move into that directory
+cp ../pipeline.sh ../samples.txt . #Copy the pipeline and samples file into the new directory
+nohup sh pipeline.sh > pipeline.log & #Run the shell script (See Below)
+cd .. #Move back to the main directory
+```
+* The **nohup** command stands for *no hangup* and keeps the process running even if you log out of your command line session. 
+* We use the tool **sh** and the name of our script to run our commands through the shell. 
+* We then redirect **>** the output to a log file to keep track of any errors.
+* We use the **&** to run everything in the background to continue using the terminal.
+
+You can keep track of your pipeline by using **ps** or looking at the log file.
+
+```bash
+ps f
+tail CS_workshop_tmp/pipeline.log #Shows the end of a file
+```
+
+## Tidy Up! 
+Files are large, disk space is expensive, remove any unwanted or temporary files from your folder. We should always keep the raw data (fastq) and our final processed datasets (BAM, bigWig etc) and the script we used to generate them. SAM files are large and should be removed once converted to BAM.
+
+<div class="blue">
+```bash 
+rm fastq/*trim*fq.gz #Remove trimmed fastq temp files
+rm bwa_out/*/*.sam #Remove sam files
+```
+</div>
+
+*BREAK*
 
 ### IGV
 
@@ -90,47 +130,10 @@ Next let's navigate the chromosome:
 
 * [Ensembl](http://www.ensembl.org) and [UCSC](https://genome.ucsc.edu/) websites have online genome browsers where you can view your data alongside published experimental data and genomic annotations in their databases.
 
-## Tidy Up! 
-Files are large, disk space is expensive, remove any unwanted or temporary files from your folder. We should always keep the raw data (fastq) and our final processed datasets (BAM, bigWig etc) and the script we used to generate them. SAM files are large and should be removed once converted to BAM.
-
-<div class="blue">
-```bash 
-rm fastq/*trim*fq.gz #Remove trimmed fastq temp files
-rm bwa_out/*/*.sam #Remove sam files
-```
+<div class="key-points">
+<h2><i class="fas fa-thumbtack"></i>Key Aims:</h2>
+##
+ * Create tracks from our data
+ * Visualise alignments on a genome browser
 </div>
-
-
-
-## 8. Finish your script 
-
-Let's summarise what we have done so far
-
-* Assess raw sequence data and perform quality control
-* Align reads to a reference genome
-* Filter alignments for further analyses
-* Visualise alignments on a genome browser
-
-We now have our alignments (BAM) and visualisation files (bigWig) and this is normally a branching point for downstream analyses that quantify and annotate the data.  
-
-Your pipeline.sh script should look something like [this](http://bifx-core.bio.ed.ac.uk/training/ChIP-seq_workshop/pipeline.sh) and we can run everything from start to end in one go.
-
-```bash
-mkdir CS_workshop_tmp #Create a temporary directory
-cd CS_workshop_tmp #Move into that directory
-cp ../pipeline.sh ../samples.txt . #Copy the pipeline and samples file into the new directory
-nohup sh pipeline.sh > pipeline.log & #Run the shell script (See Below)
-cd .. #Move back to the main directory
-```
-* The **nohup** command stands for *no hangup* and keeps the process running even if you log out of your command line session. 
-* We use the tool **sh** and the name of our script to run our commands through the shell. 
-* We then redirect **>** the output to a log file to keep track of any errors.
-* We use the **&** to run everything in the background to continue using the terminal.
-
-You can keep track of your pipeline by using **ps** or looking at the log file.
-
-```bash
-ps f
-tail CS_workshop_tmp/pipeline.log #Shows the end of a file
-```
-
+<br>

@@ -10,6 +10,8 @@ output:
 <script src="https://kit.fontawesome.com/ece750edd7.js" crossorigin="anonymous"></script>
 </head>
 
+<br>
+
 ### FastQ files
 
 Sequencing data will typically be provided to you in fastq format (.fq or .fastq) or as a compressed gzipped fastq (.fq.gz) in order to save space. We can view a gzipped file with the zless command, let's take a look:
@@ -26,7 +28,7 @@ zless Input_R1.fq.gz | head -n 12
 * Line 4 encodes the Phred quality score for the sequence in Line 2 as ASCII characters
 
 
-## 3. Quality control
+### 3. Quality control
 
 Next we want to assess the quality of our sequencing data and check for any biases and contamination. 
 
@@ -77,7 +79,7 @@ MultiQC searches for report files in a directory and compiles them into a single
 
 If we look at the *adapter content* and *over represented sequences* sections we can see a small amount of contamination particularly in the second replicates.
 
-## 4. Shell scripts, pipelining and parallelisation
+### 4. Shell scripts, pipelining and parallelisation
 
 Up until now we have run command line tools on each one of our datasets in serial, this means they run one after the other. In this tutorial we only have a few small datasets and the tools run relatively quickly, but this approach won't scale well to multiple large datasets. A more efficient approach is to create a **script** that will run all of our datasets in **parallel**.
 
@@ -161,7 +163,7 @@ Look out for the **blue** code chunks like the one below and paste these command
 
 Although shell scripts save all of your commands they do not necessarily track the versions of software that you use or the current state of your environment and other tool dependencies. More advanced methods of *pipelining* and *containerisation* are recommended for fully reproducible analysis and sustainable programming.
 
-## 5. Pre-processing: Quality trimming and adapter removal
+### 5. Pre-processing: Quality trimming and adapter removal
 
 From the FastQC report we can see that the overall quality of our sequencing is good, however it is good practice to perform some pre-processing and filtering of reads. Poor quality sequencing can make a read less alignable so it is good practice to **quality trim** the ends of reads until we get to the high quality portion. Trimming is not always neccessary as some mapping programs will trim the reads for you or perform **soft clipping** where only part of a read is required to align but studies have shown that pre-processing generally improves alignment rate if done correctly. 
 
@@ -213,3 +215,12 @@ Remember to add the cutadapt, fastqc and multiqc steps to your **pipeline.sh** f
 * [Trimmomatic](http://www.usadellab.org/cms/?page=trimmomatic) is very good and runs with Java
 * [Trim Galore!](http://www.bioinformatics.babraham.ac.uk/projects/trim_galore/)
 
+<div class="key-points">
+<h2><i class="fas fa-thumbtack"></i>Key Aims:</h2>
+##
+ * Check for contaminants
+ * Asses sequence quality
+ * Understand scripting
+ * Trim your data
+</div>
+<br>

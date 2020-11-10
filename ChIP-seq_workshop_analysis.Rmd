@@ -10,7 +10,9 @@ output:
 <script src="https://kit.fontawesome.com/ece750edd7.js" crossorigin="anonymous"></script>
 </head>
 
-## 9. Assessing ChIP quality
+<br>
+
+### 10. Assessing ChIP quality
 
 After we have mapped and filtered the reads it is time to make some inferences about how good the underlying data is.
 
@@ -71,7 +73,7 @@ The fingerprint tool can take a long time to run so we will leave this out for n
 
 <img src="images/dt_fingerplot.png" width=700>
 
-## 10. Summarizing ChIP signal enrichment across genes
+### 11. Summarizing ChIP signal enrichment across genes
 
 How many genes contain upstream regions enriched in Reb1 ChIP-seq reads? This is often represented as a heatmap, here is an example of histone modification ChIP-seq data from the Deeptools documentation:
 
@@ -131,7 +133,7 @@ The resulting image shows that a significant fraction of genes have peaks of Reb
 
 It is worth taking a look at the [documentation](http://deeptools.readthedocs.io/en/latest/content/list_of_tools.html) for the deepTools package in your own time to understand the range of tools and how different parameters affect your data and the different plots you can make.
 
-## 11. Calling peaks
+### 12. Calling peaks
 
 While the peaks we have found in the genome browser are pretty clear and consistent across the two replicates, looking at the entire genome in the browser is hardly an efficient way to identify all peaks of Reb1 binding. There are several ways to identify genome-wide binding events and three of these methods are summarised below:
 
@@ -209,10 +211,11 @@ When complete, MEME will create a new folder called **memechip_out** in your dir
 
 <img src="images/meme2.png" width=400>
 
-## Summary
-
 Now that we have completed the workshop you should be able to do the following:
 
+<div class="key-points">
+<h2><i class="fas fa-thumbtack"></i>Summary:</h2>
+##
 * Align sequence reads to a reference genome
 * Assess the quality of your ChIP-seq experiment
 * Visualise alignments on a genome browser
@@ -220,6 +223,9 @@ Now that we have completed the workshop you should be able to do the following:
 * Peak calling
 * Motif discovery
 * Create and run shell scripts
+</div>
+<br>
+
 
 Use these links to download the full [pipeline.sh](http://bifx-core.bio.ed.ac.uk/training/ChIP-seq_workshop/pipeline.sh) and [analysis.sh](http://bifx-core.bio.ed.ac.uk/training/ChIP-seq_workshop/analysis.sh) scripts.
 

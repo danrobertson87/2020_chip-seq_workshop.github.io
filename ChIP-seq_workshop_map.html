@@ -309,10 +309,11 @@ $(document).ready(function () {
 <head>
 <script src="https://kit.fontawesome.com/ece750edd7.js" crossorigin="anonymous"></script>
 </head>
-<ol start="6" style="list-style-type: decimal">
-<li>Read Alignment</li>
-</ol>
+<p><br></p>
+<div id="read-alignment" class="section level3">
+<h3>6. Read Alignment</h3>
 <p>In this workshop we are going to align our ChIP-seq reads to the yeast reference genome. There are many tools available for mapping reads each with their own purposes and strengths. We are going to use <a href="http://bio-bwa.sourceforge.net/bwa.shtml">BWA</a> as it is suitable for aligning single end short ChIP-seq reads and has a reasonable balance of accuracy and speed.</p>
+</div>
 <div id="genome-assemblies-and-indexing" class="section level3">
 <h3>Genome assemblies and indexing</h3>
 <p>First, we need to select a reference genome to align to. Every time a reference genome is released or updated it is given a new name, often referred to as the genome build or assembly (..hg18, hg19, hg38). It is important to realise that different builds of the same genome are different sequences and thus their co-ordinate sytems are incompatable. For instance position 10000000 on chr1 is T in hg19 and G in hg38.</p>
@@ -353,8 +354,9 @@ cat samples.txt | parallel -j 4 mkdir bwa_out/{}</code></pre>
 <pre class="bash"><code>samtools idxstats bwa_out/Reb1_R1/Reb1_R1.bam</code></pre>
 <p>The third column represents the number of alignments to each chromosome and at the bottom we can see some reads which have not mapped at all.</p>
 </div>
-<div id="post-processing-read-filtering" class="section level2">
-<h2>5. Post processing: Read filtering</h2>
+<div id="post-processing" class="section level3">
+<h3>7. Post processing</h3>
+</div>
 <div id="filtering-reads-with-samtools" class="section level3">
 <h3>Filtering reads with samtools</h3>
 <p>Now that we have aligned our reads we may want to do some filtering before any downstream analysis. Make sure you are aware of the alignments that are reported by your mapping program and the parameters used. For instance, are unmapped reads reported? Are all alignments to repeats reported or just one? Are paired-end alignments still reported if only one end maps?</p>
@@ -403,7 +405,18 @@ samtools view -c bwa_out/Reb1_R1/Reb1_R1.uniq.bam</code></pre>
 <pre class="bash"><code>cat samples.txt | parallel -j 4 fastqc bwa_out/{}/{}.uniq.bam
 multiqc -o bwa_out bwa_out</code></pre>
 </div>
+<div class="key-points">
+<h2>
+<i class="fas fa-thumbtack"></i>Key Aims:
+</h2>
+<h2 id="section"></h2>
+<ul>
+<li>Align reads to a reference genome</li>
+<li>Understand key file formats</li>
+<li>Filter alignments for further analyses</li>
+</ul>
 </div>
+<p><br></p>
 </div>
 
 

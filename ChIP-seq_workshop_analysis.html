@@ -309,9 +309,11 @@ $(document).ready(function () {
 <head>
 <script src="https://kit.fontawesome.com/ece750edd7.js" crossorigin="anonymous"></script>
 </head>
-<div id="assessing-chip-quality" class="section level2">
-<h2>9. Assessing ChIP quality</h2>
+<p><br></p>
+<div id="assessing-chip-quality" class="section level3">
+<h3>10. Assessing ChIP quality</h3>
 <p>After we have mapped and filtered the reads it is time to make some inferences about how good the underlying data is.</p>
+</div>
 <div id="correlation-amongst-samples" class="section level3">
 <h3>Correlation amongst samples</h3>
 <p>First we want to create a new script for the analysis part of the exercise and we can save all new commands in here. The <strong>touch</strong> command creates a new file without opening it, or you can use the RStudio editor to keep the file open for editing.</p>
@@ -345,9 +347,8 @@ chrVI   40000    50000 7447.0        139.0         7.0     2645.0</code></pre>
 <p>The fingerprint tool can take a long time to run so we will leave this out for now and continue with the tutorial. However, You should get a plot that looks like the one below where approximately 30% of the ChIP reads are concentrated in to a small number of bins.</p>
 <p><img src="images/dt_fingerplot.png" width=700></p>
 </div>
-</div>
-<div id="summarizing-chip-signal-enrichment-across-genes" class="section level2">
-<h2>10. Summarizing ChIP signal enrichment across genes</h2>
+<div id="summarizing-chip-signal-enrichment-across-genes" class="section level3">
+<h3>11. Summarizing ChIP signal enrichment across genes</h3>
 <p>How many genes contain upstream regions enriched in Reb1 ChIP-seq reads? This is often represented as a heatmap, here is an example of histone modification ChIP-seq data from the Deeptools documentation:</p>
 <p><img src="images/plotHeatmap_example.png" width=700></p>
 <p>First we want to create normalised datasets of ChIP signal vs Input for our two replicates. This is done using <strong>DeepTools bamCompare</strong> and gives us a bigWig file of normalised log2 ratios.</p>
@@ -378,10 +379,11 @@ bamCompare -b1 bwa_out/Reb1_R2/Reb1_R2.uniq.bam -b2 bwa_out/Input_R2/Input_R2.un
 <p><img src="images/TSS.heatmap.png" width=700></p>
 <p>It is worth taking a look at the <a href="http://deeptools.readthedocs.io/en/latest/content/list_of_tools.html">documentation</a> for the deepTools package in your own time to understand the range of tools and how different parameters affect your data and the different plots you can make.</p>
 </div>
-<div id="calling-peaks" class="section level2">
-<h2>11. Calling peaks</h2>
+<div id="calling-peaks" class="section level3">
+<h3>12. Calling peaks</h3>
 <p>While the peaks we have found in the genome browser are pretty clear and consistent across the two replicates, looking at the entire genome in the browser is hardly an efficient way to identify all peaks of Reb1 binding. There are several ways to identify genome-wide binding events and three of these methods are summarised below:</p>
 <p><img src="images/peak_finding.jpg" width=700></p>
+</div>
 <div id="macs2" class="section level3">
 <h3>MACS2</h3>
 <p>In this tutorial we will use the program <a href="https://github.com/taoliu/MACS">MACS2</a>. MACS2 performs several steps for calling peaks from paired treatment/control datasets:</p>
@@ -435,11 +437,12 @@ bamCompare -b1 bwa_out/Reb1_R2/Reb1_R2.uniq.bam -b2 bwa_out/Input_R2/Input_R2.un
 </div>
 <p>When complete, MEME will create a new folder called <strong>memechip_out</strong> in your directory and an html (web page) report. See if you can open this in your web browser and find the TTACCCG motif:</p>
 <p><img src="images/meme2.png" width=400></p>
-</div>
-</div>
-<div id="summary" class="section level2">
-<h2>Summary</h2>
 <p>Now that we have completed the workshop you should be able to do the following:</p>
+<div class="key-points">
+<h2>
+<i class="fas fa-thumbtack"></i>Summary:
+</h2>
+<h2 id="section"></h2>
 <ul>
 <li>Align sequence reads to a reference genome</li>
 <li>Assess the quality of your ChIP-seq experiment</li>
@@ -449,6 +452,8 @@ bamCompare -b1 bwa_out/Reb1_R2/Reb1_R2.uniq.bam -b2 bwa_out/Input_R2/Input_R2.un
 <li>Motif discovery</li>
 <li>Create and run shell scripts</li>
 </ul>
+</div>
+<p><br></p>
 <p>Use these links to download the full <a href="http://bifx-core.bio.ed.ac.uk/training/ChIP-seq_workshop/pipeline.sh">pipeline.sh</a> and <a href="http://bifx-core.bio.ed.ac.uk/training/ChIP-seq_workshop/analysis.sh">analysis.sh</a> scripts.</p>
 <p>If you are interested in other ways to plot or interrogate your data, the R programming language has many pre-built libraries to specifically analyse genomic data. Several of these are summarised in our <a href="http://bifx-core.bio.ed.ac.uk/training/ROI_workshop/R_roi_workshop.html">genomic regions of interest workshop</a> including gene annotation and plotting ChIP-seq signals. There are also packages for differential binding and statistical analysis. R is a very powerful tool for working with genomic data, applying statistics and creating visualisations. I would highly recommend learning R if you want to perform further downstream analyses.</p>
 </div>

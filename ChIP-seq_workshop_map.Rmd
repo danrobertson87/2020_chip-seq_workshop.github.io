@@ -10,7 +10,9 @@ output:
 <script src="https://kit.fontawesome.com/ece750edd7.js" crossorigin="anonymous"></script>
 </head>
 
-6. Read Alignment
+<br>
+
+### 6. Read Alignment
 
 In this workshop we are going to align our ChIP-seq reads to the yeast reference genome. There are many tools available for mapping reads each with their own purposes and strengths. We are going to use [BWA](http://bio-bwa.sourceforge.net/bwa.shtml) as it is suitable for aligning single end short ChIP-seq reads and has a reasonable balance of accuracy and speed.
 
@@ -89,7 +91,7 @@ samtools idxstats bwa_out/Reb1_R1/Reb1_R1.bam
 ``` 
 The third column represents the number of alignments to each chromosome and at the bottom we can see some reads which have not mapped at all.
 
-## 5. Post processing: Read filtering
+### 7. Post processing
 
 ### Filtering reads with samtools
 
@@ -163,5 +165,12 @@ multiqc -o bwa_out bwa_out
 ```
 </div>
 
-
+<div class="key-points">
+<h2><i class="fas fa-thumbtack"></i>Key Aims:</h2>
+##
+ * Align reads to a reference genome
+ * Understand key file formats
+ * Filter alignments for further analyses
+</div>
+<br>
 
