@@ -17,12 +17,12 @@ knitr::opts_chunk$set(warning=FALSE, message=FALSE)
 
 ----
 
-## Getting Started with Linux and RStudio
+### Getting Started with Linux and RStudio
 
-We are using the Linux command line to run most of the tools we use today so we will start with a brief introduction. If you are new to Linux and wish to use the command line more often it is a good idea to learn about job control and how to track your processes. We can arrange a separate tutorial if required.
+We are using the Linux command line to run most of the tools we use today. If you are new to Linux and wish to use the command line more often it is a good idea to learn about job control and how to track your processes. We can arrange a separate tutorial if required.
 
-###Logging in
-We have several servers that you can login to. For the purpose of this practical we will use bifx-core2 which has been reserved for training today. No matter where you login, you will have access to the same files and programs.
+### Logging in
+We have several servers that you can login to. For the purpose of this practical we will use bifx-rta. No matter where you login, you will have access to the same files and programs. bifx-core2 is also available if you use a VPN.
 
 There are several options to login to our machines. You can use the **Terminal** app on a Mac or login via **X2G0** if you want a graphical interface. Alternatively you can use **RStudio** which is an environment built for R programming but also gives you access to the command line terminal, your file structure and several other graphical features. 
 
@@ -31,7 +31,7 @@ There are several options to login to our machines. You can use the **Terminal**
 3. Familiarise yourself with the different panels and locate the Terminal.
 
 
-### 1. Web directory 
+### 1. Creating A Web Directory 
 
 In order to view files created on the server, we need to create a public_html directory.
 
@@ -53,14 +53,13 @@ mkdir ~/public_html/TMP
 
 Here we have used the absolute path name for each directory using ~/ as a shortcut for your $HOME directory. Nested directories are separated by the forward slash '/' sign. 
 
-
 As you have created  ~/public_html, contents of this directory are available online with any web browser 
 
 To see it enter the following URL, changing yourUserName to what ever your username is. 
 
 http://bifx-core.bio.ed.ac.uk/~yourUserName
 
-## 2. ChIP-seq sequencing data
+### 2. ChIP-seq sequencing data
 
 The datasets used in this exercise are derived from a single end ChIP-seq experiment (actually ChIP-exo) in *S.cerevisiae*. There are 2 biological replicates (though we recommend using 3 or more!) Reb1_R1 and Reb1_R2 as well as their corresponding input controls Input_R1 and Input_R2. For this experiment immunoprecipitation was performed with antibodies against Reb1. Reb1 recognizes a specific sequence (TTACCCG) and is involved in many aspects of transcriptional regulation by all three yeast RNA polymerases and promotes formation of nucleosome-free regions (NFRs). You can find the original publication [here](http://www.sciencedirect.com/science/article/pii/S0092867411013511). For the purpose of this workshop we have randomly subsampled and filtered out poor quality reads to speed up runtime.
 
@@ -104,3 +103,11 @@ cat md5 #prints out the contents of md5
 #To check the files and md5 sums match at any time
 md5sum -c md5 
 ```
+<div class="key-points">
+<h2><i class="fas fa-thumbtack"></i>You should now:</h2>
+##
+ * Be able to login to the bifx servers
+ * Have a personal web directory at http://bifx-core.bio.ed.ac.uk/~yourUserName
+ * Have created a project directory containing fastq files
+</div>
+<br>
