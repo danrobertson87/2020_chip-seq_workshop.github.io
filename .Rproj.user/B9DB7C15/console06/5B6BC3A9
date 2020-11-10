@@ -1,256 +1,0 @@
-]0;/homes2/danielr/2020_chip_work(base) ]0;danielr@bifx-rta: ~/2020_chip_workdanielr@bifx-rta:~/2020_chip_work$ lscd 2020_chip_work/p -r chip_workshop_2020/*sh 2020_chip_wwork/.[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C 2020_chip_wo[1Prk/.[A(base) ]0;danielr@bifx-rta: ~/2020_chip_workdanielr@bifx-rta:~/2020_chip_work$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C 2020_chip_wor[1Pk/.[A(base) ]0;danielr@bifx-rta: ~/2020_chip_workdanielr@bifx-rta:~/2020_chip_work$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cy 2020_chip_work/.[A(base) ]0;danielr@bifx-rta: ~/2020_chip_workdanielr@bifx-rta:~/2020_chip_work$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cm 2020_chip_work/.[A(base) ]0;danielr@bifx-rta: ~/2020_chip_workdanielr@bifx-rta:~/2020_chip_work$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cl 2020_chip_work/.[A(base) ]0;danielr@bifx-rta: ~/2020_chip_workdanielr@bifx-rta:~/2020_chip_work$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C
-
-cp: cannot stat 'chip_workshop_2020/*yml': No such file or directory
-]0;/homes2/danielr/2020_chip_work(base) ]0;danielr@bifx-rta: ~/2020_chip_workdanielr@bifx-rta:~/2020_chip_work$ cp -r chip_workshop_2020/*yml 2020_chip__work/.[A(base) ]0;danielr@bifx-rta: ~/2020_chip_workdanielr@bifx-rta:~/2020_chip_work$ ls[K
-[K[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Ccp -r chip_workshop_2020/*yml 2020_chip__work/.[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Caml 2020_chip_work/.[A(base) ]0;danielr@bifx-rta: ~/2020_chip_workdanielr@bifx-rta:~/2020_chip_work$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C
-
-cp: cannot stat 'chip_workshop_2020/*yaml': No such file or directory
-]0;/homes2/danielr/2020_chip_work(base) ]0;danielr@bifx-rta: ~/2020_chip_workdanielr@bifx-rta:~/2020_chip_work$ ls ../chip-seq_workshop/
-analysis.sh                      ChIP-seq_workshop_visualisation.html
-ChIP-seq_workshop_analysis.html  ChIP-seq_workshop_visualisation.Rmd
-ChIP-seq_workshop_analysis.Rmd   [0m[01;34mimages[0m
-ChIP-seq_workshop_intro.html     index.html
-ChIP-seq_workshop_intro.Rmd      index.Rmd
-ChIP-seq_workshop_map.html       pipeline.sh
-ChIP-seq_workshop_map.Rmd        [01;34msite_libs[0m
-ChIP-seq_workshop_QC.html        _site.yml
-ChIP-seq_workshop_QC.Rmd         style.css
-chip-seq_workshop.Rproj          template.txt
-]0;/homes2/danielr/2020_chip_work(base) ]0;danielr@bifx-rta: ~/2020_chip_workdanielr@bifx-rta:~/2020_chip_work$ ls ../chip-seq_workshop/cp -r chip_workshop_2020/*yaml 2020_chipp_work/.[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cml 2020_chip_[1Pwork/.[A(base) ]0;danielr@bifx-rta: ~/2020_chip_workdanielr@bifx-rta:~/2020_chip_work$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C
-[C[C[C[C[C[C[C[K[K[K[K[K[K[K[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[K
-[K[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[K[K[K[K[K[K[K[K.
-cp: cannot stat 'chip_workshop_2020/*yml': No such file or directory
-]0;/homes2/danielr/2020_chip_work(base) ]0;danielr@bifx-rta: ~/2020_chip_workdanielr@bifx-rta:~/2020_chip_work$ cp -r chip_workshop_2020/*yml .[1@.[1@.[1@/
-]0;/homes2/danielr/2020_chip_work(base) ]0;danielr@bifx-rta: ~/2020_chip_workdanielr@bifx-rta:~/2020_chip_work$ [K(base) ]0;danielr@bifx-rta: ~/2020_chip_workdanielr@bifx-rta:~/2020_chip_work$ [K(base) ]0;danielr@bifx-rta: ~/2020_chip_workdanielr@bifx-rta:~/2020_chip_work$ \
-> 
-]0;/homes2/danielr/2020_chip_work(base) ]0;danielr@bifx-rta: ~/2020_chip_workdanielr@bifx-rta:~/2020_chip_work$ git remote add origin https://github.com/danrobertson87/Chip-Seq_Workkshop.github.io.git
-fatal: not a git repository (or any parent up to mount point /)
-Stopping at filesystem boundary (GIT_DISCOVERY_ACROSS_FILESYSTEM not set).
-]0;/homes2/danielr/2020_chip_work(base) ]0;danielr@bifx-rta: ~/2020_chip_workdanielr@bifx-rta:~/2020_chip_work$ git remote add origin https://github.com/danrobertson87/Chip-Seq_Workkshop.github.io.git[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Corks[1Phop.github.io.git[A(base) ]0;danielr@bifx-rta: ~/2020_chip_workdanielr@bifx-rta:~/2020_chip_work$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cworkshop.github.io.git[A(base) ]0;danielr@bifx-rta: ~/2020_chip_workdanielr@bifx-rta:~/2020_chip_work$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Ceq_works[1Phop.github.io.git[A(base) ]0;danielr@bifx-rta: ~/2020_chip_workdanielr@bifx-rta:~/2020_chip_work$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cseq_workshop.github.io.git[A(base) ]0;danielr@bifx-rta: ~/2020_chip_workdanielr@bifx-rta:~/2020_chip_work$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Chip-seq_works[1Phop.github.io.git[A(base) ]0;danielr@bifx-rta: ~/2020_chip_workdanielr@bifx-rta:~/2020_chip_work$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cchip-seq_workshop.github.io.git[A(base) ]0;danielr@bifx-rta: ~/2020_chip_workdanielr@bifx-rta:~/2020_chip_work$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C
-
-fatal: not a git repository (or any parent up to mount point /)
-Stopping at filesystem boundary (GIT_DISCOVERY_ACROSS_FILESYSTEM not set).
-]0;/homes2/danielr/2020_chip_work(base) ]0;danielr@bifx-rta: ~/2020_chip_workdanielr@bifx-rta:~/2020_chip_work$ git remote add origin https://github.com/danrobertson87/chip-seq_workkshop.github.io.git[K[K[K[K[K[K[K[K[K[K[K[K[K[K
-fatal: not a git repository (or any parent up to mount point /)
-Stopping at filesystem boundary (GIT_DISCOVERY_ACROSS_FILESYSTEM not set).
-]0;/homes2/danielr/2020_chip_work(base) ]0;danielr@bifx-rta: ~/2020_chip_workdanielr@bifx-rta:~/2020_chip_work$ git
-usage: git [--version] [--help] [-C <path>] [-c <name>=<value>]
-           [--exec-path[=<path>]] [--html-path] [--man-path] [--info-path]
-           [-p | --paginate | --no-pager] [--no-replace-objects] [--bare]
-           [--git-dir=<path>] [--work-tree=<path>] [--namespace=<name>]
-           <command> [<args>]
-
-These are common Git commands used in various situations:
-
-start a working area (see also: git help tutorial)
-   clone      Clone a repository into a new directory
-   init       Create an empty Git repository or reinitialise an existing one
-
-work on the current change (see also: git help everyday)
-   add        Add file contents to the index
-   mv         Move or rename a file, a directory, or a symlink
-   reset      Reset current HEAD to the specified state
-   rm         Remove files from the working tree and from the index
-
-examine the history and state (see also: git help revisions)
-   bisect     Use binary search to find the commit that introduced a bug
-   grep       Print lines matching a pattern
-   log        Show commit logs
-   show       Show various types of objects
-   status     Show the working tree status
-
-grow, mark and tweak your common history
-   branch     List, create, or delete branches
-   checkout   Switch branches or restore working tree files
-   commit     Record changes to the repository
-   diff       Show changes between commits, commit and working tree, etc
-   merge      Join two or more development histories together
-   rebase     Reapply commits on top of another base tip
-   tag        Create, list, delete or verify a tag object signed with GPG
-
-collaborate (see also: git help workflows)
-   fetch      Download objects and refs from another repository
-   pull       Fetch from and integrate with another repository or a local branch
-   push       Update remote refs along with associated objects
-
-'git help -a' and 'git help -g' list available subcommands and some
-concept guides. See 'git help <command>' or 'git help <concept>'
-to read about a specific subcommand or concept.
-]0;/homes2/danielr/2020_chip_work(base) ]0;danielr@bifx-rta: ~/2020_chip_workdanielr@bifx-rta:~/2020_chip_work$ git comm[K[K[K[K[K(base) ]0;danielr@bifx-rta: ~/2020_chip_workdanielr@bifx-rta:~/2020_chip_work$ git commit -m fomrat[K[K[K[Krmatting
-fatal: not a git repository (or any parent up to mount point /)
-Stopping at filesystem boundary (GIT_DISCOVERY_ACROSS_FILESYSTEM not set).
-]0;/homes2/danielr/2020_chip_work(base) ]0;danielr@bifx-rta: ~/2020_chip_workdanielr@bifx-rta:~/2020_chip_work$ ls -al
-total 453
-drwxr-xr-x   5 danielr danielr    21 Nov  9 17:38 [0m[01;34m.[0m
-drwxr-xr-x 124 danielr danielr   223 Nov  9 17:08 [01;34m..[0m
--rw-r--r--   1 danielr danielr   225 Nov  9 13:46 2020_chip_work.Rproj
--rw-r--r--   1 danielr danielr  1465 Nov  9 13:40 analysis.sh
--rw-r--r--   1 danielr danielr 23496 Nov  9 17:38 ChIP-seq_workshop_analysis.html
--rw-r--r--   1 danielr danielr 14527 Nov  9 16:36 ChIP-seq_workshop_analysis.Rmd
--rw-r--r--   1 danielr danielr 13100 Nov  9 17:38 ChIP-seq_workshop_intro.html
--rw-r--r--   1 danielr danielr  4886 Nov  9 17:22 ChIP-seq_workshop_intro.Rmd
--rw-r--r--   1 danielr danielr 19881 Nov  9 17:38 ChIP-seq_workshop_map.html
--rw-r--r--   1 danielr danielr 11209 Nov  9 17:32 ChIP-seq_workshop_map.Rmd
--rw-r--r--   1 danielr danielr 20838 Nov  9 17:38 ChIP-seq_workshop_QC.html
--rw-r--r--   1 danielr danielr 11867 Nov  9 17:25 ChIP-seq_workshop_QC.Rmd
--rw-r--r--   1 danielr danielr 15318 Nov  9 17:38 ChIP-seq_workshop_visualisation.html
--rw-r--r--   1 danielr danielr  6879 Nov  9 17:31 ChIP-seq_workshop_visualisation.Rmd
-drwxr-xr-x   2 danielr danielr    60 Nov  9 13:40 [01;34mimages[0m
--rw-r--r--   1 danielr danielr  8782 Nov  9 17:38 index.html
--rw-r--r--   1 danielr danielr  1565 Nov  9 13:40 index.Rmd
--rw-r--r--   1 danielr danielr  1867 Nov  9 13:40 pipeline.sh
-drwxr-xr-x   4 danielr danielr     4 Nov  9 13:43 [01;34m.Rproj.user[0m
-drwxr-xr-x   7 danielr danielr     7 Nov  9 17:38 [01;34msite_libs[0m
--rw-r--r--   1 danielr danielr   546 Nov  9 13:53 _site.yml
-]0;/homes2/danielr/2020_chip_work(base) ]0;danielr@bifx-rta: ~/2020_chip_workdanielr@bifx-rta:~/2020_chip_work$ ls -la ../chip
-chip-seq_workshop/  chip_workshop_2020/ 
-(base) ]0;danielr@bifx-rta: ~/2020_chip_workdanielr@bifx-rta:~/2020_chip_work$ ls -la ../chip_workshop_2020/
-total 616
-drwxrwxr-x   6 danielr danielr    27 Nov  9 13:37 [0m[01;34m.[0m
-drwxr-xr-x 124 danielr danielr   223 Nov  9 17:08 [01;34m..[0m
--rw-rw-r--   1 danielr danielr  1465 Oct 21 12:32 analysis.sh
--rw-r--r--   1 danielr danielr 23138 Nov  9 13:14 ChIP-seq_workshop_analysis.html
--rw-r--r--   1 danielr danielr 14327 Nov  5 16:13 ChIP-seq_workshop_analysis.Rmd
--rw-r--r--   1 danielr danielr 18160 Nov  9 13:14 ChIP-seq_workshop_intro.html
--rw-r--r--   1 danielr danielr  8896 Nov  9 13:05 ChIP-seq_workshop_intro.Rmd
--rw-r--r--   1 danielr danielr 19454 Nov  9 13:15 ChIP-seq_workshop_map.html
--rw-r--r--   1 danielr danielr 10955 Nov  5 16:13 ChIP-seq_workshop_map.Rmd
--rw-r--r--   1 danielr danielr 19588 Nov  9 13:15 ChIP-seq_workshop_QC.html
--rw-r--r--   1 danielr danielr 10885 Nov  9 13:05 ChIP-seq_workshop_QC.Rmd
--rw-r--r--   1 danielr danielr 15056 Nov  9 13:15 ChIP-seq_workshop_visualisation.html
--rw-r--r--   1 danielr danielr  6750 Nov  5 16:13 ChIP-seq_workshop_visualisation.Rmd
--rw-r--r--   1 danielr danielr   259 Nov  9 13:19 chip_workshop_2020.Rproj
-drwxr-xr-x   7 danielr danielr    13 Nov  9 13:23 [01;34m.git[0m
--rw-r--r--   1 danielr danielr    29 Nov  6 16:03 .gitignore
-drwxr-xr-x   2 danielr danielr    60 Nov  6 12:08 [01;34mimages[0m
--rw-r--r--   1 danielr danielr  8782 Nov  9 13:15 index.html
--rw-r--r--   1 danielr danielr  1565 Nov  6 12:14 index.Rmd
--rw-rw-r--   1 danielr danielr  1867 Oct 21 12:31 pipeline.sh
--rw-r--r--   1 danielr danielr  2572 Nov  6 16:08 .RData
--rw-r--r--   1 danielr danielr   220 Nov  9 13:23 .Rhistory
-drwxr-xr-x   4 danielr danielr     4 Oct 21 12:33 [01;34m.Rproj.user[0m
-drwxr-xr-x   7 danielr danielr     7 Nov  9 13:15 [01;34msite_libs[0m
--rw-r--r--   1 danielr danielr   546 Nov  5 16:12 _site.yml
--rw-r--r--   1 danielr danielr   703 Nov  6 11:53 style.css
--rw-r--r--   1 danielr danielr  1734 Nov  6 11:53 template.txt
-]0;/homes2/danielr/2020_chip_work(base) ]0;danielr@bifx-rta: ~/2020_chip_workdanielr@bifx-rta:~/2020_chip_work$ ls
-2020_chip_work.Rproj             ChIP-seq_workshop_map.html            [0m[01;34mimages[0m
-analysis.sh                      ChIP-seq_workshop_map.Rmd             index.html
-ChIP-seq_workshop_analysis.html  ChIP-seq_workshop_QC.html             index.Rmd
-ChIP-seq_workshop_analysis.Rmd   ChIP-seq_workshop_QC.Rmd              pipeline.sh
-ChIP-seq_workshop_intro.html     ChIP-seq_workshop_visualisation.html  [01;34msite_libs[0m
-ChIP-seq_workshop_intro.Rmd      ChIP-seq_workshop_visualisation.Rmd   _site.yml
-]0;/homes2/danielr/2020_chip_work(base) ]0;danielr@bifx-rta: ~/2020_chip_workdanielr@bifx-rta:~/2020_chip_work$ 
-]0;/homes2/danielr/2020_chip_work(base) ]0;danielr@bifx-rta: ~/2020_chip_workdanielr@bifx-rta:~/2020_chip_work$ git inii[Kr[Kt
-Initialised empty Git repository in /homes2/danielr/2020_chip_work/.git/
-]0;/homes2/danielr/2020_chip_work(base) ]0;danielr@bifx-rta: ~/2020_chip_workdanielr@bifx-rta:~/2020_chip_work$ ls -la
-total 473
-drwxr-xr-x   6 danielr danielr    22 Nov  9 17:49 [0m[01;34m.[0m
-drwxr-xr-x 124 danielr danielr   223 Nov  9 17:08 [01;34m..[0m
--rw-r--r--   1 danielr danielr   225 Nov  9 13:46 2020_chip_work.Rproj
--rw-r--r--   1 danielr danielr  1465 Nov  9 13:40 analysis.sh
--rw-r--r--   1 danielr danielr 23496 Nov  9 17:38 ChIP-seq_workshop_analysis.html
--rw-r--r--   1 danielr danielr 14527 Nov  9 16:36 ChIP-seq_workshop_analysis.Rmd
--rw-r--r--   1 danielr danielr 13100 Nov  9 17:38 ChIP-seq_workshop_intro.html
--rw-r--r--   1 danielr danielr  4886 Nov  9 17:22 ChIP-seq_workshop_intro.Rmd
--rw-r--r--   1 danielr danielr 19881 Nov  9 17:38 ChIP-seq_workshop_map.html
--rw-r--r--   1 danielr danielr 11209 Nov  9 17:32 ChIP-seq_workshop_map.Rmd
--rw-r--r--   1 danielr danielr 20838 Nov  9 17:38 ChIP-seq_workshop_QC.html
--rw-r--r--   1 danielr danielr 11867 Nov  9 17:25 ChIP-seq_workshop_QC.Rmd
--rw-r--r--   1 danielr danielr 15318 Nov  9 17:38 ChIP-seq_workshop_visualisation.html
--rw-r--r--   1 danielr danielr  6879 Nov  9 17:31 ChIP-seq_workshop_visualisation.Rmd
-drwxr-xr-x   7 danielr danielr    10 Nov  9 17:49 [01;34m.git[0m
-drwxr-xr-x   2 danielr danielr    60 Nov  9 13:40 [01;34mimages[0m
--rw-r--r--   1 danielr danielr  8782 Nov  9 17:38 index.html
--rw-r--r--   1 danielr danielr  1565 Nov  9 13:40 index.Rmd
--rw-r--r--   1 danielr danielr  1867 Nov  9 13:40 pipeline.sh
-drwxr-xr-x   4 danielr danielr     4 Nov  9 13:43 [01;34m.Rproj.user[0m
-drwxr-xr-x   7 danielr danielr     7 Nov  9 17:38 [01;34msite_libs[0m
--rw-r--r--   1 danielr danielr   546 Nov  9 13:53 _site.yml
-]0;/homes2/danielr/2020_chip_work(base) ]0;danielr@bifx-rta: ~/2020_chip_workdanielr@bifx-rta:~/2020_chip_work$ ls
-2020_chip_work.Rproj             ChIP-seq_workshop_map.html            [0m[01;34mimages[0m
-analysis.sh                      ChIP-seq_workshop_map.Rmd             index.html
-ChIP-seq_workshop_analysis.html  ChIP-seq_workshop_QC.html             index.Rmd
-ChIP-seq_workshop_analysis.Rmd   ChIP-seq_workshop_QC.Rmd              pipeline.sh
-ChIP-seq_workshop_intro.html     ChIP-seq_workshop_visualisation.html  [01;34msite_libs[0m
-ChIP-seq_workshop_intro.Rmd      ChIP-seq_workshop_visualisation.Rmd   _site.yml
-]0;/homes2/danielr/2020_chip_work(base) ]0;danielr@bifx-rta: ~/2020_chip_workdanielr@bifx-rta:~/2020_chip_work$ 
-]0;/homes2/danielr/2020_chip_work(base) ]0;danielr@bifx-rta: ~/2020_chip_workdanielr@bifx-rta:~/2020_chip_work$ 
-]0;/homes2/danielr/2020_chip_work(base) ]0;danielr@bifx-rta: ~/2020_chip_workdanielr@bifx-rta:~/2020_chip_work$ git remote add origin https://github.com/danrobertson87/chip-seq_workkshop.github.io.git
-]0;/homes2/danielr/2020_chip_work(base) ]0;danielr@bifx-rta: ~/2020_chip_workdanielr@bifx-rta:~/2020_chip_work$ 
-]0;/homes2/danielr/2020_chip_work(base) ]0;danielr@bifx-rta: ~/2020_chip_workdanielr@bifx-rta:~/2020_chip_work$ git push -u origin main
-error: src refspec main does not match any.
-error: failed to push some refs to 'https://github.com/danrobertson87/chip-seq_workshop.github.io.git'
-]0;/homes2/danielr/2020_chip_work(base) ]0;danielr@bifx-rta: ~/2020_chip_workdanielr@bifx-rta:~/2020_chip_work$ git branch -M main
-error: refname refs/heads/master not found
-fatal: Branch rename failed
-]0;/homes2/danielr/2020_chip_work(base) ]0;danielr@bifx-rta: ~/2020_chip_workdanielr@bifx-rta:~/2020_chip_work$ git branch -M main[Kgit branch -M main[5@push -u origin[C[C[C[C[Cremote add origin https://github.com/danrobertson87/chip-seq_workkshop.github.io.git[A(base) ]0;danielr@bifx-rta: ~/2020_chip_workdanielr@bifx-rta:~/2020_chip_work$ [C[C[C[Cpush -u origin main[K
-[K[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C
-error: src refspec main does not match any.
-error: failed to push some refs to 'https://github.com/danrobertson87/chip-seq_workshop.github.io.git'
-]0;/homes2/danielr/2020_chip_work(base) ]0;danielr@bifx-rta: ~/2020_chip_workdanielr@bifx-rta:~/2020_chip_work$ 
-]0;/homes2/danielr/2020_chip_work(base) ]0;danielr@bifx-rta: ~/2020_chip_workdanielr@bifx-rta:~/2020_chip_work$ git commit -m "first commit"
-On branch master
-
-Initial commit
-
-Untracked files:
-	[31m.Rproj.user/[m
-	[31m2020_chip_work.Rproj[m
-	[31mChIP-seq_workshop_QC.Rmd[m
-	[31mChIP-seq_workshop_QC.html[m
-	[31mChIP-seq_workshop_analysis.Rmd[m
-	[31mChIP-seq_workshop_analysis.html[m
-	[31mChIP-seq_workshop_intro.Rmd[m
-	[31mChIP-seq_workshop_intro.html[m
-	[31mChIP-seq_workshop_map.Rmd[m
-	[31mChIP-seq_workshop_map.html[m
-	[31mChIP-seq_workshop_visualisation.Rmd[m
-	[31mChIP-seq_workshop_visualisation.html[m
-	[31m_site.yml[m
-	[31manalysis.sh[m
-	[31mimages/[m
-	[31mindex.Rmd[m
-	[31mindex.html[m
-	[31mpipeline.sh[m
-	[31msite_libs/[m
-
-nothing added to commit but untracked files present
-]0;/homes2/danielr/2020_chip_work(base) ]0;danielr@bifx-rta: ~/2020_chip_workdanielr@bifx-rta:~/2020_chip_work$ git branch -M main
-error: refname refs/heads/master not found
-fatal: Branch rename failed
-]0;/homes2/danielr/2020_chip_work(base) ]0;danielr@bifx-rta: ~/2020_chip_workdanielr@bifx-rta:~/2020_chip_work$ git remote add origin https://github.com/danrobertson87/2020_chip-seqq_workshop.git
-fatal: remote origin already exists.
-]0;/homes2/danielr/2020_chip_work(base) ]0;danielr@bifx-rta: ~/2020_chip_workdanielr@bifx-rta:~/2020_chip_work$ 
-]0;/homes2/danielr/2020_chip_work(base) ]0;danielr@bifx-rta: ~/2020_chip_workdanielr@bifx-rta:~/2020_chip_work$  git remote set-url origin https://github.com/danrobertson87/chip-seqq_workshop
-]0;/homes2/danielr/2020_chip_work(base) ]0;danielr@bifx-rta: ~/2020_chip_workdanielr@bifx-rta:~/2020_chip_work$ git remote add origin https://github.com/danrobertson87/2020_chip-seqq_workshop.git[A(base) ]0;danielr@bifx-rta: ~/2020_chip_workdanielr@bifx-rta:~/2020_chip_work$ [C[C[C[Cbranch -M main[K
-[K[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C
-error: refname refs/heads/master not found
-fatal: Branch rename failed
-]0;/homes2/danielr/2020_chip_work(base) ]0;danielr@bifx-rta: ~/2020_chip_workdanielr@bifx-rta:~/2020_chip_work$ git branch -M mainremote add origin https://github.com/danrobertson87/2020_chip-seqq_workshop.git[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cchip-seq_[1Pworkshop.git[A(base) ]0;danielr@bifx-rta: ~/2020_chip_workdanielr@bifx-rta:~/2020_chip_work$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cchip-seq_w[1Porkshop.git[A(base) ]0;danielr@bifx-rta: ~/2020_chip_workdanielr@bifx-rta:~/2020_chip_work$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cchip-seq_wo[1Prkshop.git[A(base) ]0;danielr@bifx-rta: ~/2020_chip_workdanielr@bifx-rta:~/2020_chip_work$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cchip-seq_wor[1Pkshop.git[A(base) ]0;danielr@bifx-rta: ~/2020_chip_workdanielr@bifx-rta:~/2020_chip_work$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cchip-seq_work[1Pshop.git[A(base) ]0;danielr@bifx-rta: ~/2020_chip_workdanielr@bifx-rta:~/2020_chip_work$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C
-
-fatal: remote origin already exists.
-]0;/homes2/danielr/2020_chip_work(base) ]0;danielr@bifx-rta: ~/2020_chip_workdanielr@bifx-rta:~/2020_chip_work$ git remote add origin https://github.com/danrobertson87/chip-seq_workkshop.git[A(base) ]0;danielr@bifx-rta: ~/2020_chip_workdanielr@bifx-rta:~/2020_chip_work$ [C[C[C[Cbranch -M main[K
-[K[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C
-error: refname refs/heads/master not found
-fatal: Branch rename failed
-]0;/homes2/danielr/2020_chip_work(base) ]0;danielr@bifx-rta: ~/2020_chip_workdanielr@bifx-rta:~/2020_chip_work$ git checkout -b new_branch[K[K[K[K[K[K[K[K[K[K[K[K[K[K
-fatal: You are on a branch yet to be born
-]0;/homes2/danielr/2020_chip_work(base) ]0;danielr@bifx-rta: ~/2020_chip_workdanielr@bifx-rta:~/2020_chip_work$ git checkout -b new_branch
-Switched to a new branch 'new_branch'
-]0;/homes2/danielr/2020_chip_work(base) ]0;danielr@bifx-rta: ~/2020_chip_workdanielr@bifx-rta:~/2020_chip_work$ git checkout -b new_branch[Kbranch -M main
-error: refname refs/heads/new_branch not found
-fatal: Branch rename failed
-]0;/homes2/danielr/2020_chip_work(base) ]0;danielr@bifx-rta: ~/2020_chip_workdanielr@bifx-rta:~/2020_chip_work$ git branch -M maincheckout -b new_branch[Kbranch -M mainremote add origin https://github.com/danrobertson87/chip-seq_workkshop.git[A(base) ]0;danielr@bifx-rta: ~/2020_chip_workdanielr@bifx-rta:~/2020_chip_work$ [C[C[C[Cbranch -M main[K
-[K[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cremote add origin https://github.com/danrobertson87/2020_chip-seqq_workshop.git[A(base) ]0;danielr@bifx-rta: ~/2020_chip_workdanielr@bifx-rta:~/2020_chip_work$ [C[C[C[Cbranch -M main[K
-[K[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Ccommit -m "first commit"[5Ppush -u origin maincommit -m "first commit"[5Ppush -u origin main
-error: src refspec main does not match any.
-error: failed to push some refs to 'https://github.com/danrobertson87/chip-seq_workshop'
-]0;/homes2/danielr/2020_chip_work(base) ]0;danielr@bifx-rta: ~/2020_chip_workdanielr@bifx-rta:~/2020_chip_work$ got branch
-
-Command 'got' not found, but there are 17 similar ones.
-
-]0;/homes2/danielr/2020_chip_work(base) ]0;danielr@bifx-rta: ~/2020_chip_workdanielr@bifx-rta:~/2020_chip_work$ got branch[Kgit branch
-[?1h=[K[?1l>]0;/homes2/danielr/2020_chip_work(base) ]0;danielr@bifx-rta: ~/2020_chip_workdanielr@bifx-rta:~/2020_chip_work$ git ce[Khcek[K[K[Keckout
-fatal: You are on a branch yet to be born
-]0;/homes2/danielr/2020_chip_work(base) ]0;danielr@bifx-rta: ~/2020_chip_workdanielr@bifx-rta:~/2020_chip_work$ git add .
