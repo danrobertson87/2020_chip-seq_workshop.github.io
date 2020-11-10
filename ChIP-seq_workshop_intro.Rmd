@@ -107,7 +107,7 @@ md5sum -c md5
 <h2><i class="fas fa-thumbtack"></i>Key Aims:</h2>
 ##
  * Be able to login to the bifx servers
- * Create a personal web directory at http://bifx-core.bio.ed.ac.uk/~yourUserName
+ * Create a personal web directory
  * Created a project directory for fastq files
 <!--* Install IGV on your own machine-->
 </div>

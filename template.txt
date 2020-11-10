@@ -1,0 +1,56 @@
+##Add to top of page
+
+<head>
+<script src="https://kit.fontawesome.com/ece750edd7.js" crossorigin="anonymous"></script>
+</head>
+
+###Challenge
+<div class="challenge">
+<h2><i class="fas fa-pencil-alt"></i> Challenge:</h2>
+What is the challenge?
+<details>
+<summary></summary>
+<div class="solution">
+<h2><i class="far fa-eye"></i> Solution:</h2>
+```{r, answer=TRUE, eval=TRUE, purl=FALSE}
+mtcars$mpg[1]
+```
+</div>
+</details>
+</div>
+<br>
+
+###Key points
+<div class="key-points">
+<h2><i class="fas fa-thumbtack"></i> Key points</h2>
+ * Create a new project in RStudio
+ * Open a new R script (or R markdown file for advanced users)
+ * It will be best to work with the tutorial and RStudio open together so you can easily switch between the two. Working on a wide split-screen should be the best setup.
+ * I recommend typing out commands rather than copy-and-pasting if you want to learn!
+</div>
+<br>
+
+###Objectives
+##
+<div class="objectives">
+<h2><i class="far fa-check-square"></i> Learning Objectives</h2>
+ * Create a new project in RStudio
+ * Open a new R script (or R markdown file for advanced users)
+ * It will be best to work with the tutorial and RStudio open together so you can easily switch between the two. Working on a wide split-screen should be the best setup.
+ * I recommend typing out commands rather than copy-and-pasting if you want to learn!
+</div>
+<br>
+
+###Discussion
+<div class="discussion">
+<h2><i class="far fa-bell"></i> Discussion</h2>
+I recommend typing out commands rather than copy-and-pasting if you want to learn!
+</div>
+<br>
+
+###Resources
+<div class="resources">
+<h2><i class="fas fa-book"></i> Further Learning</h2>
+I recommend typing out commands rather than copy-and-pasting if you want to learn!
+</div>
+<br>

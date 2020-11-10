@@ -310,12 +310,13 @@ $(document).ready(function () {
 <script src="https://kit.fontawesome.com/ece750edd7.js" crossorigin="anonymous"></script>
 </head>
 <hr />
-<div id="getting-started-with-linux-and-rstudio" class="section level2">
-<h2>Getting Started with Linux and RStudio</h2>
-<p>We are using the Linux command line to run most of the tools we use today so we will start with a brief introduction. If you are new to Linux and wish to use the command line more often it is a good idea to learn about job control and how to track your processes. We can arrange a separate tutorial if required.</p>
+<div id="getting-started-with-linux-and-rstudio" class="section level3">
+<h3>Getting Started with Linux and RStudio</h3>
+<p>We are using the Linux command line to run most of the tools we use today. If you are new to Linux and wish to use the command line more often it is a good idea to learn about job control and how to track your processes. We can arrange a separate tutorial if required.</p>
+</div>
 <div id="logging-in" class="section level3">
 <h3>Logging in</h3>
-<p>We have several servers that you can login to. For the purpose of this practical we will use bifx-core2 which has been reserved for training today. No matter where you login, you will have access to the same files and programs.</p>
+<p>We have several servers that you can login to. For the purpose of this practical we will use bifx-rta. No matter where you login, you will have access to the same files and programs. bifx-core2 is also available if you use a VPN.</p>
 <p>There are several options to login to our machines. You can use the <strong>Terminal</strong> app on a Mac or login via <strong>X2G0</strong> if you want a graphical interface. Alternatively you can use <strong>RStudio</strong> which is an environment built for R programming but also gives you access to the command line terminal, your file structure and several other graphical features.</p>
 <ol style="list-style-type: decimal">
 <li>Open this link in a new window: <a href="http://bifx-rta.bio.ed.ac.uk:8787">bifx-rta.bio.ed.ac.uk</a></li>
@@ -323,8 +324,8 @@ $(document).ready(function () {
 <li>Familiarise yourself with the different panels and locate the Terminal.</li>
 </ol>
 </div>
-<div id="web-directory" class="section level3">
-<h3>1. Web directory</h3>
+<div id="creating-a-web-directory" class="section level3">
+<h3>1. Creating A Web Directory</h3>
 <p>In order to view files created on the server, we need to create a public_html directory.</p>
 <p>After logging in you should be in your $HOME directory, check with;</p>
 <pre class="bash"><code>pwd</code></pre>
@@ -338,9 +339,8 @@ mkdir ~/public_html/TMP</code></pre>
 <p>To see it enter the following URL, changing yourUserName to what ever your username is.</p>
 <p><a href="http://bifx-core.bio.ed.ac.uk/~yourUserName" class="uri">http://bifx-core.bio.ed.ac.uk/~yourUserName</a></p>
 </div>
-</div>
-<div id="chip-seq-sequencing-data" class="section level2">
-<h2>2. ChIP-seq sequencing data</h2>
+<div id="chip-seq-sequencing-data" class="section level3">
+<h3>2. ChIP-seq sequencing data</h3>
 <p>The datasets used in this exercise are derived from a single end ChIP-seq experiment (actually ChIP-exo) in <em>S.cerevisiae</em>. There are 2 biological replicates (though we recommend using 3 or more!) Reb1_R1 and Reb1_R2 as well as their corresponding input controls Input_R1 and Input_R2. For this experiment immunoprecipitation was performed with antibodies against Reb1. Reb1 recognizes a specific sequence (TTACCCG) and is involved in many aspects of transcriptional regulation by all three yeast RNA polymerases and promotes formation of nucleosome-free regions (NFRs). You can find the original publication <a href="http://www.sciencedirect.com/science/article/pii/S0092867411013511">here</a>. For the purpose of this workshop we have randomly subsampled and filtered out poor quality reads to speed up runtime.</p>
 <table>
 <thead>
@@ -368,6 +368,7 @@ mkdir ~/public_html/TMP</code></pre>
 </tr>
 </tbody>
 </table>
+</div>
 <div id="obtaining-data" class="section level3">
 <h3>Obtaining data</h3>
 <p>First, make a new directory for this tutorial and move into that directory. Then link the directory to your public html folder as we are going to make everything public in this tutorial.</p>
@@ -410,7 +411,18 @@ md5sum *.fq.gz &gt; md5
 cat md5 #prints out the contents of md5
 #To check the files and md5 sums match at any time
 md5sum -c md5 </code></pre>
+<div class="key-points">
+<h2>
+<i class="fas fa-thumbtack"></i>Key Aims:
+</h2>
+<h2 id="section"></h2>
+<ul>
+<li>Be able to login to the bifx servers</li>
+<li>Create a personal web directory at <a href="http://bifx-core.bio.ed.ac.uk/~yourUserName" class="uri">http://bifx-core.bio.ed.ac.uk/~yourUserName</a></li>
+<li>Created a project directory for fastq files <!--* Install IGV on your own machine--></li>
+</ul>
 </div>
+<p><br></p>
 </div>
 
 
