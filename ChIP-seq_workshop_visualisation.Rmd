@@ -12,7 +12,6 @@ output:
 
 <br>
 
-
 ### 8. Creating Tracks
 
 ### Converting BAM files to bigWig
@@ -31,6 +30,7 @@ cat samples.txt | parallel -j 4 bamCoverage -bs 1 --normalizeUsing BPM -e 200 -b
 * **--normalizeUsing BPM** is a normalisation strategy akin to TPM in RNA-seq and stands for "bins per million". There are several strategies to choose or we can ignore normalisation.
 * **-e 200** extends our reads to 200b as this is the average fragment length. With paired end data the reads would be extended to match the ends of both reads but with single end we must supply a value.
 
+<br>
 
 ### 9. Finish your script 
 
@@ -57,7 +57,9 @@ ps f
 tail CS_workshop_tmp/pipeline.log #Shows the end of a file
 ```
 
-## Tidy Up! 
+<br>
+
+### Tidy Up! 
 Files are large, disk space is expensive, remove any unwanted or temporary files from your folder. We should always keep the raw data (fastq) and our final processed datasets (BAM, bigWig etc) and the script we used to generate them. SAM files are large and should be removed once converted to BAM.
 
 <div class="blue">
@@ -67,9 +69,9 @@ rm bwa_out/*/*.sam #Remove sam files
 ```
 </div>
 
-*BREAK*
+<br>
 
-### IGV
+### Integrative Genomics Viewer (IGV)
 
 [IGV](https://www.broadinstitute.org/igv/) (Integrative genomics viewer) is a powerful genome browser from the Broad institute. It is perfect for viewing your sequencing files as loading data is easy, common formats are understood, views are customisable and navigation is quick.
 
@@ -89,23 +91,30 @@ Open IGV and set the genome to **sacCer3**, then find your *visualisation* folde
 In the desktop version you can drag and drop files into IGV. If you are using the webapp you will need to download the files you require and open them using the *tracks* menu. 
 
 Open a BAM file and a corresponding bigWig file into IGV.
+Make sure the .bai index file is in the same folder as the BAM.
 
 <img src="images/IGV.png" width=1200>
+
+First, let's navigate the chromosome:
+
+* Use the *+* / *-* zoom bar at the top right
+* Drag and highlight an area to zoom on the genome ruler
+* Type a position or gene identifier in to the search box
+* If we zoom in close enough our BAM file will load and we can investigate alignments of individual reads
 
 Now let's customise our view:
 
 DESKTOP APP
 
-1. Use the horizontal panel dividers to set the 3 panels to approximately equal height.
-2. Select **Tracks->Fit Data To Window** To automatically set track heights to fill the view
-3. Right click on the Refseq genes track and switch between display modes **Collapsed**, **Expanded** and **Squished**.
-4. Use the right click menu on the bigwig track name to customise the display. Try the following:
+1. Select **Tracks->Fit Data To Window** To automatically set track heights to fill the view
+2. Right click on the Refseq genes track and switch between display modes **Collapsed**, **Expanded** and **Squished**. (Use the horizontal panel divider to adjust height)
+3. Use the right click menu on the bigwig track name to customise the display. Try the following:
   1. Rename the track
   2. Change the track colour
   3. Change the graph type
   4. Change the windowing function
-  5. Set a minimum, mid and maximum Y-axis
-5. Set the scale to **Autoscale**. This automatically sets the Y-axis to the height of the tallest peak in your view.
+  5. Adjust the data range
+4. Set the scale to **Autoscale**. This automatically sets the Y-axis to the height of the tallest peak in your view.
 
 WEB APP
 
@@ -117,18 +126,50 @@ WEB APP
   5. Set a minimum and maximum Y-axis
 3. Set the scale to **Autoscale**. This automatically sets the Y-axis to the height of the tallest peak in your view.
 
-Next let's navigate the chromosome:
+<br>
 
-* Use the *+* / *-* zoom bar at the top right
-* Drag and highlight an area to zoom on the genome ruler
-* Type a position or gene identifier in to the search box
-* If we zoom in close enough our BAM file will load and we can investigate alignments of individual reads
-* Can you identify **mismatches** in read alignment? 
-* Can you find any obvious peaks in the ChIP-seq samples?
+<div class="challenge">
+<h2><i class="fas fa-pencil-alt"></i> Challenge:</h2>
+
+One BAM vs bigWig
+
+  *	Why are the coverage profiles different?
+  
+  *	Which format is faster to view?
+  
+  * Can you identify **mismatches** in read alignment? 
+  
+  *	What other information do the BAM files give us?
+
+
+Now let's load all our bigwig files
+
+  *	Can you identify peaks in the ChIP samples
+  
+  *	Do you see any peaks that are also present in the Input?
+
+<!--<details>
+<summary>
+Solution
+</summary>
+<div class="solution">
+<h2><i class="far fa-eye"></i></h2>
+
+
+</div>
+</details> -->
+
+</div>
+<br>
+
+
+<br>
 
 ### Other genome browsers 
 
 * [Ensembl](http://www.ensembl.org) and [UCSC](https://genome.ucsc.edu/) websites have online genome browsers where you can view your data alongside published experimental data and genomic annotations in their databases.
+
+<br>
 
 <div class="key-points">
 <h2><i class="fas fa-thumbtack"></i>Key Aims:</h2>

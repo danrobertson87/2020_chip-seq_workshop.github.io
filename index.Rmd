@@ -18,6 +18,8 @@ output:
 knitr::opts_chunk$set(warning=FALSE, message=FALSE)
 ```
 
+<br>
+
 This workshop is designed as an introduction to ChIP-seq data analysis and will guide you through the following steps:
 
 * Assessing raw sequence data and performing quality control

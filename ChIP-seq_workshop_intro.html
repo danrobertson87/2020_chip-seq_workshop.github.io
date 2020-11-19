@@ -310,19 +310,23 @@ $(document).ready(function () {
 <script src="https://kit.fontawesome.com/ece750edd7.js" crossorigin="anonymous"></script>
 </head>
 <hr />
-<div id="getting-started-with-linux-and-rstudio" class="section level3">
-<h3>Getting Started with Linux and RStudio</h3>
-<p>We are using the Linux command line to run most of the tools we use today. If you are new to Linux and wish to use the command line more often it is a good idea to learn about job control and how to track your processes. We can arrange a separate tutorial if required.</p>
+<div id="getting-started-with-linux" class="section level3">
+<h3>Getting Started with Linux</h3>
+<p>We are using the Linux command line to run most of the tools we use today. If you are new to Linux please complete the Intro to Command Line <a href="http://bifx-core.bio.ed.ac.uk/hyweldd/training/Bioinformatics_on_the_Command_Line/">Workshop</a>.</p>
+<p><br></p>
 </div>
 <div id="logging-in" class="section level3">
 <h3>Logging in</h3>
 <p>We have several servers that you can login to. For the purpose of this practical we will use bifx-rta. No matter where you login, you will have access to the same files and programs. bifx-core2 is also available if you use a VPN.</p>
-<p>There are several options to login to our machines. You can use the <strong>Terminal</strong> app on a Mac or login via <strong>X2G0</strong> if you want a graphical interface. Alternatively you can use <strong>RStudio</strong> which is an environment built for R programming but also gives you access to the command line terminal, your file structure and several other graphical features.</p>
-<ol style="list-style-type: decimal">
-<li>Open this link in a new window: <a href="http://bifx-rta.bio.ed.ac.uk:8787">bifx-rta.bio.ed.ac.uk</a></li>
-<li>Login with your user credentials for our servers (not the same as EASE)</li>
-<li>Familiarise yourself with the different panels and locate the Terminal.</li>
-</ol>
+<p>There are several options to login to our machines. You can use the <strong>Terminal</strong> app on a Mac or equivalant on <strong>Command Prompt</strong> on Windows or login via <strong>X2G0</strong> if you want a graphical interface.</p>
+<p>To login via command line: ssh <a href="mailto:USER@bifx-rta.bio.ed.ac.uk">USER@bifx-rta.bio.ed.ac.uk</a></p>
+<p>Login with your user credentials for our servers (not the same as EASE)</p>
+<!--Alternatively you can use **RStudio** which is an environment built for R programming but also gives you access to the command line terminal, your file structure and several other graphical features. 
+
+1. Open this link in a new window: [bifx-rta.bio.ed.ac.uk](http://bifx-rta.bio.ed.ac.uk:8787)
+2. Login with your user credentials for our servers (not the same as EASE)
+3. Familiarise yourself with the different panels and locate the Terminal. -->
+<p><br></p>
 </div>
 <div id="creating-a-web-directory" class="section level3">
 <h3>1. Creating A Web Directory</h3>
@@ -338,6 +342,7 @@ mkdir ~/public_html/TMP</code></pre>
 <p>As you have created ~/public_html, contents of this directory are available online with any web browser</p>
 <p>To see it enter the following URL, changing yourUserName to what ever your username is.</p>
 <p><a href="http://bifx-core.bio.ed.ac.uk/~yourUserName" class="uri">http://bifx-core.bio.ed.ac.uk/~yourUserName</a></p>
+<p><br></p>
 </div>
 <div id="chip-seq-sequencing-data" class="section level3">
 <h3>2. ChIP-seq sequencing data</h3>
@@ -368,6 +373,7 @@ mkdir ~/public_html/TMP</code></pre>
 </tr>
 </tbody>
 </table>
+<p><br></p>
 </div>
 <div id="obtaining-data" class="section level3">
 <h3>Obtaining data</h3>
@@ -411,6 +417,7 @@ md5sum *.fq.gz &gt; md5
 cat md5 #prints out the contents of md5
 #To check the files and md5 sums match at any time
 md5sum -c md5 </code></pre>
+<p><br></p>
 </div>
 <div id="integrative-genomics-viewer" class="section level3">
 <h3>Integrative Genomics Viewer</h3>

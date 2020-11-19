@@ -315,11 +315,19 @@ $(document).ready(function () {
 <p>Sequencing data will typically be provided to you in fastq format (.fq or .fastq) or as a compressed gzipped fastq (.fq.gz) in order to save space. We can view a gzipped file with the zless command, let's take a look:</p>
 <pre class="bash"><code>cd ChIP-seq_workshop/fastq # Move into the fastq directory (if not already)
 zless Input_R1.fq.gz | head -n 12</code></pre>
-<p><a href="https://en.wikipedia.org/wiki/FASTQ_format">Fastq</a> files contain 4 lines per sequenced read: * Line 1 begins with an '@' character and is followed by a sequence identifier and an optional description * Line 2 is the raw sequence * Line 3 begins with a '+' character and is optionally followed by the same sequence identifier * Line 4 encodes the Phred quality score for the sequence in Line 2 as ASCII characters</p>
+<p><a href="https://en.wikipedia.org/wiki/FASTQ_format">Fastq</a> files contain 4 lines per sequenced read:</p>
+<ul>
+<li>Line 1 begins with an '@' character and is followed by a sequence identifier and an optional description</li>
+<li>Line 2 is the raw sequence</li>
+<li>Line 3 begins with a '+' character and is optionally followed by the same sequence identifier</li>
+<li>Line 4 encodes the Phred quality score for the sequence in Line 2 as ASCII characters</li>
+</ul>
+<p><br></p>
 </div>
 <div id="quality-control" class="section level3">
 <h3>3. Quality control</h3>
 <p>Next we want to assess the quality of our sequencing data and check for any biases and contamination.</p>
+<p><br></p>
 </div>
 <div id="fastq-screen" class="section level3">
 <h3>FastQ screen</h3>
@@ -328,6 +336,7 @@ zless Input_R1.fq.gz | head -n 12</code></pre>
 fastq_screen fastq/*fq.gz --outdir fastq # * is a wild card character</code></pre>
 <p>Once complete take a look at the output images in your browser via your public html folder. This shows that most of your reads align to the yeast genome and that no reads align uniquely to other organisms:</p>
 <p><img src="images/Reb1_R1_screen.png" width=1200></p>
+<p><br></p>
 </div>
 <div id="fastqc" class="section level3">
 <h3>FastQC</h3>
@@ -341,6 +350,7 @@ fastq_screen fastq/*fq.gz --outdir fastq # * is a wild card character</code></pr
 <p>Bisulfite treatment (used to investigate DNA methylation) converts most Cs in the genome to Ts, as we can see below. FastQC will not be happy with this profile, the point is, understand what you have sequenced and what you expect to see rather than blindly trusting the FastQC flag system!</p>
 <p><img src="images/bisulfite.png" width=700></p>
 <p>Visit the <a href="https://sequencing.qcfail.com/author/simon/">QCFail</a> website for more examples and advice on quality control for NGS datasets.</p>
+<p><br></p>
 </div>
 <div id="multiqc" class="section level3">
 <h3>MultiQC</h3>
@@ -348,10 +358,12 @@ fastq_screen fastq/*fq.gz --outdir fastq # * is a wild card character</code></pr
 <pre class="bash"><code>multiqc -o fastq fastq</code></pre>
 <p>MultiQC searches for report files in a directory and compiles them into a single report. Open the multiqc report via a web browser to see how the raw datasets compare. Here we have the output of FastQ_screen and FastQC, but MultiQC works with the outputs of many tools other tools which we'll see later.</p>
 <p>If we look at the <em>adapter content</em> and <em>over represented sequences</em> sections we can see a small amount of contamination particularly in the second replicates.</p>
+<p><br></p>
 </div>
 <div id="shell-scripts-pipelining-and-parallelisation" class="section level3">
 <h3>4. Shell scripts, pipelining and parallelisation</h3>
 <p>Up until now we have run command line tools on each one of our datasets in serial, this means they run one after the other. In this tutorial we only have a few small datasets and the tools run relatively quickly, but this approach won't scale well to multiple large datasets. A more efficient approach is to create a <strong>script</strong> that will run all of our datasets in <strong>parallel</strong>.</p>
+<p><br></p>
 </div>
 <div id="parallel" class="section level3">
 <h3>parallel</h3>
@@ -365,11 +377,12 @@ ps f</code></pre>
 <li>The <em>&amp;</em> character runs these jobs in the background so we can continue to use the terminal.</li>
 <li><em>ps</em> is the <em>process status</em> tool which shows jobs running in the current session, we should see 4 instances of fastqc running.</li>
 </ul>
+<p><br></p>
 </div>
 <div id="shell-scripts" class="section level3">
 <h3>Shell scripts</h3>
 <p>Putting all of your commands into a script is good practice for keeping track of your analyses and for reproducibility. We want to write scripts so they can be used again on different datasets and avoid <em>hardcoding</em> the names of files.</p>
-<p>First, let's create a file that lists our sample names so we can feed this into our pipeline. We could just type this manually or use a bit of text processing like the code below which will be explained in the tutorial:</p>
+<p>First, let's create a file that lists our sample names so we can feed this into our pipeline. We could just type this manually or use a bit of text processing like the code below, here fastq files are 'piped' into parallel as above but we use regular expression within 'sed' to remove the name ending, this can now be used to name all files.</p>
 <pre class="bash"><code>ls fastq/*fq.gz | parallel basename | sed s/.fq.gz// &gt; samples.txt</code></pre>
 <p>Now let's create our pipeline script. We'll start by creating and opening a new file called <strong>pipeline.sh</strong>. The .sh stands for shell which is essentially just a name for the command line environment.</p>
 <pre class="bash"><code>emacs -nw pipeline.sh</code></pre>
@@ -394,9 +407,25 @@ multiqc -o fastq fastq
 
 ##PREPROCESSING </code></pre>
 <p>The <strong>#</strong> symbol indicates a comment line and anything preceeded by a # will not be run by the command line. It is good practice to comment your code.</p>
-<p><strong>TASK:</strong> See if you can adapt the QC portion of the script to use parallel.</p>
-<p><strong>HINT:</strong> <code>cat samples.txt</code> will print the names of the samples.</p>
-<p><strong>EXTRA HINT:</strong> <code>cat samples.txt | parallel -j 4 fastq_screen {}.fq.gz</code>.</p>
+<p><br></p>
+</div>
+<div id="challenge" class="section level3">
+<h3>Challenge</h3>
+<div class="challenge">
+<h2>
+<i class="fas fa-pencil-alt"></i> Challenge:
+</h2>
+<p>See if you can adapt the QC portion of the script to use parallel.</p>
+<strong>Hint:</strong> <code>cat samples.txt</code> will print the names of the samples. <details> <summary> Solution </summary>
+<div class="solution">
+<h2>
+<i class="far fa-eye"></i>
+</h2>
+<p><code>cat samples.txt | parallel -j 4 fastq_screen {}.fq.gz</code></p>
+</div>
+<p></details></p>
+</div>
+<p><br></p>
 <p>To save and exit the file press <strong>ctrl-x</strong>, followed by <strong>ctrl-c</strong> and then <strong>y</strong> to save.</p>
 <p>Because we are using RStudio you can alternatively create a new text file in the menus, edit it directly in the editor and save it as <em>pipeline.sh</em> in this folder.</p>
 <p>Let's move on with our ChIP-seq analysis. Everytime we run a tool that creates new output we should add it to our pipeline.sh file.</p>
@@ -405,6 +434,7 @@ multiqc -o fastq fastq
 <pre class="bash"><code>#Paste Blue code chunks into your pipeline.sh script</code></pre>
 </div>
 <p>Although shell scripts save all of your commands they do not necessarily track the versions of software that you use or the current state of your environment and other tool dependencies. More advanced methods of <em>pipelining</em> and <em>containerisation</em> are recommended for fully reproducible analysis and sustainable programming.</p>
+<p><br></p>
 </div>
 <div id="pre-processing-quality-trimming-and-adapter-removal" class="section level3">
 <h3>5. Pre-processing: Quality trimming and adapter removal</h3>
@@ -413,6 +443,7 @@ multiqc -o fastq fastq
 <p>An example of adapter contamination at the end of reads: <img src="images/Adapter_contamination.png" width=700></p>
 <p>Once reads have been trimmed they will vary in length. You may want to <strong>filter</strong> out reads that are now too short to be uniquely mapped. Normally a cutoff of 20-30bp is standard.</p>
 <p>Trim with caution and think about the consequences of having different length reads later on in your pipeline. In fact, it is possible to overtrim your reads and aggressively remove valid data.</p>
+<p><br></p>
 </div>
 <div id="cutadapt" class="section level3">
 <h3>Cutadapt</h3>
@@ -435,6 +466,7 @@ cat samples.txt | parallel -j 4 fastqc fastq/{}.trim.fq.gz</code></pre>
 </div>
 <p>Open the multiqc report via a web browser to see how the raw and trimmed datasets compare.</p>
 <p>Remember to add the cutadapt, fastqc and multiqc steps to your <strong>pipeline.sh</strong> file.</p>
+<p><br></p>
 </div>
 <div id="other-qc-software-worth-investigating" class="section level3">
 <h3>Other QC software worth investigating</h3>

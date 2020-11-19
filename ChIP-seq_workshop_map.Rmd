@@ -16,6 +16,8 @@ output:
 
 In this workshop we are going to align our ChIP-seq reads to the yeast reference genome. There are many tools available for mapping reads each with their own purposes and strengths. We are going to use [BWA](http://bio-bwa.sourceforge.net/bwa.shtml) as it is suitable for aligning single end short ChIP-seq reads and has a reasonable balance of accuracy and speed.
 
+<br>
+
 ### Genome assemblies and indexing
 
 First, we need to select a reference genome to align to. Every time a reference genome is released or updated it is given a new name, often referred to as the genome build or assembly (..hg18, hg19, hg38). It is important to realise that different builds of the same genome are different sequences and thus their co-ordinate sytems are incompatable. For instance position 10000000 on chr1 is T in hg19 and G in hg38. 
@@ -27,6 +29,8 @@ We are going to map our reads to the latest release of the yeast genome **sacCer
 #bwa index -p ~genomes/s.cerevisiae/sacCer3/bwa_indexes/sacCer3 -a is ~genomes/s.cerevisiae/sacCer3/sacCer3.fa
 ```
 </div>
+
+<br>
 
 ### Mapping reads with BWA
 
@@ -45,13 +49,15 @@ Then run bwa on each of your samples. Note that we are redirecting the output to
 
 <div class="blue">
 ```bash
-cat samples.txt | parallel -j 4 "bwa mem -t 5 -R '@RG\tID:{}\tPL:ILLUMINA' -M ~genomes/s.cerevisiae/sacCer3/bwa_indexes/sacCer3 fastq/{}.trim.fq.gz > bwa_out/{}/{}.sam"
+cat samples.txt | parallel -j 4 "bwa mem -t 5 -a -R '@RG\tID:{}\tPL:ILLUMINA' -M ~genomes/s.cerevisiae/sacCer3/bwa_indexes/sacCer3 fastq/{}.trim.fq.gz > bwa_out/{}/{}.sam"
 ```
 </div>
 
+<br>
 
-This is a good time to go make a coffee!
+This is a good time to go make a **coffee**!
 
+<br>
 
 ### SAM/BAM/CRAM format and Samtools
 
@@ -91,13 +97,19 @@ samtools idxstats bwa_out/Reb1_R1/Reb1_R1.bam
 ``` 
 The third column represents the number of alignments to each chromosome and at the bottom we can see some reads which have not mapped at all.
 
+<br>
+
 ### 7. Post processing
+
+<br>
 
 ### Filtering reads with samtools
 
 Now that we have aligned our reads we may want to do some filtering before any downstream analysis. Make sure you are aware of the alignments that are reported by your mapping program and the parameters used. For instance, are unmapped reads reported? Are all alignments to repeats reported or just one? Are paired-end alignments still reported if only one end maps? 
 
 There are many ways to filter your BAM files with samtools and other programs to remove unwanted alignments that may negatively affect your downstream analysis. This will not be covered in depth here, instead we will simply remove all non-uniquely mapped reads. These reads map to multiple regions of the genome and can skew classification of peaks in our data. In this case we are not interested in looking at repeat regions of the genome so we will remove these reads. This can be done by filtering out all reads with [mapping quality](http://genome.sph.umich.edu/wiki/Mapping_Quality_Scores) less than 20.
+
+<br>
 
 ### Multimap reads and Duplicate reads
 
@@ -124,6 +136,8 @@ The [Picard](https://broadinstitute.github.io/picard/index.html) package has man
 
 Using paired-end reads or random primers in your library preparation can help separate some of the original reads from PCR duplicates.
 
+<br>
+
 ### Genome blacklists
 
 The ENCODE project produced 100s of NGS datasets and found that certain regions of the genome were consistently prone to overinflated read depths regardless of the sample or preparation. Some of these are repeats of variable copy number, others are likely to be similar to [repeat regions in unsequenced portions of the genome](https://sequencing.qcfail.com/articles/genomic-sequence-not-in-the-genome-assembly-creates-mapping-artefacts/) (telomeres, centromeres, satellites etc.). These are typically seen as large towers of reads that dominate your read profiles. It is probably a good idea to remove these regions from downstream analyses or remove the reads that align all together. ENCODE subsequently released genome blacklists for human and mouse, for other species you can identify these regions by eye.
@@ -134,27 +148,68 @@ The ENCODE project produced 100s of NGS datasets and found that certain regions 
 
 In some cases you may also want to remove ribosomal RNA/DNA reads that make up a bulk of your sample.
 
+<br>
+
 ### How many reads?
 
-By default **bwa** outputs multiple alignments per read if they exist, meaning a read may have many entries within a BAM file. However, bwa will assign one of the best hits as a primary alignment and all the others as secondary. Unmapped reads are also printed to the output file and these two factors mean that the total number of lines does not correspond to the total number of mapped reads. 
+As we used the -a flag when aligning **bwa** outputs multiple alignments per read if they exist, meaning a read may have many entries within a BAM file. However, bwa will assign one of the best hits as a primary alignment and all the others as secondary. Unmapped reads are also printed to the output file and these two factors mean that the total number of lines does not correspond to the total number of mapped reads. 
 
-`samtools view` can tell us how many lines are in a bam file using the -c flag to count. We can filter alignments using -f or -F on the SAM flag column. 
+`samtools view` can tell us how many lines are in a bam file using the -c flag to count. We can filter alignments using -f (keep) or -F (discard) on the SAM flag column. 
 
 ```bash
 samtools view -c bwa_out/Reb1_R1/Reb1_R1.bam
+```
+5444557
+```bash
+samtools view -c -f 4 bwa_out/Reb1_R1/Reb1_R1.bam 
+# counts number of unmapped reads (flag = '4')
+```
+144915
+
+<br>
+
+###Challenge
+<div class="challenge">
+<h2><i class="fas fa-pencil-alt"></i> Challenge:</h2>
+
+* How many mapped reads do you have?
+* How many of these align to a single location on the genome?
+* How many have a MAPQ score above 20?
+
+<details>
+<summary>
+Solution
+</summary>
+<div class="solution">
+<h2><i class="far fa-eye"></i></h2>
+```bash
+samtools view -c -F 4 bwa_out/Reb1_R1/Reb1_R1.bam 
+# -F 4 filters out unmapped reads
+```
+Reb1_R1 has 5299642 mapped reads
+
+```bash
 samtools view -c -F 260 bwa_out/Reb1_R1/Reb1_R1.bam
+# -F 260 filters out unmapped reads (4) and non primary alignments (256)
+```
+2572126 reads map to a single 'unique' location
+
+```bash
+samtools view -c -q 20 bwa_out/Reb1_R1/Reb1_R1.bam
+```
+1967026 reads have a MAPQ > 20
+
+Note our filtered uniq.bams have excluded unmapped/non primary and MAPQ < 20 all in one.
+```bash
 samtools view -c bwa_out/Reb1_R1/Reb1_R1.uniq.bam
 ```
+1967026
 
-**TASK**
-What do these numbers equate to? 
-
-* How many aligned reads do you have?
-* How many of these align to a single location on the genome?
-* Can you figure out what -F 260 does?
-
-**HINT**
-Use the [Explain SAM flags](https://broadinstitute.github.io/picard/explain-flags.html) resource.
+</div>
+</details>
+</div>
+<br>
+**Hint:** Use the [Explain SAM flags](https://broadinstitute.github.io/picard/explain-flags.html) resource.
 
 We can also use **fastqc** on bam files to look at the quality and statistics for our uniquely mapped reads.
 

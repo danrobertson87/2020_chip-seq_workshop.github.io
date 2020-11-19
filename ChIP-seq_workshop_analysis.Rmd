@@ -16,9 +16,11 @@ output:
 
 After we have mapped and filtered the reads it is time to make some inferences about how good the underlying data is.
 
+<br>
+
 ### Correlation amongst samples
 
-First we want to create a new script for the analysis part of the exercise and we can save all new commands in here. The **touch** command creates a new file without opening it, or you can use the RStudio editor to keep the file open for editing. 
+First we want to create a new script for the analysis part of the exercise and we can save all new commands in here. The **touch** command creates a new file without opening it.
 
 ```bash
 touch analysis.sh
@@ -55,6 +57,9 @@ plotCorrelation -in cov.matrix -p heatmap -c spearman -o spearman_cor.png
 
 Here we can see that treatments (Reb1) and controls (input) correlate well with each other, while correlation between treatments and controls is weak. This is a good sign implying that there is reproducible signal on our data.
 
+
+<br>
+
 ### Assessing signal strength
 
 How do we tell if we have signal coming from ChIP enrichment? One way of doing this is Signal Extraction Scaling (SES) proposed by [Diaz:2012](https://www.degruyter.com/downloadpdf/j/sagmb.2012.11.issue-3/1544-6115.1750/1544-6115.1750.pdf). SES works as follows: Suppose we have two datasets: ChIP and Input DNA. We divide the genome into N non-overlapping windows and for each window we compute the number of reads in each sample. We then sort the windows by the number of reads in 1 sample and plot the cumulative fraction of reads. We expect Input samples to show approximately equal distribution of reads across all windows and thus give a flat line, whereas ChIP samples with very defined enrichments should have a high proportion of reads in a small number of bins. [DeepTools](http://deeptools.readthedocs.io/en/latest/) provides a nice explanation of how the success of a ChIP experiment can be judged based on SES (also called fingerprint) plots:
@@ -72,6 +77,8 @@ We can apply this to our own data with **DeepTools plotFingerprint**:
 The fingerprint tool can take a long time to run so we will leave this out for now and continue with the tutorial. However, You should get a plot that looks like the one below where approximately 30% of the ChIP reads are concentrated in to a small number of bins.
 
 <img src="images/dt_fingerplot.png" width=700>
+
+<br>
 
 ### 11. Summarizing ChIP signal enrichment across genes
 
@@ -119,6 +126,8 @@ computeMatrix reference-point -R UCSC_sgdGene.bed -S Reb1_R1.norm.bw Reb1_R2.nor
 ```
 </div>
 
+The warning "Skipping Q0010, due to being absent in the computeMatrix output." refers to mitochondrial genes and chrM has been exlcuded.
+
 Finally, we can visualize the heatmap by using the **DeepTools plotHeatmap** tool:
 
 <div class="blue">
@@ -129,15 +138,29 @@ plotHeatmap -m TSS.matrix -o TSS.heatmap.png
 
 The resulting image shows that a significant fraction of genes have peaks of Reb1 enrichment within their upstream regions:
 
+<details>
+<summary>
+Reveal Plot
+</summary>
+<div class="solution">
+<h2><i class="far fa-eye"></i></h2>
 <img src="images/TSS.heatmap.png" width=700>
 
+</div>
+</details> 
+
+
 It is worth taking a look at the [documentation](http://deeptools.readthedocs.io/en/latest/content/list_of_tools.html) for the deepTools package in your own time to understand the range of tools and how different parameters affect your data and the different plots you can make.
+
+<br>
 
 ### 12. Calling peaks
 
 While the peaks we have found in the genome browser are pretty clear and consistent across the two replicates, looking at the entire genome in the browser is hardly an efficient way to identify all peaks of Reb1 binding. There are several ways to identify genome-wide binding events and three of these methods are summarised below:
 
 <img src="images/peak_finding.jpg" width=700>
+
+<br>
 
 ### MACS2
 
@@ -156,6 +179,8 @@ Here is a concise description of these steps:
 
 Peaks mapped to two strands are treated separately to build two coverage density profiles - two modes. The distance between the modes is the fragment size d.
 
+<br>
+
 ### Finding peaks with MACS
 
 In our case we have two replicates each containing ChIP and input DNA samples. We will run MACS2 by pooling data (combining two ChIP samples and two inputs, respectively) but a more stringent approach might be to run each replicate separately and look for overlapping peaks. 
@@ -169,6 +194,8 @@ macs2 callpeak -t bwa_out/Reb1_R1/Reb1_R1.uniq.bam bwa_out/Reb1_R2/Reb1_R2.uniq.
 The **-g** flag is the approximate genome size for s.cerevisiae. In this example MACS does not have enough reads to build a shifting model with our reduced number of reads so we skip this step by using **--nomodel**. This should be removed when analysing a complete dataset.
 
 MACS2 will produce three outputs, a peaks.narrowPeak file containing the co-ordinates of peaks, a peaks.xls file of peaks for excel and a summits.bed file with the location of the greatest enrichment within each peak. 
+
+<br>
 
 ### Inspecting Peaks
 
@@ -189,6 +216,8 @@ You can load the peak files into IGV and see how they correspond to our bigwig t
 
 <img src="images/Peaks.png" width=1200>
 
+<br>
+
 ### What sequence motifs are found within peaks?
 
 In this experiment antibodies against Reb1 protein have been used for immunoprecipitaion. The recognition site for Reb1 is TTACCCG ([Badis:2008](http://www.sciencedirect.com/science/article/pii/S1097276508008423)). To find out which sequence motifs are found within our peaks we first need to convert coordinates into underlying sequences. The [bedTools](https://bedtools.readthedocs.io/) suite has a tool to do this.
@@ -207,7 +236,7 @@ meme-chip Reb1_peaks.fasta
 ```
 </div>
 
-When complete, MEME will create a new folder called **memechip_out** in your directory and an html (web page) report. See if you can open this in your web browser and find the TTACCCG motif:
+When complete, MEME will create a new folder called **memechip_out** in your directory and an html (web page) report. See if you can open this in your web browser and find the TTACCCG Reb1 binding motif:
 
 <img src="images/meme2.png" width=400>
 

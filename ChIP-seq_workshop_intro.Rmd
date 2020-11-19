@@ -17,19 +17,30 @@ knitr::opts_chunk$set(warning=FALSE, message=FALSE)
 
 ----
 
-### Getting Started with Linux and RStudio
+### Getting Started with Linux
 
-We are using the Linux command line to run most of the tools we use today. If you are new to Linux and wish to use the command line more often it is a good idea to learn about job control and how to track your processes. We can arrange a separate tutorial if required.
+We are using the Linux command line to run most of the tools we use today. If you are new to Linux please complete the Intro to Command Line [Workshop](http://bifx-core.bio.ed.ac.uk/hyweldd/training/Bioinformatics_on_the_Command_Line/).
+
+<br>
 
 ### Logging in
 We have several servers that you can login to. For the purpose of this practical we will use bifx-rta. No matter where you login, you will have access to the same files and programs. bifx-core2 is also available if you use a VPN.
 
-There are several options to login to our machines. You can use the **Terminal** app on a Mac or login via **X2G0** if you want a graphical interface. Alternatively you can use **RStudio** which is an environment built for R programming but also gives you access to the command line terminal, your file structure and several other graphical features. 
+There are several options to login to our machines. You can use the **Terminal** app on a Mac or equivalant on **Command Prompt** on Windows or login via **X2G0** if you want a graphical interface. 
+
+To login via command line: 
+ssh USER@bifx-rta.bio.ed.ac.uk
+
+Login with your user credentials for our servers (not the same as EASE)
+
+<!--Alternatively you can use **RStudio** which is an environment built for R programming but also gives you access to the command line terminal, your file structure and several other graphical features. 
 
 1. Open this link in a new window: [bifx-rta.bio.ed.ac.uk](http://bifx-rta.bio.ed.ac.uk:8787)
 2. Login with your user credentials for our servers (not the same as EASE)
-3. Familiarise yourself with the different panels and locate the Terminal.
+3. Familiarise yourself with the different panels and locate the Terminal. -->
 
+
+<br>
 
 ### 1. Creating A Web Directory 
 
@@ -59,6 +70,8 @@ To see it enter the following URL, changing yourUserName to what ever your usern
 
 http://bifx-core.bio.ed.ac.uk/~yourUserName
 
+<br>
+
 ### 2. ChIP-seq sequencing data
 
 The datasets used in this exercise are derived from a single end ChIP-seq experiment (actually ChIP-exo) in *S.cerevisiae*. There are 2 biological replicates (though we recommend using 3 or more!) Reb1_R1 and Reb1_R2 as well as their corresponding input controls Input_R1 and Input_R2. For this experiment immunoprecipitation was performed with antibodies against Reb1. Reb1 recognizes a specific sequence (TTACCCG) and is involved in many aspects of transcriptional regulation by all three yeast RNA polymerases and promotes formation of nucleosome-free regions (NFRs). You can find the original publication [here](http://www.sciencedirect.com/science/article/pii/S0092867411013511). For the purpose of this workshop we have randomly subsampled and filtered out poor quality reads to speed up runtime.
@@ -69,6 +82,8 @@ The datasets used in this exercise are derived from a single end ChIP-seq experi
 | Reb1_R2 | ChIP experiment, replicate 2 |
 | Input_R1 | Input DNA, replicate 1 |
 | Input_R2 | Input DNA, replicate 2 |
+
+<br>
 
 ### Obtaining data
 
@@ -103,6 +118,8 @@ cat md5 #prints out the contents of md5
 #To check the files and md5 sums match at any time
 md5sum -c md5 
 ```
+
+<br>
 
 ### Integrative Genomics Viewer
 

@@ -30,7 +30,7 @@ multiqc -f -o fastq fastq
 ##BWA
 mkdir bwa_out
 cat samples.txt | parallel -j 4 mkdir bwa_out/{}
-cat samples.txt | parallel -j 4 "bwa mem -t 5 -R '@RG\tID:{}\tPL:ILLUMINA' -M ~genomes/s.cerevisiae/sacCer3/bwa_indexes/sacCer3 fastq/{}.trim.fq.gz > bwa_out/{}/{}.sam"
+cat samples.txt | parallel -j 4 "bwa mem -t 5 -a -R '@RG\tID:{}\tPL:ILLUMINA' -M ~genomes/s.cerevisiae/sacCer3/bwa_indexes/sacCer3 fastq/{}.trim.fq.gz > bwa_out/{}/{}.sam"
 ##Sort and index
 cat samples.txt | parallel -j 4 "samtools sort bwa_out/{}/{}.sam -o bwa_out/{}/{}.bam -T bwa_out/{}/{} -O BAM; samtools index bwa_out/{}/{}.bam"
 ##Filter for uniquely mapped reads

@@ -325,6 +325,7 @@ $(document).ready(function () {
 <li><strong>--normalizeUsing BPM</strong> is a normalisation strategy akin to TPM in RNA-seq and stands for &quot;bins per million&quot;. There are several strategies to choose or we can ignore normalisation.</li>
 <li><strong>-e 200</strong> extends our reads to 200b as this is the average fragment length. With paired end data the reads would be extended to match the ends of both reads but with single end we must supply a value.</li>
 </ul>
+<p><br></p>
 </div>
 <div id="finish-your-script" class="section level3">
 <h3>9. Finish your script</h3>
@@ -344,17 +345,19 @@ cd .. #Move back to the main directory</code></pre>
 <p>You can keep track of your pipeline by using <strong>ps</strong> or looking at the log file.</p>
 <pre class="bash"><code>ps f
 tail CS_workshop_tmp/pipeline.log #Shows the end of a file</code></pre>
+<p><br></p>
 </div>
-<div id="tidy-up" class="section level2">
-<h2>Tidy Up!</h2>
+<div id="tidy-up" class="section level3">
+<h3>Tidy Up!</h3>
 <p>Files are large, disk space is expensive, remove any unwanted or temporary files from your folder. We should always keep the raw data (fastq) and our final processed datasets (BAM, bigWig etc) and the script we used to generate them. SAM files are large and should be removed once converted to BAM.</p>
 <div class="blue">
 <pre class="bash"><code>rm fastq/*trim*fq.gz #Remove trimmed fastq temp files
 rm bwa_out/*/*.sam #Remove sam files</code></pre>
 </div>
-<p><em>BREAK</em></p>
-<div id="igv" class="section level3">
-<h3>IGV</h3>
+<p><br></p>
+</div>
+<div id="integrative-genomics-viewer-igv" class="section level3">
+<h3>Integrative Genomics Viewer (IGV)</h3>
 <p><a href="https://www.broadinstitute.org/igv/">IGV</a> (Integrative genomics viewer) is a powerful genome browser from the Broad institute. It is perfect for viewing your sequencing files as loading data is easy, common formats are understood, views are customisable and navigation is quick.</p>
 <p>First let's put all of our visualisation files in one folder.</p>
 <div class="blue">
@@ -364,20 +367,26 @@ ln -s $PWD/bwa_out/*/*uniq.bam* visualisation</code></pre>
 </div>
 <p>It is best to download the <a href="https://www.broadinstitute.org/igv/">desktop app</a> for use on your own machine but if you are using a university managed computer you can access the web app at <a href="https://igv.org/app/" class="uri">https://igv.org/app/</a>.</p>
 <p>Open IGV and set the genome to <strong>sacCer3</strong>, then find your <em>visualisation</em> folder online. In the desktop version you can drag and drop files into IGV. If you are using the webapp you will need to download the files you require and open them using the <em>tracks</em> menu.</p>
-<p>Open a BAM file and a corresponding bigWig file into IGV.</p>
+<p>Open a BAM file and a corresponding bigWig file into IGV. Make sure the .bai index file is in the same folder as the BAM.</p>
 <p><img src="images/IGV.png" width=1200></p>
+<p>First, let's navigate the chromosome:</p>
+<ul>
+<li>Use the <em>+</em> / <em>-</em> zoom bar at the top right</li>
+<li>Drag and highlight an area to zoom on the genome ruler</li>
+<li>Type a position or gene identifier in to the search box</li>
+<li>If we zoom in close enough our BAM file will load and we can investigate alignments of individual reads</li>
+</ul>
 <p>Now let's customise our view:</p>
 <p>DESKTOP APP</p>
 <ol style="list-style-type: decimal">
-<li>Use the horizontal panel dividers to set the 3 panels to approximately equal height.</li>
 <li>Select <strong>Tracks-&gt;Fit Data To Window</strong> To automatically set track heights to fill the view</li>
-<li>Right click on the Refseq genes track and switch between display modes <strong>Collapsed</strong>, <strong>Expanded</strong> and <strong>Squished</strong>.</li>
+<li>Right click on the Refseq genes track and switch between display modes <strong>Collapsed</strong>, <strong>Expanded</strong> and <strong>Squished</strong>. (Use the horizontal panel divider to adjust height)</li>
 <li>Use the right click menu on the bigwig track name to customise the display. Try the following:</li>
 <li>Rename the track</li>
 <li>Change the track colour</li>
 <li>Change the graph type</li>
 <li>Change the windowing function</li>
-<li>Set a minimum, mid and maximum Y-axis</li>
+<li>Adjust the data range</li>
 <li>Set the scale to <strong>Autoscale</strong>. This automatically sets the Y-axis to the height of the tallest peak in your view.</li>
 </ol>
 <p>WEB APP</p>
@@ -390,21 +399,43 @@ ln -s $PWD/bwa_out/*/*uniq.bam* visualisation</code></pre>
 <li>Set a minimum and maximum Y-axis</li>
 <li>Set the scale to <strong>Autoscale</strong>. This automatically sets the Y-axis to the height of the tallest peak in your view.</li>
 </ol>
-<p>Next let's navigate the chromosome:</p>
+<p><br></p>
+<div class="challenge">
+<h2>
+<i class="fas fa-pencil-alt"></i> Challenge:
+</h2>
+<p>One BAM vs bigWig</p>
 <ul>
-<li>Use the <em>+</em> / <em>-</em> zoom bar at the top right</li>
-<li>Drag and highlight an area to zoom on the genome ruler</li>
-<li>Type a position or gene identifier in to the search box</li>
-<li>If we zoom in close enough our BAM file will load and we can investigate alignments of individual reads</li>
-<li>Can you identify <strong>mismatches</strong> in read alignment?</li>
-<li>Can you find any obvious peaks in the ChIP-seq samples?</li>
+<li><p>Why are the coverage profiles different?</p></li>
+<li><p>Which format is faster to view?</p></li>
+<li><p>Can you identify <strong>mismatches</strong> in read alignment?</p></li>
+<li><p>What other information do the BAM files give us?</p></li>
 </ul>
+<p>Now let's load all our bigwig files</p>
+<ul>
+<li><p>Can you identify peaks in the ChIP samples</p></li>
+<li><p>Do you see any peaks that are also present in the Input?</p></li>
+</ul>
+<!--<details>
+<summary>
+Solution
+</summary>
+<div class="solution">
+<h2><i class="far fa-eye"></i></h2>
+
+
+</div>
+</details> -->
+</div>
+<p><br></p>
+<p><br></p>
 </div>
 <div id="other-genome-browsers" class="section level3">
 <h3>Other genome browsers</h3>
 <ul>
 <li><a href="http://www.ensembl.org">Ensembl</a> and <a href="https://genome.ucsc.edu/">UCSC</a> websites have online genome browsers where you can view your data alongside published experimental data and genomic annotations in their databases.</li>
 </ul>
+<p><br></p>
 <div class="key-points">
 <h2>
 <i class="fas fa-thumbtack"></i>Key Aims:
@@ -416,7 +447,6 @@ ln -s $PWD/bwa_out/*/*uniq.bam* visualisation</code></pre>
 </ul>
 </div>
 <p><br></p>
-</div>
 </div>
 
 
