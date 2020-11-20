@@ -175,11 +175,7 @@ Solution
 
 To save and exit the file press **ctrl-x**, followed by **ctrl-c** and then **y** to save.
 
-Because we are using RStudio you can alternatively create a new text file in the menus, edit it directly in the editor and save it as *pipeline.sh* in this folder.
-
-Let's move on with our ChIP-seq analysis. Everytime we run a tool that creates new output we should add it to our pipeline.sh file. 
-
-Look out for the **blue** code chunks like the one below and paste these commands to your script. We will learn how to run this script and the full analysis in one go later on.
+Let's move on with our ChIP-seq analysis. Everytime we run a tool that creates new output we should add it to our pipeline.sh file. We will learn how to run this script and the full analysis in one go later on.
 
 <div class="blue">
 ```bash
