@@ -177,12 +177,6 @@ To save and exit the file press **ctrl-x**, followed by **ctrl-c** and then **y*
 
 Let's move on with our ChIP-seq analysis. Everytime we run a tool that creates new output we should add it to our pipeline.sh file. We will learn how to run this script and the full analysis in one go later on.
 
-<div class="blue">
-```bash
-#Paste Blue code chunks into your pipeline.sh script
-```
-</div>
-
 Although shell scripts save all of your commands they do not necessarily track the versions of software that you use or the current state of your environment and other tool dependencies. More advanced methods of *pipelining* and *containerisation* are recommended for fully reproducible analysis and sustainable programming.
 
 <br>
