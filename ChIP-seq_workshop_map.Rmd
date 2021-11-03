@@ -26,7 +26,7 @@ We are going to map our reads to the latest release of the yeast genome **sacCer
 
 <div class="blue">
 ```bash
-#bwa index -p ~genomes/s.cerevisiae/sacCer3/bwa_indexes/sacCer3 -a is ~genomes/s.cerevisiae/sacCer3/sacCer3.fa
+#bwa index -p /homes/genomes/s.cerevisiae/sacCer3/bwa_indexes/sacCer3 -a is /homes/genomes/s.cerevisiae/sacCer3/sacCer3.fa
 ```
 </div>
 
@@ -49,7 +49,7 @@ Then run bwa on each of your samples. Note that we are redirecting the output to
 
 <div class="blue">
 ```bash
-cat samples.txt | parallel -j 4 "bwa mem -t 5 -a -R '@RG\tID:{}\tPL:ILLUMINA' -M ~genomes/s.cerevisiae/sacCer3/bwa_indexes/sacCer3 fastq/{}.trim.fq.gz > bwa_out/{}/{}.sam"
+cat samples.txt | parallel -j 4 "bwa mem -t 5 -a -R '@RG\tID:{}\tPL:ILLUMINA' -M /homes/genomes/s.cerevisiae/sacCer3/bwa_indexes/sacCer3 fastq/{}.trim.fq.gz 
 ```
 </div>
 

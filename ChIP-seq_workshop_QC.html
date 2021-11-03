@@ -13,24 +13,38 @@
 
 <title>Quality Control</title>
 
-<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<script src="site_libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/yeti.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
 <link href="site_libs/pagedtable-1.1/css/pagedtable.css" rel="stylesheet" />
 <script src="site_libs/pagedtable-1.1/js/pagedtable.js"></script>
 
-<style type="text/css">code{white-space: pre;}</style>
 <style type="text/css">
-  pre:not([class]) {
-    background-color: white;
-  }
-</style>
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
 <script type="text/javascript">
 if (window.hljs) {
   hljs.configure({languages: []});
@@ -43,32 +57,7 @@ if (window.hljs) {
 
 
 
-<style type="text/css">
-h1 {
-  font-size: 34px;
-}
-h1.title {
-  font-size: 38px;
-}
-h2 {
-  font-size: 30px;
-}
-h3 {
-  font-size: 24px;
-}
-h4 {
-  font-size: 18px;
-}
-h5 {
-  font-size: 16px;
-}
-h6 {
-  font-size: 12px;
-}
-.table th:not([align]) {
-  text-align: left;
-}
-</style>
+
 
 <link rel="stylesheet" href="style.css" type="text/css" />
 
@@ -79,10 +68,6 @@ h6 {
   max-width: 940px;
   margin-left: auto;
   margin-right: auto;
-}
-code {
-  color: inherit;
-  background-color: rgba(0, 0, 0, 0.04);
 }
 img {
   max-width:100%;
@@ -99,40 +84,13 @@ button.code-folding-btn:focus {
 summary {
   display: list-item;
 }
+pre code {
+  padding: 0;
+}
 </style>
 
 
 <style type="text/css">
-/* padding for bootstrap navbar */
-body {
-  padding-top: 45px;
-  padding-bottom: 40px;
-}
-/* offset scroll position for anchor links (for fixed navbar)  */
-.section h1 {
-  padding-top: 50px;
-  margin-top: -50px;
-}
-.section h2 {
-  padding-top: 50px;
-  margin-top: -50px;
-}
-.section h3 {
-  padding-top: 50px;
-  margin-top: -50px;
-}
-.section h4 {
-  padding-top: 50px;
-  margin-top: -50px;
-}
-.section h5 {
-  padding-top: 50px;
-  margin-top: -50px;
-}
-.section h6 {
-  padding-top: 50px;
-  margin-top: -50px;
-}
 .dropdown-submenu {
   position: relative;
 }
@@ -160,7 +118,7 @@ body {
   margin-right: -10px;
 }
 .dropdown-submenu:hover>a:after {
-  border-left-color: #ffffff;
+  border-left-color: #adb5bd;
 }
 .dropdown-submenu.pull-left {
   float: none;
@@ -172,7 +130,7 @@ body {
 }
 </style>
 
-<script>
+<script type="text/javascript">
 // manage active state of menu based on current page
 $(document).ready(function () {
   // active menu anchor
@@ -183,10 +141,23 @@ $(document).ready(function () {
   var menuAnchor = $('a[href="' + href + '"]');
 
   // mark it active
-  menuAnchor.parent().addClass('active');
+  menuAnchor.tab('show');
 
   // if it's got a parent navbar menu mark it active as well
   menuAnchor.closest('li.dropdown').addClass('active');
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
 });
 </script>
 
@@ -198,7 +169,6 @@ $(document).ready(function () {
   max-height: 500px;
   min-height: 44px;
   overflow-y: auto;
-  background: white;
   border: 1px solid #ddd;
   border-radius: 4px;
 }
@@ -297,7 +267,7 @@ $(document).ready(function () {
   </div><!--/.container -->
 </div><!--/.navbar -->
 
-<div class="fluid-row" id="header">
+<div id="header">
 
 
 
@@ -312,14 +282,14 @@ $(document).ready(function () {
 <p><br></p>
 <div id="fastq-files" class="section level3">
 <h3>FastQ files</h3>
-<p>Sequencing data will typically be provided to you in fastq format (.fq or .fastq) or as a compressed gzipped fastq (.fq.gz) in order to save space. We can view a gzipped file with the zless command, let's take a look:</p>
+<p>Sequencing data will typically be provided to you in fastq format (.fq or .fastq) or as a compressed gzipped fastq (.fq.gz) in order to save space. We can view a gzipped file with the zless command, let’s take a look:</p>
 <pre class="bash"><code>cd ChIP-seq_workshop/fastq # Move into the fastq directory (if not already)
 zless Input_R1.fq.gz | head -n 12</code></pre>
 <p><a href="https://en.wikipedia.org/wiki/FASTQ_format">Fastq</a> files contain 4 lines per sequenced read:</p>
 <ul>
-<li>Line 1 begins with an '@' character and is followed by a sequence identifier and an optional description</li>
+<li>Line 1 begins with an ‘@’ character and is followed by a sequence identifier and an optional description</li>
 <li>Line 2 is the raw sequence</li>
-<li>Line 3 begins with a '+' character and is optionally followed by the same sequence identifier</li>
+<li>Line 3 begins with a ‘+’ character and is optionally followed by the same sequence identifier</li>
 <li>Line 4 encodes the Phred quality score for the sequence in Line 2 as ASCII characters</li>
 </ul>
 <p><br></p>
@@ -331,11 +301,11 @@ zless Input_R1.fq.gz | head -n 12</code></pre>
 </div>
 <div id="fastq-screen" class="section level3">
 <h3>FastQ screen</h3>
-<p>When running a sequencing pipeline it is useful to know that your sequencing runs contain the types of sequence they're supposed to. <a href="http://www.bioinformatics.babraham.ac.uk/projects/fastq_screen/">FastQ Screen</a> allows you to set up a standard set of libraries against which all of your sequences can be searched. Your search libraries might contain the genomes of all of the organisms you work on, along with PhiX, Vectors or other contaminants commonly seen in sequencing experiments. We will run a screen of our sequences against human, mouse, rat, e.coli and s.cerevisiae (defaults):</p>
+<p>When running a sequencing pipeline it is useful to know that your sequencing runs contain the types of sequence they’re supposed to. <a href="http://www.bioinformatics.babraham.ac.uk/projects/fastq_screen/">FastQ Screen</a> allows you to set up a standard set of libraries against which all of your sequences can be searched. Your search libraries might contain the genomes of all of the organisms you work on, along with PhiX, Vectors or other contaminants commonly seen in sequencing experiments. We will run a screen of our sequences against human, mouse, rat, e.coli and s.cerevisiae (defaults):</p>
 <pre class="bash"><code>cd .. #Move up a directory again
-fastq_screen fastq/*fq.gz --outdir fastq # * is a wild card character</code></pre>
-<p>Once complete take a look at the output images in your browser via your public html folder. This shows that most of your reads align to the yeast genome and that no reads align uniquely to other organisms:</p>
-<p><img src="images/Reb1_R1_screen.png" width=1200></p>
+fastq_screen --conf /homes/genomes/tool_configs/fastq_screen/fastq_screen.conf fastq/*fq.gz --outdir fastq
+# * is a wild card character</code></pre>
+<p>Once complete take a look at the output images in your browser via your public html folder. This shows that most of your reads align to the yeast genome and that no reads align uniquely to other organisms: <!--Update pic here?--> <img src="images/Reb1_R1_screen.png" width=1200></p>
 <p><br></p>
 </div>
 <div id="fastqc" class="section level3">
@@ -356,13 +326,13 @@ fastq_screen fastq/*fq.gz --outdir fastq # * is a wild card character</code></pr
 <h3>MultiQC</h3>
 <p>We can view summaries of multiple reports at once by using <a href="http://multiqc.info/">multiqc</a>:</p>
 <pre class="bash"><code>multiqc -o fastq fastq</code></pre>
-<p>MultiQC searches for report files in a directory and compiles them into a single report. Open the multiqc report via a web browser to see how the raw datasets compare. Here we have the output of FastQ_screen and FastQC, but MultiQC works with the outputs of many tools other tools which we'll see later.</p>
+<p>MultiQC searches for report files in a directory and compiles them into a single report. Open the multiqc report via a web browser to see how the raw datasets compare. Here we have the output of FastQ_screen and FastQC, but MultiQC works with the outputs of many tools other tools which we’ll see later.</p>
 <p>If we look at the <em>adapter content</em> and <em>over represented sequences</em> sections we can see a small amount of contamination particularly in the second replicates.</p>
 <p><br></p>
 </div>
 <div id="shell-scripts-pipelining-and-parallelisation" class="section level3">
 <h3>4. Shell scripts, pipelining and parallelisation</h3>
-<p>Up until now we have run command line tools on each one of our datasets in serial, this means they run one after the other. In this tutorial we only have a few small datasets and the tools run relatively quickly, but this approach won't scale well to multiple large datasets. A more efficient approach is to create a <strong>script</strong> that will run all of our datasets in <strong>parallel</strong>.</p>
+<p>Up until now we have run command line tools on each one of our datasets in serial, this means they run one after the other. In this tutorial we only have a few small datasets and the tools run relatively quickly, but this approach won’t scale well to multiple large datasets. A more efficient approach is to create a <strong>script</strong> that will run all of our datasets in <strong>parallel</strong>.</p>
 <p><br></p>
 </div>
 <div id="parallel" class="section level3">
@@ -382,9 +352,9 @@ ps f</code></pre>
 <div id="shell-scripts" class="section level3">
 <h3>Shell scripts</h3>
 <p>Putting all of your commands into a script is good practice for keeping track of your analyses and for reproducibility. We want to write scripts so they can be used again on different datasets and avoid <em>hardcoding</em> the names of files.</p>
-<p>First, let's create a file that lists our sample names so we can feed this into our pipeline. We could just type this manually or use a bit of text processing like the code below, here fastq files are 'piped' into parallel as above but we use regular expression within 'sed' to remove the name ending, this can now be used to name all files.</p>
+<p>First, let’s create a file that lists our sample names so we can feed this into our pipeline. We could just type this manually or use a bit of text processing like the code below, here fastq files are ‘piped’ into parallel as above but we use regular expression within ‘sed’ to remove the name ending, this can now be used to name all files.</p>
 <pre class="bash"><code>ls fastq/*fq.gz | parallel basename | sed s/.fq.gz// &gt; samples.txt</code></pre>
-<p>Now let's create our pipeline script. We'll start by creating and opening a new file called <strong>pipeline.sh</strong>. The .sh stands for shell which is essentially just a name for the command line environment.</p>
+<p>Now let’s create our pipeline script. We’ll start by creating and opening a new file called <strong>pipeline.sh</strong>. The .sh stands for shell which is essentially just a name for the command line environment.</p>
 <pre class="bash"><code>emacs -nw pipeline.sh</code></pre>
 <p><strong>Emacs</strong> is a Unix text editor and the -nw flag opens a new window for editing. Here we are going to paste all of the commands we have used so far (click the mouse wheel to paste in the terminal):</p>
 <pre><code>##PREPARATION
@@ -393,13 +363,14 @@ ps f</code></pre>
 ln -s $PWD ~/public_html/
 ##Create a folder for fastq files
 mkdir fastq
-##Link the raw data to the fastq folder
-ln -s /homes/library/training/ChIP-seq_workshop/data/*fq.gz fastq/
+##Copy the raw data to the fastq folder
+cp /homes/library/training/ChIP-seq_workshop/data/*fq.gz fastq/.
 
 ##QC
 
 ##FastQ Screen
-fastq_screen fastq/*.fq.gz --outdir fastq
+fastq_screen --conf /homes/genomes/tool_configs/fastq_screen/fastq_screen.conf fastq/*fq.gz --outdir fastq
+
 ##FastQC
 fastqc fastq/*.fq.gz
 ##Multi QC
@@ -408,26 +379,28 @@ multiqc -o fastq fastq
 ##PREPROCESSING </code></pre>
 <p>The <strong>#</strong> symbol indicates a comment line and anything preceeded by a # will not be run by the command line. It is good practice to comment your code.</p>
 <p><br></p>
-</div>
-<div id="challenge" class="section level3">
-<h3>Challenge</h3>
+###Challenge
 <div class="challenge">
 <h2>
 <i class="fas fa-pencil-alt"></i> Challenge:
 </h2>
 <p>See if you can adapt the QC portion of the script to use parallel.</p>
-<strong>Hint:</strong> <code>cat samples.txt</code> will print the names of the samples. <details> <summary> Solution </summary>
+<strong>Hint:</strong> <code>cat samples.txt</code> will print the names of the samples.
+<details>
+<summary>
+Solution
+</summary>
 <div class="solution">
 <h2>
 <i class="far fa-eye"></i>
 </h2>
-<p><code>cat samples.txt | parallel -j 4 fastq_screen {}.fq.gz</code></p>
+<p><code>cat samples.txt | parallel -j 4 fastq_screen --conf /homes/genomes/tool_configs/fastq_screen/fastq_screen.conf fastq/{}.fq.gz  --outdir fastq</code></p>
 </div>
-<p></details></p>
+</details>
 </div>
 <p><br></p>
 <p>To save and exit the file press <strong>ctrl-x</strong>, followed by <strong>ctrl-c</strong> and then <strong>y</strong> to save.</p>
-<p>Let's move on with our ChIP-seq analysis. Everytime we run a tool that creates new output we should add it to our pipeline.sh file. We will learn how to run this script and the full analysis in one go later on.</p>
+<p>Let’s move on with our ChIP-seq analysis. Everytime we run a tool that creates new output we should add it to our pipeline.sh file. We will learn how to run this script and the full analysis in one go later on.</p>
 <p>Although shell scripts save all of your commands they do not necessarily track the versions of software that you use or the current state of your environment and other tool dependencies. More advanced methods of <em>pipelining</em> and <em>containerisation</em> are recommended for fully reproducible analysis and sustainable programming.</p>
 <p><br></p>
 </div>
@@ -445,17 +418,18 @@ multiqc -o fastq fastq
 <p><a href="http://cutadapt.readthedocs.org/en/stable/index.html">Cutadapt</a> finds and removes unwanted sequences from your high-throughput sequencing reads. Cutadapt can perform quality trimming, adapter removal and read filtering as well as many other operations to prepare your reads for optimal alignment. We will run cutadapt with the following parameters:</p>
 <ul>
 <li>-a : The sequence of the adapter to remove</li>
-<li>-q : Trim reads from the 3' end with the given quality threshold (Phred score)</li>
-<li>--minimum-length : Filter out reads below this length</li>
+<li>-q : Trim reads from the 3’ end with the given quality threshold (Phred score)</li>
+<li>–minimum-length : Filter out reads below this length</li>
 </ul>
 <p>We will also run FastQC on the trimmed dataset.</p>
 <div class="blue">
 <pre class="bash"><code>cat samples.txt | parallel -j 4 &quot;cutadapt -a AGATCGGAAGAG -q 20 --minimum-length 36 -o fastq/{}.trim.fq.gz fastq/{}.fq.gz &gt; fastq/{}.trim.cutadapt_report.txt&quot;
+
 cat samples.txt | parallel -j 4 fastqc fastq/{}.trim.fq.gz</code></pre>
 </div>
 <p>To view a cutadapt report:</p>
 <pre class="bash"><code>less fastq/Reb1_R1.trim.cutadapt_report.txt</code></pre>
-<p>Let's compare the fastqc reports using <a href="http://multiqc.info/">multiqc</a>. As you have run it already you need to use the force (-f) flag to get it to overwrite the current report.</p>
+<p>Let’s compare the fastqc reports using <a href="http://multiqc.info/">multiqc</a>. As you have run it already you need to use the force (-f) flag to get it to overwrite the current report.</p>
 <div class="blue">
 <pre class="bash"><code>multiqc -f -o fastq fastq</code></pre>
 </div>
@@ -473,13 +447,15 @@ cat samples.txt | parallel -j 4 fastqc fastq/{}.trim.fq.gz</code></pre>
 <h2>
 <i class="fas fa-thumbtack"></i>Key Aims:
 </h2>
-<h2 id="section"></h2>
+<div id="section" class="section level2">
+<h2></h2>
 <ul>
 <li>Check for contaminants</li>
 <li>Asses sequence quality</li>
 <li>Understand scripting</li>
 <li>Trim your data</li>
 </ul>
+</div>
 </div>
 <p><br></p>
 </div>
@@ -493,7 +469,7 @@ cat samples.txt | parallel -j 4 fastqc fastq/{}.trim.fq.gz</code></pre>
 
 // add bootstrap table styles to pandoc tables
 function bootstrapStylePandocTables() {
-  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
 }
 $(document).ready(function () {
   bootstrapStylePandocTables();
@@ -511,7 +487,7 @@ $(document).ready(function () {
 
 $(document).ready(function () {
   $('.tabset-dropdown > .nav-tabs > li').click(function () {
-    $(this).parent().toggleClass('nav-tabs-open')
+    $(this).parent().toggleClass('nav-tabs-open');
   });
 });
 </script>

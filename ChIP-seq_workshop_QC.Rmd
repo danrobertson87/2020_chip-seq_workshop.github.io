@@ -43,10 +43,11 @@ When running a sequencing pipeline it is useful to know that your sequencing run
 
 ```bash
 cd .. #Move up a directory again
-fastq_screen fastq/*fq.gz --outdir fastq # * is a wild card character
+fastq_screen --conf /homes/genomes/tool_configs/fastq_screen/fastq_screen.conf fastq/*fq.gz --outdir fastq
+# * is a wild card character
 ```
 Once complete take a look at the output images in your browser via your public html folder. This shows that most of your reads align to the yeast genome and that no reads align uniquely to other organisms:
-
+<!--Update pic here?-->
 <img src="images/Reb1_R1_screen.png" width=1200>
 
 <br>
@@ -136,13 +137,14 @@ emacs -nw pipeline.sh
 ln -s $PWD ~/public_html/
 ##Create a folder for fastq files
 mkdir fastq
-##Link the raw data to the fastq folder
-ln -s /homes/library/training/ChIP-seq_workshop/data/*fq.gz fastq/
+##Copy the raw data to the fastq folder
+cp /homes/library/training/ChIP-seq_workshop/data/*fq.gz fastq/.
 
 ##QC
 
 ##FastQ Screen
-fastq_screen fastq/*.fq.gz --outdir fastq
+fastq_screen --conf /homes/genomes/tool_configs/fastq_screen/fastq_screen.conf fastq/*fq.gz --outdir fastq
+
 ##FastQC
 fastqc fastq/*.fq.gz
 ##Multi QC
@@ -167,7 +169,7 @@ Solution
 </summary>
 <div class="solution">
 <h2><i class="far fa-eye"></i></h2>
-`cat samples.txt | parallel -j 4 fastq_screen {}.fq.gz`
+`cat samples.txt | parallel -j 4 fastq_screen --conf /homes/genomes/tool_configs/fastq_screen/fastq_screen.conf fastq/{}.fq.gz  --outdir fastq`
 </div>
 </details>
 </div>
@@ -210,6 +212,7 @@ We will also run FastQC on the trimmed dataset.
 <div class="blue">
 ```bash
 cat samples.txt | parallel -j 4 "cutadapt -a AGATCGGAAGAG -q 20 --minimum-length 36 -o fastq/{}.trim.fq.gz fastq/{}.fq.gz > fastq/{}.trim.cutadapt_report.txt"
+
 cat samples.txt | parallel -j 4 fastqc fastq/{}.trim.fq.gz
 ```
 </div>

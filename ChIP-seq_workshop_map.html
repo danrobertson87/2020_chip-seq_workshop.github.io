@@ -13,24 +13,38 @@
 
 <title>Mapping and Filtering</title>
 
-<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<script src="site_libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/yeti.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
 <link href="site_libs/pagedtable-1.1/css/pagedtable.css" rel="stylesheet" />
 <script src="site_libs/pagedtable-1.1/js/pagedtable.js"></script>
 
-<style type="text/css">code{white-space: pre;}</style>
 <style type="text/css">
-  pre:not([class]) {
-    background-color: white;
-  }
-</style>
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
 <script type="text/javascript">
 if (window.hljs) {
   hljs.configure({languages: []});
@@ -43,32 +57,7 @@ if (window.hljs) {
 
 
 
-<style type="text/css">
-h1 {
-  font-size: 34px;
-}
-h1.title {
-  font-size: 38px;
-}
-h2 {
-  font-size: 30px;
-}
-h3 {
-  font-size: 24px;
-}
-h4 {
-  font-size: 18px;
-}
-h5 {
-  font-size: 16px;
-}
-h6 {
-  font-size: 12px;
-}
-.table th:not([align]) {
-  text-align: left;
-}
-</style>
+
 
 <link rel="stylesheet" href="style.css" type="text/css" />
 
@@ -79,10 +68,6 @@ h6 {
   max-width: 940px;
   margin-left: auto;
   margin-right: auto;
-}
-code {
-  color: inherit;
-  background-color: rgba(0, 0, 0, 0.04);
 }
 img {
   max-width:100%;
@@ -99,40 +84,13 @@ button.code-folding-btn:focus {
 summary {
   display: list-item;
 }
+pre code {
+  padding: 0;
+}
 </style>
 
 
 <style type="text/css">
-/* padding for bootstrap navbar */
-body {
-  padding-top: 45px;
-  padding-bottom: 40px;
-}
-/* offset scroll position for anchor links (for fixed navbar)  */
-.section h1 {
-  padding-top: 50px;
-  margin-top: -50px;
-}
-.section h2 {
-  padding-top: 50px;
-  margin-top: -50px;
-}
-.section h3 {
-  padding-top: 50px;
-  margin-top: -50px;
-}
-.section h4 {
-  padding-top: 50px;
-  margin-top: -50px;
-}
-.section h5 {
-  padding-top: 50px;
-  margin-top: -50px;
-}
-.section h6 {
-  padding-top: 50px;
-  margin-top: -50px;
-}
 .dropdown-submenu {
   position: relative;
 }
@@ -160,7 +118,7 @@ body {
   margin-right: -10px;
 }
 .dropdown-submenu:hover>a:after {
-  border-left-color: #ffffff;
+  border-left-color: #adb5bd;
 }
 .dropdown-submenu.pull-left {
   float: none;
@@ -172,7 +130,7 @@ body {
 }
 </style>
 
-<script>
+<script type="text/javascript">
 // manage active state of menu based on current page
 $(document).ready(function () {
   // active menu anchor
@@ -183,10 +141,23 @@ $(document).ready(function () {
   var menuAnchor = $('a[href="' + href + '"]');
 
   // mark it active
-  menuAnchor.parent().addClass('active');
+  menuAnchor.tab('show');
 
   // if it's got a parent navbar menu mark it active as well
   menuAnchor.closest('li.dropdown').addClass('active');
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
 });
 </script>
 
@@ -198,7 +169,6 @@ $(document).ready(function () {
   max-height: 500px;
   min-height: 44px;
   overflow-y: auto;
-  background: white;
   border: 1px solid #ddd;
   border-radius: 4px;
 }
@@ -297,7 +267,7 @@ $(document).ready(function () {
   </div><!--/.container -->
 </div><!--/.navbar -->
 
-<div class="fluid-row" id="header">
+<div id="header">
 
 
 
@@ -320,13 +290,13 @@ $(document).ready(function () {
 <p>First, we need to select a reference genome to align to. Every time a reference genome is released or updated it is given a new name, often referred to as the genome build or assembly (..hg18, hg19, hg38). It is important to realise that different builds of the same genome are different sequences and thus their co-ordinate sytems are incompatable. For instance position 10000000 on chr1 is T in hg19 and G in hg38.</p>
 <p>We are going to map our reads to the latest release of the yeast genome <strong>sacCer3</strong>. We need to create an index file from the sacCer3 sequence so that BWA can quickly access the reference sequences. Luckily many of these indexes are pre-computed on our servers and stored under the ~genomes directory so you would only need to run this step for a new genome:</p>
 <div class="blue">
-<pre class="bash"><code>#bwa index -p ~genomes/s.cerevisiae/sacCer3/bwa_indexes/sacCer3 -a is ~genomes/s.cerevisiae/sacCer3/sacCer3.fa</code></pre>
+<pre class="bash"><code>#bwa index -p /homes/genomes/s.cerevisiae/sacCer3/bwa_indexes/sacCer3 -a is /homes/genomes/s.cerevisiae/sacCer3/sacCer3.fa</code></pre>
 </div>
 <p><br></p>
 </div>
 <div id="mapping-reads-with-bwa" class="section level3">
 <h3>Mapping reads with BWA</h3>
-<p>Once we have an index we can align our reads to the sacCer3 genome with BWA. This will take ~5 minutes to run so let's get it started:</p>
+<p>Once we have an index we can align our reads to the sacCer3 genome with BWA. This will take ~5 minutes to run so let’s get it started:</p>
 <p>First create a new directory for the alignments and sub directories for each sample to keep your data organsied:</p>
 <div class="blue">
 <pre class="bash"><code>mkdir bwa_out
@@ -334,7 +304,7 @@ cat samples.txt | parallel -j 4 mkdir bwa_out/{}</code></pre>
 </div>
 <p>Then run bwa on each of your samples. Note that we are redirecting the output to a file using <strong>&gt;</strong> so we put the full command in quotes for parallel to execute.</p>
 <div class="blue">
-<pre class="bash"><code>cat samples.txt | parallel -j 4 &quot;bwa mem -t 5 -a -R &#39;@RG\tID:{}\tPL:ILLUMINA&#39; -M ~genomes/s.cerevisiae/sacCer3/bwa_indexes/sacCer3 fastq/{}.trim.fq.gz &gt; bwa_out/{}/{}.sam&quot;</code></pre>
+<pre class="bash"><code>cat samples.txt | parallel -j 4 &quot;bwa mem -t 5 -a -R &#39;@RG\tID:{}\tPL:ILLUMINA&#39; -M /homes/genomes/s.cerevisiae/sacCer3/bwa_indexes/sacCer3 fastq/{}.trim.fq.gz </code></pre>
 </div>
 <p><br></p>
 <p>This is a good time to go make a <strong>coffee</strong>!</p>
@@ -354,7 +324,7 @@ cat samples.txt | parallel -j 4 mkdir bwa_out/{}</code></pre>
 </div>
 <p>Take a look at the contents of the <em>bwa_out</em> directory now. The -lh flag prints out a directory in list view with human readable file sizes.</p>
 <pre class="bash"><code>ls -lh bwa_out/*  </code></pre>
-<p>Notice the difference in size between the SAM and BAM files and the .bai file which is the bam index. Let's look at one of the BAM files using <code>samtools idxstats</code> to see where our reads align</p>
+<p>Notice the difference in size between the SAM and BAM files and the .bai file which is the bam index. Let’s look at one of the BAM files using <code>samtools idxstats</code> to see where our reads align</p>
 <pre class="bash"><code>samtools idxstats bwa_out/Reb1_R1/Reb1_R1.bam</code></pre>
 <p>The third column represents the number of alignments to each chromosome and at the bottom we can see some reads which have not mapped at all.</p>
 <p><br></p>
@@ -381,7 +351,7 @@ cat samples.txt | parallel -j 4 mkdir bwa_out/{}</code></pre>
 <div class="blue">
 <pre class="bash"><code>cat samples.txt | parallel -j 4 &quot;samtools view -b -q 20 bwa_out/{}/{}.bam -o bwa_out/{}/{}.uniq.bam; samtools index bwa_out/{}/{}.uniq.bam&quot;</code></pre>
 </div>
-<p>Note that there are aligners and analysis packages that attempt to deal with multimap reads and assign weights to each alignment, although methods are still in development. If you are interested in repeat elements or don't want to discard any potentially useful information then you will need a strategy to deal with these reads.</p>
+<p>Note that there are aligners and analysis packages that attempt to deal with multimap reads and assign weights to each alignment, although methods are still in development. If you are interested in repeat elements or don’t want to discard any potentially useful information then you will need a strategy to deal with these reads.</p>
 <p><strong>Duplicate reads</strong> are often observed as tall spikes in your read depth profile where reads are stacked directly on top of each other. A high level of duplication in your library is often a sign of over amplification by PCR and we may want to remove this bias from our result. However, these reads may also derive from separate fragments of DNA in your sample, thus we would be removing real data. It is often a good idea to <strong>mark</strong> your duplicate reads and produce outputs both with and without duplicates for comparison. Read more about duplication bias <a href="https://sequencing.qcfail.com/articles/libraries-can-contain-technical-duplication/">here</a>.</p>
 <p>The <a href="https://broadinstitute.github.io/picard/index.html">Picard</a> package has many useful utilities for manipulating SAM/BAM files. The MarkDuplicates tool will check the alignment positions for duplicate reads and mark or remove them from your data depending on how you wish to treat them.</p>
 <p>Using paired-end reads or random primers in your library preparation can help separate some of the original reads from PCR duplicates.</p>
@@ -390,7 +360,7 @@ cat samples.txt | parallel -j 4 mkdir bwa_out/{}</code></pre>
 <div id="genome-blacklists" class="section level3">
 <h3>Genome blacklists</h3>
 <p>The ENCODE project produced 100s of NGS datasets and found that certain regions of the genome were consistently prone to overinflated read depths regardless of the sample or preparation. Some of these are repeats of variable copy number, others are likely to be similar to <a href="https://sequencing.qcfail.com/articles/genomic-sequence-not-in-the-genome-assembly-creates-mapping-artefacts/">repeat regions in unsequenced portions of the genome</a> (telomeres, centromeres, satellites etc.). These are typically seen as large towers of reads that dominate your read profiles. It is probably a good idea to remove these regions from downstream analyses or remove the reads that align all together. ENCODE subsequently released genome blacklists for human and mouse, for other species you can identify these regions by eye.</p>
-<p><a href="http://bedtools.readthedocs.org/en/latest/">BedTools</a> is an extremely useful tool suite for performing operations on genomic intervals and alignments and comparing multiple datasets. The intersect tool can find overlaps between reads in a BAM file <code>-abam</code> and blacklist regions in a <a href="https://genome.ucsc.edu/FAQ/FAQformat.html#format1">bed</a> file <code>-b</code> and output all the reads that DON'T intersect <code>-v</code>.</p>
+<p><a href="http://bedtools.readthedocs.org/en/latest/">BedTools</a> is an extremely useful tool suite for performing operations on genomic intervals and alignments and comparing multiple datasets. The intersect tool can find overlaps between reads in a BAM file <code>-abam</code> and blacklist regions in a <a href="https://genome.ucsc.edu/FAQ/FAQformat.html#format1">bed</a> file <code>-b</code> and output all the reads that DON’T intersect <code>-v</code>.</p>
 <p><img src="images/intersect-glyph.png" width=700></p>
 <p>In some cases you may also want to remove ribosomal RNA/DNA reads that make up a bulk of your sample.</p>
 <p><br></p>
@@ -405,9 +375,7 @@ cat samples.txt | parallel -j 4 mkdir bwa_out/{}</code></pre>
 # counts number of unmapped reads (flag = &#39;4&#39;)</code></pre>
 <p>144915</p>
 <p><br></p>
-</div>
-<div id="challenge" class="section level3">
-<h3>Challenge</h3>
+###Challenge
 <div class="challenge">
 <h2>
 <i class="fas fa-pencil-alt"></i> Challenge:
@@ -417,7 +385,10 @@ cat samples.txt | parallel -j 4 mkdir bwa_out/{}</code></pre>
 <li>How many of these align to a single location on the genome?</li>
 <li>How many have a MAPQ score above 20?</li>
 </ul>
-<details> <summary> Solution </summary>
+<details>
+<summary>
+Solution
+</summary>
 <div class="solution">
 <h2>
 <i class="far fa-eye"></i>
@@ -427,14 +398,14 @@ cat samples.txt | parallel -j 4 mkdir bwa_out/{}</code></pre>
 <p>Reb1_R1 has 5299642 mapped reads</p>
 <pre class="bash"><code>samtools view -c -F 260 bwa_out/Reb1_R1/Reb1_R1.bam
 # -F 260 filters out unmapped reads (4) and non primary alignments (256)</code></pre>
-<p>2572126 reads map to a single 'unique' location</p>
+<p>2572126 reads map to a single ‘unique’ location</p>
 <pre class="bash"><code>samtools view -c -q 20 bwa_out/Reb1_R1/Reb1_R1.bam</code></pre>
 <p>1967026 reads have a MAPQ &gt; 20</p>
 <p>Note our filtered uniq.bams have excluded unmapped/non primary and MAPQ &lt; 20 all in one.</p>
 <pre class="bash"><code>samtools view -c bwa_out/Reb1_R1/Reb1_R1.uniq.bam</code></pre>
 <p>1967026</p>
 </div>
-<p></details></p>
+</details>
 </div>
 <p><br> <strong>Hint:</strong> Use the <a href="https://broadinstitute.github.io/picard/explain-flags.html">Explain SAM flags</a> resource.</p>
 <p>We can also use <strong>fastqc</strong> on bam files to look at the quality and statistics for our uniquely mapped reads.</p>
@@ -446,12 +417,14 @@ multiqc -o bwa_out bwa_out</code></pre>
 <h2>
 <i class="fas fa-thumbtack"></i>Key Aims:
 </h2>
-<h2 id="section"></h2>
+<div id="section" class="section level2">
+<h2></h2>
 <ul>
 <li>Align reads to a reference genome</li>
 <li>Understand key file formats</li>
 <li>Filter alignments for further analyses</li>
 </ul>
+</div>
 </div>
 <p><br></p>
 </div>
@@ -465,7 +438,7 @@ multiqc -o bwa_out bwa_out</code></pre>
 
 // add bootstrap table styles to pandoc tables
 function bootstrapStylePandocTables() {
-  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
 }
 $(document).ready(function () {
   bootstrapStylePandocTables();
@@ -483,7 +456,7 @@ $(document).ready(function () {
 
 $(document).ready(function () {
   $('.tabset-dropdown > .nav-tabs > li').click(function () {
-    $(this).parent().toggleClass('nav-tabs-open')
+    $(this).parent().toggleClass('nav-tabs-open');
   });
 });
 </script>

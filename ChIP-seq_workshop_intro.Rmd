@@ -24,7 +24,7 @@ We are using the Linux command line to run most of the tools we use today. If yo
 <br>
 
 ### Logging in
-We have several servers that you can login to. For the purpose of this practical we will use bifx-rta. No matter where you login, you will have access to the same files and programs. bifx-core2 is also available if you use a VPN.
+We have several servers that you can login to. For the purpose of this practical we will use bifx-rta. No matter where you login, you will have access to the same files and programs. bifx-core2 is also available, both bifx-rta and bifx-core2 require you to use a VPN.
 
 There are several options to login to our machines. You can use the **Terminal** app on a Mac or equivalant **Command Prompt** or MobaXTerm on Windows. Login via **X2G0** if you want a graphical interface. 
 
@@ -105,7 +105,7 @@ Next, create a subfolder called **fastq** for all of our sequence files and link
 
 ```bash
 mkdir fastq
-ln -s /homes/library/training/ChIP-seq_workshop/data/*fq.gz fastq
+cp /homes/library/training/ChIP-seq_workshop/data/*fq.gz fastq/.
 ```
 
 When you receive data from a sequencing centre the file should also be provided with an alphanumeric string known as an **md5 checksum**. We can think of this as a files passport or fingerprint and use it to verify our data and ensure it wasn't corrupted or truncated during download. The md5 checksums for these files are below. Lets check that now using the `md5sum` command:

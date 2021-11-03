@@ -13,24 +13,38 @@
 
 <title>Analysis</title>
 
-<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<script src="site_libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/yeti.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
 <link href="site_libs/pagedtable-1.1/css/pagedtable.css" rel="stylesheet" />
 <script src="site_libs/pagedtable-1.1/js/pagedtable.js"></script>
 
-<style type="text/css">code{white-space: pre;}</style>
 <style type="text/css">
-  pre:not([class]) {
-    background-color: white;
-  }
-</style>
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
 <script type="text/javascript">
 if (window.hljs) {
   hljs.configure({languages: []});
@@ -43,32 +57,7 @@ if (window.hljs) {
 
 
 
-<style type="text/css">
-h1 {
-  font-size: 34px;
-}
-h1.title {
-  font-size: 38px;
-}
-h2 {
-  font-size: 30px;
-}
-h3 {
-  font-size: 24px;
-}
-h4 {
-  font-size: 18px;
-}
-h5 {
-  font-size: 16px;
-}
-h6 {
-  font-size: 12px;
-}
-.table th:not([align]) {
-  text-align: left;
-}
-</style>
+
 
 <link rel="stylesheet" href="style.css" type="text/css" />
 
@@ -79,10 +68,6 @@ h6 {
   max-width: 940px;
   margin-left: auto;
   margin-right: auto;
-}
-code {
-  color: inherit;
-  background-color: rgba(0, 0, 0, 0.04);
 }
 img {
   max-width:100%;
@@ -99,40 +84,13 @@ button.code-folding-btn:focus {
 summary {
   display: list-item;
 }
+pre code {
+  padding: 0;
+}
 </style>
 
 
 <style type="text/css">
-/* padding for bootstrap navbar */
-body {
-  padding-top: 45px;
-  padding-bottom: 40px;
-}
-/* offset scroll position for anchor links (for fixed navbar)  */
-.section h1 {
-  padding-top: 50px;
-  margin-top: -50px;
-}
-.section h2 {
-  padding-top: 50px;
-  margin-top: -50px;
-}
-.section h3 {
-  padding-top: 50px;
-  margin-top: -50px;
-}
-.section h4 {
-  padding-top: 50px;
-  margin-top: -50px;
-}
-.section h5 {
-  padding-top: 50px;
-  margin-top: -50px;
-}
-.section h6 {
-  padding-top: 50px;
-  margin-top: -50px;
-}
 .dropdown-submenu {
   position: relative;
 }
@@ -160,7 +118,7 @@ body {
   margin-right: -10px;
 }
 .dropdown-submenu:hover>a:after {
-  border-left-color: #ffffff;
+  border-left-color: #adb5bd;
 }
 .dropdown-submenu.pull-left {
   float: none;
@@ -172,7 +130,7 @@ body {
 }
 </style>
 
-<script>
+<script type="text/javascript">
 // manage active state of menu based on current page
 $(document).ready(function () {
   // active menu anchor
@@ -183,10 +141,23 @@ $(document).ready(function () {
   var menuAnchor = $('a[href="' + href + '"]');
 
   // mark it active
-  menuAnchor.parent().addClass('active');
+  menuAnchor.tab('show');
 
   // if it's got a parent navbar menu mark it active as well
   menuAnchor.closest('li.dropdown').addClass('active');
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
 });
 </script>
 
@@ -198,7 +169,6 @@ $(document).ready(function () {
   max-height: 500px;
   min-height: 44px;
   overflow-y: auto;
-  background: white;
   border: 1px solid #ddd;
   border-radius: 4px;
 }
@@ -297,7 +267,7 @@ $(document).ready(function () {
   </div><!--/.container -->
 </div><!--/.navbar -->
 
-<div class="fluid-row" id="header">
+<div id="header">
 
 
 
@@ -319,7 +289,7 @@ $(document).ready(function () {
 <h3>Correlation amongst samples</h3>
 <p>First we want to create a new script for the analysis part of the exercise and we can save all new commands in here. The <strong>touch</strong> command creates a new file without opening it.</p>
 <pre class="bash"><code>touch analysis.sh</code></pre>
-<p>In our experiment there are two replicates, each containing treatment and input (control) datasets. The first thing we can check is if the samples are correlated (in other words if treatment and control samples across the two replicates contain this same kind of signal). To do this we first generate a read count matrix using <a href="https://deeptools.readthedocs.io/en/develop/content/tools/multiBamSummary.html">deepTools multiBamSummary</a>. It will take around 5 minutes to complete so it's best to set it running and read on.</p>
+<p>In our experiment there are two replicates, each containing treatment and input (control) datasets. The first thing we can check is if the samples are correlated (in other words if treatment and control samples across the two replicates contain this same kind of signal). To do this we first generate a read count matrix using <a href="https://deeptools.readthedocs.io/en/develop/content/tools/multiBamSummary.html">deepTools multiBamSummary</a>. It will take around 5 minutes to complete so it’s best to set it running and read on.</p>
 <div class="blue">
 <pre class="bash"><code>multiBamSummary bins -b bwa_out/*/*uniq.bam -bs 10000 -o cov.matrix -e 200 --smartLabels</code></pre>
 </div>
@@ -363,7 +333,7 @@ bamCompare -b1 bwa_out/Reb1_R2/Reb1_R2.uniq.bam -b2 bwa_out/Input_R2/Input_R2.un
 <div class="blue">
 <pre class="bash"><code>ln -s $PWD/*norm.bw visualisation</code></pre>
 </div>
-<p>Because we want to plot enrichment around genes we need the gene annotations. These are already downloaded in the ~genomes folder so let's link them to our current directory.</p>
+<p>Because we want to plot enrichment around genes we need the gene annotations. These are already downloaded in the ~genomes folder so let’s link them to our current directory.</p>
 <div class="blue">
 <pre class="bash"><code>ln -s ~genomes/s.cerevisiae/sacCer3/annotation/UCSC_sgdGene.bed .</code></pre>
 </div>
@@ -374,20 +344,23 @@ bamCompare -b1 bwa_out/Reb1_R2/Reb1_R2.uniq.bam -b2 bwa_out/Input_R2/Input_R2.un
 <div class="blue">
 <pre class="bash"><code>computeMatrix reference-point -R UCSC_sgdGene.bed -S Reb1_R1.norm.bw Reb1_R2.norm.bw -o TSS.matrix --referencePoint TSS --upstream 2000 --downstream 2000 -bs 100 --smartLabels</code></pre>
 </div>
-<p>The warning &quot;Skipping Q0010, due to being absent in the computeMatrix output.&quot; refers to mitochondrial genes and chrM has been exlcuded.</p>
+<p>The warning “Skipping Q0010, due to being absent in the computeMatrix output.” refers to mitochondrial genes and chrM has been exlcuded.</p>
 <p>Finally, we can visualize the heatmap by using the <strong>DeepTools plotHeatmap</strong> tool:</p>
 <div class="blue">
 <pre class="bash"><code>plotHeatmap -m TSS.matrix -o TSS.heatmap.png </code></pre>
 </div>
 <p>The resulting image shows that a significant fraction of genes have peaks of Reb1 enrichment within their upstream regions:</p>
-<details> <summary> Reveal Plot </summary>
+<details>
+<summary>
+Reveal Plot
+</summary>
 <div class="solution">
 <h2>
 <i class="far fa-eye"></i>
 </h2>
 <p><img src="images/TSS.heatmap.png" width=700></p>
 </div>
-<p></details></p>
+</details>
 <p>It is worth taking a look at the <a href="http://deeptools.readthedocs.io/en/latest/content/list_of_tools.html">documentation</a> for the deepTools package in your own time to understand the range of tools and how different parameters affect your data and the different plots you can make.</p>
 <p><br></p>
 </div>
@@ -406,7 +379,7 @@ bamCompare -b1 bwa_out/Reb1_R2/Reb1_R2.uniq.bam -b2 bwa_out/Input_R2/Input_R2.un
 <li><strong>Removing redundancy</strong> - MACS retains uniquely mapped reads and removes reads that are repeatedly mapped to the same location. This reduces effects of PCR amplification biases during library preparation.</li>
 <li><strong>Build model and estimate fragment size</strong> - one of the MACS inputs is the fragment size or bandwidth, which is approximate size of DNA fragments generated during fragmentation step of library preparation. MACS first slides a window sized at twice the bandwidth across the genome and finds instances where read counts enriched by between 10 and 30 fold relative to the genome background. It then randomly samples 1,000 of such regions and builds the model. To build the model it separates reads mapping to each of the strands and builds two distributions (two modes). The midpoint between the two modes is the middle of the binding size and the distance between the modes is the fragment size d (see Figure below).</li>
 <li><strong>Generate peaks</strong> - now that d has been defined MACS slides a window of size 2d across the genome to identify regions significantly enriched in the ChIP sample. MACS assumes that background reads obey <a href="https://en.wikipedia.org/wiki/Poisson_distribution">Poisson distribution</a>. Thus given the number of reads in a given interval within the control sample we can calculate the probability of having observed number of reads in the ChIP sample (e.g., see flood example <a href="https://en.wikipedia.org/wiki/Poisson_distribution#Examples_of_probability_for_Poisson_distributions">here</a>). This procedure is performed for several intervals around the examined location (2d, 1kb, 5kb, 10kb, and the whole genome) and the maximum value is chosen. One problem with this approach is that it only works if both samples (ChIP and control) are sequenced to the same depth, which is not usually happening in practice. To correct this MACS scales down the larger sample.</li>
-<li><strong>Compute False Discovery Rate (FDR)</strong> - <a href="http://www.nature.com/nprot/journal/v7/n9/full/nprot.2012.101.html">Feng:2012</a> explains computing FDR in MACS as follows: &quot;When a control sample is available (and you should really always use it), MACS can also estimate an empirical FDR for every peak by exchanging the ChIP-seq and control samples and identifying peaks in the control sample using the same set of parameters used for the ChIP-seq sample. Because the control sample should not exhibit read enrichment, any such peaks found by MACS can be regarded as false positives. For a particular P value threshold, the empirical FDR is then calculated as the number of control peaks passing the threshold divided by the number of ChIP-seq peaks passing the same threshold.&quot;</li>
+<li><strong>Compute False Discovery Rate (FDR)</strong> - <a href="http://www.nature.com/nprot/journal/v7/n9/full/nprot.2012.101.html">Feng:2012</a> explains computing FDR in MACS as follows: “When a control sample is available (and you should really always use it), MACS can also estimate an empirical FDR for every peak by exchanging the ChIP-seq and control samples and identifying peaks in the control sample using the same set of parameters used for the ChIP-seq sample. Because the control sample should not exhibit read enrichment, any such peaks found by MACS can be regarded as false positives. For a particular P value threshold, the empirical FDR is then calculated as the number of control peaks passing the threshold divided by the number of ChIP-seq peaks passing the same threshold.”</li>
 </ul>
 <p><img src="images/macs_peak.png" width=500></p>
 <p>Peaks mapped to two strands are treated separately to build two coverage density profiles - two modes. The distance between the modes is the fragment size d.</p>
@@ -418,7 +391,7 @@ bamCompare -b1 bwa_out/Reb1_R2/Reb1_R2.uniq.bam -b2 bwa_out/Input_R2/Input_R2.un
 <div class="blue">
 <pre class="bash"><code>macs2 callpeak -t bwa_out/Reb1_R1/Reb1_R1.uniq.bam bwa_out/Reb1_R2/Reb1_R2.uniq.bam -c bwa_out/Input_R1/Input_R1.uniq.bam bwa_out/Input_R2/Input_R2.uniq.bam -g 12000000 --nomodel -n Reb1</code></pre>
 </div>
-<p>The <strong>-g</strong> flag is the approximate genome size for s.cerevisiae. In this example MACS does not have enough reads to build a shifting model with our reduced number of reads so we skip this step by using <strong>--nomodel</strong>. This should be removed when analysing a complete dataset.</p>
+<p>The <strong>-g</strong> flag is the approximate genome size for s.cerevisiae. In this example MACS does not have enough reads to build a shifting model with our reduced number of reads so we skip this step by using <strong>–nomodel</strong>. This should be removed when analysing a complete dataset.</p>
 <p>MACS2 will produce three outputs, a peaks.narrowPeak file containing the co-ordinates of peaks, a peaks.xls file of peaks for excel and a summits.bed file with the location of the greatest enrichment within each peak.</p>
 <p><br></p>
 </div>
@@ -458,7 +431,8 @@ bamCompare -b1 bwa_out/Reb1_R2/Reb1_R2.uniq.bam -b2 bwa_out/Input_R2/Input_R2.un
 <h2>
 <i class="fas fa-thumbtack"></i>Summary:
 </h2>
-<h2 id="section"></h2>
+<div id="section" class="section level2">
+<h2></h2>
 <ul>
 <li>Align sequence reads to a reference genome</li>
 <li>Assess the quality of your ChIP-seq experiment</li>
@@ -468,6 +442,7 @@ bamCompare -b1 bwa_out/Reb1_R2/Reb1_R2.uniq.bam -b2 bwa_out/Input_R2/Input_R2.un
 <li>Motif discovery</li>
 <li>Create and run shell scripts</li>
 </ul>
+</div>
 </div>
 <p><br></p>
 <p>Use these links to download the full <a href="http://bifx-core.bio.ed.ac.uk/training/ChIP-seq_workshop/pipeline.sh">pipeline.sh</a> and <a href="http://bifx-core.bio.ed.ac.uk/training/ChIP-seq_workshop/analysis.sh">analysis.sh</a> scripts.</p>
@@ -483,7 +458,7 @@ bamCompare -b1 bwa_out/Reb1_R2/Reb1_R2.uniq.bam -b2 bwa_out/Input_R2/Input_R2.un
 
 // add bootstrap table styles to pandoc tables
 function bootstrapStylePandocTables() {
-  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
 }
 $(document).ready(function () {
   bootstrapStylePandocTables();
@@ -501,7 +476,7 @@ $(document).ready(function () {
 
 $(document).ready(function () {
   $('.tabset-dropdown > .nav-tabs > li').click(function () {
-    $(this).parent().toggleClass('nav-tabs-open')
+    $(this).parent().toggleClass('nav-tabs-open');
   });
 });
 </script>
