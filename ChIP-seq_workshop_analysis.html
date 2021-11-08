@@ -335,7 +335,7 @@ bamCompare -b1 bwa_out/Reb1_R2/Reb1_R2.uniq.bam -b2 bwa_out/Input_R2/Input_R2.un
 </div>
 <p>Because we want to plot enrichment around genes we need the gene annotations. These are already downloaded in the ~genomes folder so let’s link them to our current directory.</p>
 <div class="blue">
-<pre class="bash"><code>ln -s ~genomes/s.cerevisiae/sacCer3/annotation/UCSC_sgdGene.bed .</code></pre>
+<pre class="bash"><code>cp /homes/genomes/s.cerevisiae/sacCer3/annotation/UCSC_sgdGene.bed .</code></pre>
 </div>
 <p>Take a look at this file:</p>
 <pre class="bash"><code>head UCSC_sgdGene.bed</code></pre>
@@ -418,7 +418,7 @@ Reveal Plot
 <h3>What sequence motifs are found within peaks?</h3>
 <p>In this experiment antibodies against Reb1 protein have been used for immunoprecipitaion. The recognition site for Reb1 is TTACCCG (<a href="http://www.sciencedirect.com/science/article/pii/S1097276508008423">Badis:2008</a>). To find out which sequence motifs are found within our peaks we first need to convert coordinates into underlying sequences. The <a href="https://bedtools.readthedocs.io/">bedTools</a> suite has a tool to do this.</p>
 <div class="blue">
-<pre class="bash"><code>fastaFromBed -fi ~genomes/s.cerevisiae/sacCer3/sacCer3.fa -bed Reb1_peaks.narrowPeak -fo Reb1_peaks.fasta</code></pre>
+<pre class="bash"><code>fastaFromBed -fi /homes/genomes/s.cerevisiae/sacCer3/sacCer3.fa -bed Reb1_peaks.narrowPeak -fo Reb1_peaks.fasta</code></pre>
 </div>
 <p>Now we can run <a href="http://meme-suite.org/">MEME</a> to discover sequence motifs within our data. The <strong>meme-chip</strong> tool is designed specifically for looking for motifs in ChIP-seq data:</p>
 <div class="blue">
