@@ -22,7 +22,7 @@ The [bamCoverage](https://deeptools.readthedocs.io/en/develop/content/tools/bamC
 
 <div class="blue">
 ```bash
-cat samples.txt | parallel -j 4 bamCoverage -bs 1 --normalizeUsing BPM -e 200 -b bwa_out/{}/{}.uniq.bam --outFileName bwa_out/{}/{}.uniq.bw
+cat samples.txt | parallel -j 4 "bamCoverage -bs 1 --normalizeUsing BPM -e 200 -b bwa_out/{}/{}.uniq.bam --outFileName bwa_out/{}/{}.uniq.bw"
 ```
 </div>
 

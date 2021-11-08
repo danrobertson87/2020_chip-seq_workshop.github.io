@@ -4,7 +4,7 @@
 ln -s $PWD ~/public_html/
 ##Create a folder for fastq files
 mkdir fastq
-##Link the raw data to the fastq folder
+##Copy the raw data to the fastq folder
 cp /homes/library/training/ChIP-seq_workshop/data/*fq.gz fastq/.
 
 ##QC

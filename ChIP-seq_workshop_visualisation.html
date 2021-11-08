@@ -288,7 +288,7 @@ $(document).ready(function () {
 <p>Visually inspecting data via a genome browser is often the first step in any analysis. Has the sequencing worked as expected? Are there noticeable differences between my samples by eye? BAM files are typically large and contain detailed information for every read, thus they are slow to access and view on a genome browser. If we are only interested in read profiles we can convert our BAM files to graphs of sequencing depth per base. The <strong>wiggle</strong> file format has three columns to represent a genomic interval and a 4th as a score which will represent the number of reads overlapping that region. We will create a compressed version of this format called <strong>bigWig</strong> for use with genome browsers. To do this we are going to use the <a href="https://deeptools.readthedocs.io">deepTools</a> package which has a lot of useful tools particularly for ChIP-seq analysis.</p>
 <p>The <a href="https://deeptools.readthedocs.io/en/develop/content/tools/bamCoverage.html">bamCoverage</a> tool in deepTools has many different options for normalising, smoothing and filtering your BAM files before converting to bigWig and the documentation is worth a read.</p>
 <div class="blue">
-<pre class="bash"><code>cat samples.txt | parallel -j 4 bamCoverage -bs 1 --normalizeUsing BPM -e 200 -b bwa_out/{}/{}.uniq.bam --outFileName bwa_out/{}/{}.uniq.bw</code></pre>
+<pre class="bash"><code>cat samples.txt | parallel -j 4 &quot;bamCoverage -bs 1 --normalizeUsing BPM -e 200 -b bwa_out/{}/{}.uniq.bam --outFileName bwa_out/{}/{}.uniq.bw&quot;</code></pre>
 </div>
 <ul>
 <li><strong>-bs</strong> is the bin size. We set this to 1, but we could smooth our read coverage into larger bins across the genome.</li>

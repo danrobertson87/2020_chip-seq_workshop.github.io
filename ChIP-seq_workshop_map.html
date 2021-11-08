@@ -304,7 +304,7 @@ cat samples.txt | parallel -j 4 mkdir bwa_out/{}</code></pre>
 </div>
 <p>Then run bwa on each of your samples. Note that we are redirecting the output to a file using <strong>&gt;</strong> so we put the full command in quotes for parallel to execute.</p>
 <div class="blue">
-<pre class="bash"><code>cat samples.txt | parallel -j 4 &quot;bwa mem -t 5 -a -R &#39;@RG\tID:{}\tPL:ILLUMINA&#39; -M /homes/genomes/s.cerevisiae/sacCer3/bwa_indexes/sacCer3 fastq/{}.trim.fq.gz </code></pre>
+<pre class="bash"><code>cat samples.txt | parallel -j 4 &quot;bwa mem -t 5 -a -R &#39;@RG\tID:{}\tPL:ILLUMINA&#39; -M /homes/genomes/s.cerevisiae/sacCer3/bwa_indexes/sacCer3 fastq/{}.trim.fq.gz &gt; bwa_out/{}/{}.sam&quot;</code></pre>
 </div>
 <p><br></p>
 <p>This is a good time to go make a <strong>coffee</strong>!</p>
