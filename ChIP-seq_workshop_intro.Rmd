@@ -24,20 +24,20 @@ We are using the Linux command line to run most of the tools we use today. If yo
 <br>
 
 ### Logging in
-We have several servers that you can login to. For the purpose of this practical we will use bifx-rta. No matter where you login, you will have access to the same files and programs. bifx-core2 is also available, both bifx-rta and bifx-core2 require you to use a VPN.
+We have several servers that you can login to. For the purpose of this practical we will use bifx-core2. No matter where you login, you will have access to the same files and programs. bifx-core3 is also available, both bifx-core2 and bifx-core3 require you to use a VPN.
 
 There are several options to login to our machines. You can use the **Terminal** app on a Mac or equivalant **Command Prompt** or MobaXTerm on Windows. Login via **X2G0** if you want a graphical interface. 
 
 To login via command line: 
-ssh USER@bifx-rta.bio.ed.ac.uk
+ssh USER@bifx-core2.bio.ed.ac.uk
 
-Login with your user credentials for our servers (not the same as EASE)
+Login with your user credentials (the same as EASE)
 
 If you are using MobaXTerm, an alternative way of logging in to the server is shown in the MobaXTerm demo.
 
 Once you have typed in your password, you should see some welcome text and a prompt that looks something like this:
 
-[USERNAME]@bifx-rta:~$
+[USERNAME]@bifx-core2:~$
 
 <!--Alternatively you can use **RStudio** which is an environment built for R programming but also gives you access to the command line terminal, your file structure and several other graphical features. 
 
