@@ -288,11 +288,12 @@ $(document).ready(function () {
 <div id="more-scripting" class="section level3">
 <h3>More Scripting</h3>
 <p>First we want to create a new script for the analysis part of the exercise and we can save all new commands in here. We’ll start by creating and opening a new file called <strong>analysis.sh</strong>. The .sh stands for shell which is essentially just a name for the command line environment. Here we won’t be using parallel.</p>
-<pre class="bash"><code>emacs -nw analysish</code></pre>
+<pre class="bash"><code>emacs -nw analysis.sh</code></pre>
 <p><strong>Emacs</strong> is a Unix text editor and the -nw flag opens a new window for editing. Here we are going to paste all of the commands as we go (click the mouse wheel to paste in the terminal):</p>
 <p>The <strong>#</strong> symbol indicates a comment line and anything proceeded by a # will not be run by the command line. It is good practice to comment your code. Try adding some comments.</p>
 <p>To save and exit the file press <strong>ctrl-x</strong>, followed by <strong>ctrl-c</strong> and then <strong>y</strong> to save.</p>
 <p>Although shell scripts save all of your commands they do not necessarily track the versions of software that you use or the current state of your environment and other tool dependencies. More advanced methods of <em>pipelining</em> and <em>containerisation</em> are recommended for fully reproducible analysis and sustainable programming.</p>
+<p><br></p>
 </div>
 <div id="correlation-amongst-samples" class="section level3">
 <h3>Correlation amongst samples</h3>

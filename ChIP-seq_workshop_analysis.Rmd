@@ -23,7 +23,7 @@ After we have mapped and filtered the reads it is time to make some inferences a
 First we want to create a new script for the analysis part of the exercise and we can save all new commands in here. We'll start by creating and opening a new file called **analysis.sh**. The .sh stands for shell which is essentially just a name for the command line environment. Here we won't be using parallel.
 
 ```bash
-emacs -nw analysish
+emacs -nw analysis.sh
 ```
 **Emacs** is a Unix text editor and the -nw flag opens a new window for editing. Here we are going to paste all of the commands as we go (click the mouse wheel to paste in the terminal):
 
@@ -32,6 +32,8 @@ The **#** symbol indicates a comment line and anything proceeded by a # will not
 To save and exit the file press **ctrl-x**, followed by **ctrl-c** and then **y** to save.
 
 Although shell scripts save all of your commands they do not necessarily track the versions of software that you use or the current state of your environment and other tool dependencies. More advanced methods of *pipelining* and *containerisation* are recommended for fully reproducible analysis and sustainable programming.
+
+<br>
 
 ### Correlation amongst samples
 
