@@ -13,8 +13,8 @@
 
 <title>Analysis</title>
 
-<script src="site_libs/header-attrs-2.11/header-attrs.js"></script>
-<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="site_libs/header-attrs-2.8/header-attrs.js"></script>
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/yeti.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
@@ -285,10 +285,17 @@ $(document).ready(function () {
 <p>After we have mapped and filtered the reads it is time to make some inferences about how good the underlying data is.</p>
 <p><br></p>
 </div>
+<div id="more-scripting" class="section level3">
+<h3>More Scripting</h3>
+<p>First we want to create a new script for the analysis part of the exercise and we can save all new commands in here. We’ll start by creating and opening a new file called <strong>analysis.sh</strong>. The .sh stands for shell which is essentially just a name for the command line environment. Here we won’t be using parallel.</p>
+<pre class="bash"><code>emacs -nw analysish</code></pre>
+<p><strong>Emacs</strong> is a Unix text editor and the -nw flag opens a new window for editing. Here we are going to paste all of the commands as we go (click the mouse wheel to paste in the terminal):</p>
+<p>The <strong>#</strong> symbol indicates a comment line and anything proceeded by a # will not be run by the command line. It is good practice to comment your code. Try adding some comments.</p>
+<p>To save and exit the file press <strong>ctrl-x</strong>, followed by <strong>ctrl-c</strong> and then <strong>y</strong> to save.</p>
+<p>Although shell scripts save all of your commands they do not necessarily track the versions of software that you use or the current state of your environment and other tool dependencies. More advanced methods of <em>pipelining</em> and <em>containerisation</em> are recommended for fully reproducible analysis and sustainable programming.</p>
+</div>
 <div id="correlation-amongst-samples" class="section level3">
 <h3>Correlation amongst samples</h3>
-<p>First we want to create a new script for the analysis part of the exercise and we can save all new commands in here. The <strong>touch</strong> command creates a new file without opening it.</p>
-<pre class="bash"><code>touch analysis.sh</code></pre>
 <p>In our experiment there are two replicates, each containing treatment and input (control) datasets. The first thing we can check is if the samples are correlated (in other words if treatment and control samples across the two replicates contain this same kind of signal). To do this we first generate a read count matrix using <a href="https://deeptools.readthedocs.io/en/develop/content/tools/multiBamSummary.html">deepTools multiBamSummary</a>. It will take around 5 minutes to complete so it’s best to set it running and read on.</p>
 <div class="blue">
 <pre class="bash"><code>multiBamSummary bins -b bwa_out/*/*uniq.bam -bs 10000 -o cov.matrix -e 200 --smartLabels</code></pre>
@@ -314,9 +321,9 @@ chrVI   40000    50000 7447.0        139.0         7.0     2645.0</code></pre>
 <p><img src="images/dt_fingerhelp.png" width=700></p>
 <p>We can apply this to our own data with <strong>DeepTools plotFingerprint</strong>:</p>
 <div class="blue">
-<pre class="bash"><code>#plotFingerprint -b bwa_out/*/*uniq.bam -e 200 --smartLabels -o fingerprint.png </code></pre>
+<pre class="bash"><code>plotFingerprint -b bwa_out/*/*uniq.bam -e 200 --smartLabels -o fingerprint.png &amp;</code></pre>
 </div>
-<p>The fingerprint tool can take a long time to run so we will leave this out for now and continue with the tutorial. However, You should get a plot that looks like the one below where approximately 30% of the ChIP reads are concentrated in to a small number of bins.</p>
+<p>The fingerprint tool can take a long time to run so we will run in the background (&amp;) and continue with the tutorial. However, You should get a plot that looks like the one below where approximately 30% of the ChIP reads are concentrated in to a small number of bins.</p>
 <p><img src="images/dt_fingerplot.png" width=700></p>
 <p><br></p>
 </div>

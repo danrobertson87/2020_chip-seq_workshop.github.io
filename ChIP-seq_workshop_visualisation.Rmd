@@ -32,21 +32,29 @@ cat samples.txt | parallel -j 4 "bamCoverage -bs 1 --normalizeUsing BPM -e 200 -
 
 <br>
 
-### 9. Finish your script 
+### 9. Scripting
+
+Putting all of your commands into a script is good practice for keeping track of your analyses and for reproducibility. We want to write scripts so they can be used again on different datasets and avoid *hardcoding* the names of files.
 
 We now have our alignments (BAM) and visualisation files (bigWig) and this is normally a branching point for downstream analyses that quantify and annotate the data.  
 
-Your pipeline.sh script should look something like [this](http://bifx-core.bio.ed.ac.uk/training/ChIP-seq_workshop/pipeline.sh) and we can run everything from start to end in one go.
+Here is a pipeline containing everything we have run so far; [pipeline.sh](http://bifx-core.bio.ed.ac.uk/training/ChIP-seq_workshop/pipeline.sh)
+
+Looking at this pipeline script you'll notice we are not running parallel every time we run a command, instead we launch the script
+using parallel and the sample names are passed using the special '$1' bash variable. This is more efficient as the samples will run through each command independently.
+
+Using this we can re-run everything from start to end in one go.
 
 ```bash
 mkdir CS_workshop_tmp #Create a temporary directory
 cd CS_workshop_tmp #Move into that directory
-cp ../pipeline.sh ../samples.txt . #Copy the pipeline and samples file into the new directory
-nohup sh pipeline.sh > pipeline.log & #Run the shell script (See Below)
+cp /homes/library/training/ChIP-seq_workshop/pipeline.sh . # Copy the pipeline into the new directory
+cp ../samples.txt . #Copy the samples file
+nohup cat samples.txt | parallel -j 4 bash pipeline.sh {} > pipeline.log & #Run the shell script (See Below) 
 cd .. #Move back to the main directory
 ```
 * The **nohup** command stands for *no hangup* and keeps the process running even if you log out of your command line session. 
-* We use the tool **sh** and the name of our script to run our commands through the shell. 
+* We use the tool **bash** and the name of our script to run our commands through the shell ('sh' will also work). 
 * We then redirect **>** the output to a log file to keep track of any errors.
 * We use the **&** to run everything in the background to continue using the terminal.
 
@@ -57,6 +65,11 @@ ps f
 tail CS_workshop_tmp/pipeline.log #Shows the end of a file
 ```
 
+Note any commands run on multiply samples will need to run separately (after pipeline finished)
+```bash
+multiqc CS_workshop_tmp/fastq -o CS_workshop_tmp/fastq
+multiqc CS_workshop_tmp/cutadapt -o CS_workshop_tmp/cutadapt
+```
 <br>
 
 ### Tidy Up! 

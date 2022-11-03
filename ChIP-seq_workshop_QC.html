@@ -13,8 +13,8 @@
 
 <title>Quality Control</title>
 
-<script src="site_libs/header-attrs-2.11/header-attrs.js"></script>
-<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="site_libs/header-attrs-2.8/header-attrs.js"></script>
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/yeti.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
@@ -330,9 +330,9 @@ fastq_screen --conf /homes/genomes/tool_configs/fastq_screen/fastq_screen.conf f
 <p>If we look at the <em>adapter content</em> and <em>over represented sequences</em> sections we can see a small amount of contamination particularly in the second replicates.</p>
 <p><br></p>
 </div>
-<div id="shell-scripts-pipelining-and-parallelisation" class="section level3">
-<h3>4. Shell scripts, pipelining and parallelisation</h3>
-<p>Up until now we have run command line tools on each one of our datasets in serial, this means they run one after the other. In this tutorial we only have a few small datasets and the tools run relatively quickly, but this approach won’t scale well to multiple large datasets. A more efficient approach is to create a <strong>script</strong> that will run all of our datasets in <strong>parallel</strong>.</p>
+<div id="parallelisation" class="section level3">
+<h3>4. Parallelisation</h3>
+<p>Up until now we have run command line tools on each one of our datasets in serial, this means they run one after the other. In this tutorial we only have a few small datasets and the tools run relatively quickly, but this approach won’t scale well to multiple large datasets. A more efficient approach is to run all of our datasets in <strong>parallel</strong>, later we will create a <strong>script</strong>.</p>
 <p><br></p>
 </div>
 <div id="parallel" class="section level3">
@@ -348,36 +348,8 @@ ps f</code></pre>
 <li><em>ps</em> is the <em>process status</em> tool which shows jobs running in the current session, we should see 4 instances of fastqc running.</li>
 </ul>
 <p><br></p>
-</div>
-<div id="shell-scripts" class="section level3">
-<h3>Shell scripts</h3>
-<p>Putting all of your commands into a script is good practice for keeping track of your analyses and for reproducibility. We want to write scripts so they can be used again on different datasets and avoid <em>hardcoding</em> the names of files.</p>
-<p>First, let’s create a file that lists our sample names so we can feed this into our pipeline. We could just type this manually or use a bit of text processing like the code below, here fastq files are ‘piped’ into parallel as above but we use regular expression within ‘sed’ to remove the name ending, this can now be used to name all files.</p>
+<p>First, let’s create a file that lists our sample names so we can feed this into parallel. We could just type this manually, but here fastq files are ‘piped’ into parallel as above but we use regular expression within ‘sed’ to remove the name ending, this can now be used to name all files.</p>
 <pre class="bash"><code>ls fastq/*fq.gz | parallel basename | sed s/.fq.gz// &gt; samples.txt</code></pre>
-<p>Now let’s create our pipeline script. We’ll start by creating and opening a new file called <strong>pipeline.sh</strong>. The .sh stands for shell which is essentially just a name for the command line environment.</p>
-<pre class="bash"><code>emacs -nw pipeline.sh</code></pre>
-<p><strong>Emacs</strong> is a Unix text editor and the -nw flag opens a new window for editing. Here we are going to paste all of the commands we have used so far (click the mouse wheel to paste in the terminal):</p>
-<pre><code>##PREPARATION
-
-##Create a web directory to view output                         
-ln -s $PWD ~/public_html/
-##Create a folder for fastq files
-mkdir fastq
-##Copy the raw data to the fastq folder
-cp /homes/library/training/ChIP-seq_workshop/data/*fq.gz fastq/.
-
-##QC
-
-##FastQ Screen
-fastq_screen --conf /homes/genomes/tool_configs/fastq_screen/fastq_screen.conf fastq/*fq.gz --outdir fastq
-
-##FastQC
-fastqc fastq/*.fq.gz
-##Multi QC
-multiqc -o fastq fastq
-
-##PREPROCESSING </code></pre>
-<p>The <strong>#</strong> symbol indicates a comment line and anything preceeded by a # will not be run by the command line. It is good practice to comment your code.</p>
 <p><br></p>
 ###Challenge
 <div class="challenge">
@@ -399,10 +371,6 @@ Solution
 </div>
 </details>
 </div>
-<p><br></p>
-<p>To save and exit the file press <strong>ctrl-x</strong>, followed by <strong>ctrl-c</strong> and then <strong>y</strong> to save.</p>
-<p>Let’s move on with our ChIP-seq analysis. Everytime we run a tool that creates new output we should add it to our pipeline.sh file. We will learn how to run this script and the full analysis in one go later on.</p>
-<p>Although shell scripts save all of your commands they do not necessarily track the versions of software that you use or the current state of your environment and other tool dependencies. More advanced methods of <em>pipelining</em> and <em>containerisation</em> are recommended for fully reproducible analysis and sustainable programming.</p>
 <p><br></p>
 </div>
 <div id="pre-processing-quality-trimming-and-adapter-removal" class="section level3">
@@ -430,12 +398,12 @@ cat samples.txt | parallel -j 4 fastqc fastq/{}.trim.fq.gz</code></pre>
 </div>
 <p>To view a cutadapt report:</p>
 <pre class="bash"><code>less fastq/Reb1_R1.trim.cutadapt_report.txt</code></pre>
+<p>hit ‘q’ to exit less.</p>
 <p>Let’s compare the fastqc reports using <a href="http://multiqc.info/">multiqc</a>. As you have run it already you need to use the force (-f) flag to get it to overwrite the current report.</p>
 <div class="blue">
 <pre class="bash"><code>multiqc -f -o fastq fastq</code></pre>
 </div>
 <p>Open the multiqc report via a web browser to see how the raw and trimmed datasets compare.</p>
-<p>Remember to add the cutadapt, fastqc and multiqc steps to your <strong>pipeline.sh</strong> file.</p>
 <p><br></p>
 </div>
 <div id="other-qc-software-worth-investigating" class="section level3">
@@ -453,7 +421,7 @@ cat samples.txt | parallel -j 4 fastqc fastq/{}.trim.fq.gz</code></pre>
 <ul>
 <li>Check for contaminants</li>
 <li>Asses sequence quality</li>
-<li>Understand scripting</li>
+<li>Understand parallel</li>
 <li>Trim your data</li>
 </ul>
 </div>

@@ -18,13 +18,22 @@ After we have mapped and filtered the reads it is time to make some inferences a
 
 <br>
 
-### Correlation amongst samples
+### More Scripting
 
-First we want to create a new script for the analysis part of the exercise and we can save all new commands in here. The **touch** command creates a new file without opening it.
+First we want to create a new script for the analysis part of the exercise and we can save all new commands in here. We'll start by creating and opening a new file called **analysis.sh**. The .sh stands for shell which is essentially just a name for the command line environment. Here we won't be using parallel.
 
 ```bash
-touch analysis.sh
+emacs -nw analysish
 ```
+**Emacs** is a Unix text editor and the -nw flag opens a new window for editing. Here we are going to paste all of the commands as we go (click the mouse wheel to paste in the terminal):
+
+The **#** symbol indicates a comment line and anything proceeded by a # will not be run by the command line. It is good practice to comment your code. Try adding some comments.
+
+To save and exit the file press **ctrl-x**, followed by **ctrl-c** and then **y** to save.
+
+Although shell scripts save all of your commands they do not necessarily track the versions of software that you use or the current state of your environment and other tool dependencies. More advanced methods of *pipelining* and *containerisation* are recommended for fully reproducible analysis and sustainable programming.
+
+### Correlation amongst samples
 
 In our experiment there are two replicates, each containing treatment and input (control) datasets. The first thing we can check is if the samples are correlated (in other words if treatment and control samples across the two replicates contain this same kind of signal). To do this we first generate a read count matrix using [deepTools multiBamSummary](https://deeptools.readthedocs.io/en/develop/content/tools/multiBamSummary.html). It will take around 5 minutes to complete so it's best to set it running and read on. 
 
@@ -70,11 +79,11 @@ We can apply this to our own data with **DeepTools plotFingerprint**:
 
 <div class="blue">
 ```bash
-#plotFingerprint -b bwa_out/*/*uniq.bam -e 200 --smartLabels -o fingerprint.png 
+plotFingerprint -b bwa_out/*/*uniq.bam -e 200 --smartLabels -o fingerprint.png &
 ```
 </div>
 
-The fingerprint tool can take a long time to run so we will leave this out for now and continue with the tutorial. However, You should get a plot that looks like the one below where approximately 30% of the ChIP reads are concentrated in to a small number of bins.
+The fingerprint tool can take a long time to run so we will run in the background (&) and continue with the tutorial. However, You should get a plot that looks like the one below where approximately 30% of the ChIP reads are concentrated in to a small number of bins.
 
 <img src="images/dt_fingerplot.png" width=700>
 

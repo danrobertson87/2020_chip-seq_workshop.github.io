@@ -74,7 +74,7 @@ As you have created  ~/public_html, contents of this directory are available onl
 
 To see it enter the following URL, changing yourUserName to what ever your username is. 
 
-http://bifx-core.bio.ed.ac.uk/~yourUserName
+http://bifx-core3.bio.ed.ac.uk/~yourUserName
 
 <br>
 

@@ -13,8 +13,8 @@
 
 <title>Visualisation</title>
 
-<script src="site_libs/header-attrs-2.11/header-attrs.js"></script>
-<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="site_libs/header-attrs-2.8/header-attrs.js"></script>
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/yeti.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
@@ -297,24 +297,31 @@ $(document).ready(function () {
 </ul>
 <p><br></p>
 </div>
-<div id="finish-your-script" class="section level3">
-<h3>9. Finish your script</h3>
+<div id="scripting" class="section level3">
+<h3>9. Scripting</h3>
+<p>Putting all of your commands into a script is good practice for keeping track of your analyses and for reproducibility. We want to write scripts so they can be used again on different datasets and avoid <em>hardcoding</em> the names of files.</p>
 <p>We now have our alignments (BAM) and visualisation files (bigWig) and this is normally a branching point for downstream analyses that quantify and annotate the data.</p>
-<p>Your pipeline.sh script should look something like <a href="http://bifx-core.bio.ed.ac.uk/training/ChIP-seq_workshop/pipeline.sh">this</a> and we can run everything from start to end in one go.</p>
+<p>Here is a pipeline containing everything we have run so far; <a href="http://bifx-core.bio.ed.ac.uk/training/ChIP-seq_workshop/pipeline.sh">pipeline.sh</a></p>
+<p>Looking at this pipeline script you’ll notice we are not running parallel every time we run a command, instead we launch the script using parallel and the sample names are passed using the special ‘$1’ bash variable. This is more efficient as the samples will run through each command independently.</p>
+<p>Using this we can re-run everything from start to end in one go.</p>
 <pre class="bash"><code>mkdir CS_workshop_tmp #Create a temporary directory
 cd CS_workshop_tmp #Move into that directory
-cp ../pipeline.sh ../samples.txt . #Copy the pipeline and samples file into the new directory
-nohup sh pipeline.sh &gt; pipeline.log &amp; #Run the shell script (See Below)
+cp /homes/library/training/ChIP-seq_workshop/pipeline.sh . # Copy the pipeline into the new directory
+cp ../samples.txt . #Copy the samples file
+nohup cat samples.txt | parallel -j 4 bash pipeline.sh {} &gt; pipeline.log &amp; #Run the shell script (See Below) 
 cd .. #Move back to the main directory</code></pre>
 <ul>
 <li>The <strong>nohup</strong> command stands for <em>no hangup</em> and keeps the process running even if you log out of your command line session.</li>
-<li>We use the tool <strong>sh</strong> and the name of our script to run our commands through the shell.</li>
+<li>We use the tool <strong>bash</strong> and the name of our script to run our commands through the shell (‘sh’ will also work).</li>
 <li>We then redirect <strong>&gt;</strong> the output to a log file to keep track of any errors.</li>
 <li>We use the <strong>&amp;</strong> to run everything in the background to continue using the terminal.</li>
 </ul>
 <p>You can keep track of your pipeline by using <strong>ps</strong> or looking at the log file.</p>
 <pre class="bash"><code>ps f
 tail CS_workshop_tmp/pipeline.log #Shows the end of a file</code></pre>
+<p>Note any commands run on multiply samples will need to run separately (after pipeline finished)</p>
+<pre class="bash"><code>multiqc CS_workshop_tmp/fastq -o CS_workshop_tmp/fastq
+multiqc CS_workshop_tmp/cutadapt -o CS_workshop_tmp/cutadapt</code></pre>
 <p><br></p>
 </div>
 <div id="tidy-up" class="section level3">

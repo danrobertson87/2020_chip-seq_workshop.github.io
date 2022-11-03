@@ -55,7 +55,8 @@ cat samples.txt | parallel -j 4 "bwa mem -t 5 -a -R '@RG\tID:{}\tPL:ILLUMINA' -M
 
 <br>
 
-This is a good time to go make a **coffee**!
+This will take slightly longer to run.
+<!--This is a good time to go make a **coffee**! -->
 
 <br>
 

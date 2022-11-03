@@ -91,9 +91,9 @@ If we look at the *adapter content* and *over represented sequences* sections we
 
 <br>
 
-### 4. Shell scripts, pipelining and parallelisation
+### 4. Parallelisation
 
-Up until now we have run command line tools on each one of our datasets in serial, this means they run one after the other. In this tutorial we only have a few small datasets and the tools run relatively quickly, but this approach won't scale well to multiple large datasets. A more efficient approach is to create a **script** that will run all of our datasets in **parallel**.
+Up until now we have run command line tools on each one of our datasets in serial, this means they run one after the other. In this tutorial we only have a few small datasets and the tools run relatively quickly, but this approach won't scale well to multiple large datasets. A more efficient approach is to run all of our datasets in **parallel**, later we will create a **script**. 
 
 <br>
 
@@ -113,47 +113,11 @@ ps f
 
 <br>
 
-### Shell scripts
-
-Putting all of your commands into a script is good practice for keeping track of your analyses and for reproducibility. We want to write scripts so they can be used again on different datasets and avoid *hardcoding* the names of files.
-
-First, let's create a file that lists our sample names so we can feed this into our pipeline. We could just type this manually or use a bit of text processing like the code below, here fastq files are 'piped' into parallel as above but we use regular expression within 'sed' to remove the name ending, this can now be used to name all files.
+First, let's create a file that lists our sample names so we can feed this into parallel. We could just type this manually, but here fastq files are 'piped' into parallel as above but we use regular expression within 'sed' to remove the name ending, this can now be used to name all files.
 
 ```bash
 ls fastq/*fq.gz | parallel basename | sed s/.fq.gz// > samples.txt
 ```
-
-Now let's create our pipeline script. We'll start by creating and opening a new file called **pipeline.sh**. The .sh stands for shell which is essentially just a name for the command line environment.
-
-```bash
-emacs -nw pipeline.sh
-```
-**Emacs** is a Unix text editor and the -nw flag opens a new window for editing. Here we are going to paste all of the commands we have used so far (click the mouse wheel to paste in the terminal):
-
-~~~
-##PREPARATION
-
-##Create a web directory to view output                         
-ln -s $PWD ~/public_html/
-##Create a folder for fastq files
-mkdir fastq
-##Copy the raw data to the fastq folder
-cp /homes/library/training/ChIP-seq_workshop/data/*fq.gz fastq/.
-
-##QC
-
-##FastQ Screen
-fastq_screen --conf /homes/genomes/tool_configs/fastq_screen/fastq_screen.conf fastq/*fq.gz --outdir fastq
-
-##FastQC
-fastqc fastq/*.fq.gz
-##Multi QC
-multiqc -o fastq fastq
-
-##PREPROCESSING 
-~~~
-
-The **#** symbol indicates a comment line and anything preceeded by a # will not be run by the command line. It is good practice to comment your code.
 
 <br>
 
@@ -175,13 +139,6 @@ Solution
 </div>
 </details>
 </div>
-<br>
-
-To save and exit the file press **ctrl-x**, followed by **ctrl-c** and then **y** to save.
-
-Let's move on with our ChIP-seq analysis. Everytime we run a tool that creates new output we should add it to our pipeline.sh file. We will learn how to run this script and the full analysis in one go later on.
-
-Although shell scripts save all of your commands they do not necessarily track the versions of software that you use or the current state of your environment and other tool dependencies. More advanced methods of *pipelining* and *containerisation* are recommended for fully reproducible analysis and sustainable programming.
 
 <br>
 
@@ -224,6 +181,8 @@ To view a cutadapt report:
 less fastq/Reb1_R1.trim.cutadapt_report.txt
 ```
 
+hit 'q' to exit less.
+
 Let's compare the fastqc reports using [multiqc](http://multiqc.info/). As you have run it already you need to use the force (-f) flag to get it to overwrite the current report.
 
 <div class="blue">
@@ -233,9 +192,6 @@ multiqc -f -o fastq fastq
 </div>
 
 Open the multiqc report via a web browser to see how the raw and trimmed datasets compare.
-
-Remember to add the cutadapt, fastqc and multiqc steps to your **pipeline.sh** file.
-
 
 <br>
 
@@ -249,7 +205,7 @@ Remember to add the cutadapt, fastqc and multiqc steps to your **pipeline.sh** f
 ##
  * Check for contaminants
  * Asses sequence quality
- * Understand scripting
+ * Understand parallel
  * Trim your data
 </div>
 <br>
