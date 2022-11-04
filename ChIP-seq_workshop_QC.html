@@ -351,7 +351,6 @@ ps f</code></pre>
 <p>First, let’s create a file that lists our sample names so we can feed this into parallel. We could just type this manually, but here fastq files are ‘piped’ into parallel as above but we use regular expression within ‘sed’ to remove the name ending, this can now be used to name all files.</p>
 <pre class="bash"><code>ls fastq/*fq.gz | parallel basename | sed s/.fq.gz// &gt; samples.txt</code></pre>
 <p><br></p>
-###Challenge
 <div class="challenge">
 <h2>
 <i class="fas fa-pencil-alt"></i> Challenge:
