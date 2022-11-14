@@ -76,6 +76,9 @@ To see it enter the following URL, changing yourUserName to what ever your usern
 
 http://bifx-core3.bio.ed.ac.uk/~yourUserName
 
+For new users this will be;
+https://bifx-core3.bio.ed.ac.uk/Public/yourUserName
+
 <br>
 
 ### 2. ChIP-seq sequencing data
