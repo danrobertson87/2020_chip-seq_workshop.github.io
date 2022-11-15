@@ -235,7 +235,7 @@ In this experiment antibodies against Reb1 protein have been used for immunoprec
 
 <div class="blue">
 ```bash
-fastaFromBed -fi /homes/genomes/s.cerevisiae/sacCer3/sacCer3.fa -bed Reb1_peaks.narrowPeak -fo Reb1_peaks.fasta
+bedtools getfasta -fi /homes/genomes/s.cerevisiae/sacCer3/sacCer3.fa -bed Reb1_peaks.narrowPeak -fo Reb1_peaks.fasta &
 ```
 </div>
 

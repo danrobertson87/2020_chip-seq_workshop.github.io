@@ -426,7 +426,7 @@ Reveal Plot
 <h3>What sequence motifs are found within peaks?</h3>
 <p>In this experiment antibodies against Reb1 protein have been used for immunoprecipitaion. The recognition site for Reb1 is TTACCCG (<a href="http://www.sciencedirect.com/science/article/pii/S1097276508008423">Badis:2008</a>). To find out which sequence motifs are found within our peaks we first need to convert coordinates into underlying sequences. The <a href="https://bedtools.readthedocs.io/">bedTools</a> suite has a tool to do this.</p>
 <div class="blue">
-<pre class="bash"><code>fastaFromBed -fi /homes/genomes/s.cerevisiae/sacCer3/sacCer3.fa -bed Reb1_peaks.narrowPeak -fo Reb1_peaks.fasta</code></pre>
+<pre class="bash"><code>bedtools getfasta -fi /homes/genomes/s.cerevisiae/sacCer3/sacCer3.fa -bed Reb1_peaks.narrowPeak -fo Reb1_peaks.fasta &amp;</code></pre>
 </div>
 <p>Now we can run <a href="http://meme-suite.org/">MEME</a> to discover sequence motifs within our data. The <strong>meme-chip</strong> tool is designed specifically for looking for motifs in ChIP-seq data:</p>
 <div class="blue">
