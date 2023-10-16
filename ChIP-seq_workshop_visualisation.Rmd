@@ -62,13 +62,12 @@ You can keep track of your pipeline by using **ps** or looking at the log file.
 
 ```bash
 ps f
-tail CS_workshop_tmp/pipeline.log #Shows the end of a file
+tail CS_workshop_tmp/pipeline.log # Shows the end of a file
 ```
 
 Note any commands run on multiple samples will need be to run separately (after pipeline finished)
 ```bash
 multiqc CS_workshop_tmp/fastq -o CS_workshop_tmp/fastq
-multiqc CS_workshop_tmp/cutadapt -o CS_workshop_tmp/cutadapt
 ```
 <br>
 

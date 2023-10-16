@@ -13,8 +13,8 @@
 
 <title>Visualisation</title>
 
-<script src="site_libs/header-attrs-2.8/header-attrs.js"></script>
-<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<script src="site_libs/header-attrs-2.24/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/yeti.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
@@ -59,6 +59,7 @@ if (window.hljs) {
 
 
 
+
 <link rel="stylesheet" href="style.css" type="text/css" />
 
 
@@ -83,6 +84,9 @@ button.code-folding-btn:focus {
 }
 summary {
   display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
 }
 pre code {
   padding: 0;
@@ -140,11 +144,15 @@ $(document).ready(function () {
     href = "index.html";
   var menuAnchor = $('a[href="' + href + '"]');
 
-  // mark it active
-  menuAnchor.tab('show');
-
-  // if it's got a parent navbar menu mark it active as well
-  menuAnchor.closest('li.dropdown').addClass('active');
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
 
   // Navbar adjustments
   var navHeight = $(".navbar").first().height() + 15;
@@ -173,8 +181,8 @@ $(document).ready(function () {
   border-radius: 4px;
 }
 
-.tabset-dropdown > .nav-tabs > li.active:before {
-  content: "";
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
   font-family: 'Glyphicons Halflings';
   display: inline-block;
   padding: 10px;
@@ -182,16 +190,9 @@ $(document).ready(function () {
 }
 
 .tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
-  content: "&#xe258;";
-  border: none;
-}
-
-.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
-  content: "";
+  content: "\e258";
   font-family: 'Glyphicons Halflings';
-  display: inline-block;
-  padding: 10px;
-  border-right: 1px solid #ddd;
+  border: none;
 }
 
 .tabset-dropdown > .nav-tabs > li.active {
@@ -235,7 +236,7 @@ $(document).ready(function () {
 <div class="navbar navbar-default  navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
@@ -285,24 +286,57 @@ $(document).ready(function () {
 </div>
 <div id="converting-bam-files-to-bigwig" class="section level3">
 <h3>Converting BAM files to bigWig</h3>
-<p>Visually inspecting data via a genome browser is often the first step in any analysis. Has the sequencing worked as expected? Are there noticeable differences between my samples by eye? BAM files are typically large and contain detailed information for every read, thus they are slow to access and view on a genome browser. If we are only interested in read profiles we can convert our BAM files to graphs of sequencing depth per base. The <strong>wiggle</strong> file format has three columns to represent a genomic interval and a 4th as a score which will represent the number of reads overlapping that region. We will create a compressed version of this format called <strong>bigWig</strong> for use with genome browsers. To do this we are going to use the <a href="https://deeptools.readthedocs.io">deepTools</a> package which has a lot of useful tools particularly for ChIP-seq analysis.</p>
-<p>The <a href="https://deeptools.readthedocs.io/en/develop/content/tools/bamCoverage.html">bamCoverage</a> tool in deepTools has many different options for normalising, smoothing and filtering your BAM files before converting to bigWig and the documentation is worth a read.</p>
+<p>Visually inspecting data via a genome browser is often the first step
+in any analysis. Has the sequencing worked as expected? Are there
+noticeable differences between my samples by eye? BAM files are
+typically large and contain detailed information for every read, thus
+they are slow to access and view on a genome browser. If we are only
+interested in read profiles we can convert our BAM files to graphs of
+sequencing depth per base. The <strong>wiggle</strong> file format has
+three columns to represent a genomic interval and a 4th as a score which
+will represent the number of reads overlapping that region. We will
+create a compressed version of this format called
+<strong>bigWig</strong> for use with genome browsers. To do this we are
+going to use the <a
+href="https://deeptools.readthedocs.io">deepTools</a> package which has
+a lot of useful tools particularly for ChIP-seq analysis.</p>
+<p>The <a
+href="https://deeptools.readthedocs.io/en/develop/content/tools/bamCoverage.html">bamCoverage</a>
+tool in deepTools has many different options for normalising, smoothing
+and filtering your BAM files before converting to bigWig and the
+documentation is worth a read.</p>
 <div class="blue">
 <pre class="bash"><code>cat samples.txt | parallel -j 4 &quot;bamCoverage -bs 1 --normalizeUsing BPM -e 200 -b bwa_out/{}/{}.uniq.bam --outFileName bwa_out/{}/{}.uniq.bw&quot;</code></pre>
 </div>
 <ul>
-<li><strong>-bs</strong> is the bin size. We set this to 1, but we could smooth our read coverage into larger bins across the genome.</li>
-<li><strong>–normalizeUsing BPM</strong> is a normalisation strategy akin to TPM in RNA-seq and stands for “bins per million”. There are several strategies to choose or we can ignore normalisation.</li>
-<li><strong>-e 200</strong> extends our reads to 200b as this is the average fragment length. With paired end data the reads would be extended to match the ends of both reads but with single end we must supply a value.</li>
+<li><strong>-bs</strong> is the bin size. We set this to 1, but we could
+smooth our read coverage into larger bins across the genome.</li>
+<li><strong>–normalizeUsing BPM</strong> is a normalisation strategy
+akin to TPM in RNA-seq and stands for “bins per million”. There are
+several strategies to choose or we can ignore normalisation.</li>
+<li><strong>-e 200</strong> extends our reads to 200b as this is the
+average fragment length. With paired end data the reads would be
+extended to match the ends of both reads but with single end we must
+supply a value.</li>
 </ul>
 <p><br></p>
 </div>
 <div id="scripting" class="section level3">
 <h3>9. Scripting</h3>
-<p>Putting all of your commands into a script is good practice for keeping track of your analyses and for reproducibility. We want to write scripts so they can be used again on different datasets and avoid <em>hardcoding</em> the names of files.</p>
-<p>We now have our alignments (BAM) and visualisation files (bigWig) and this is normally a branching point for downstream analyses that quantify and annotate the data.</p>
-<p>Here is a pipeline containing everything we have run so far; <a href="http://bifx-core.bio.ed.ac.uk/training/ChIP-seq_workshop/pipeline.sh">pipeline.sh</a></p>
-<p>Looking at this pipeline script you’ll notice we are not running parallel every time we run a command, instead we launch the script using parallel and the sample names are passed using the special ‘$1’ bash variable. This is more efficient as the samples will run through each command independently.</p>
+<p>Putting all of your commands into a script is good practice for
+keeping track of your analyses and for reproducibility. We want to write
+scripts so they can be used again on different datasets and avoid
+<em>hardcoding</em> the names of files.</p>
+<p>We now have our alignments (BAM) and visualisation files (bigWig) and
+this is normally a branching point for downstream analyses that quantify
+and annotate the data.</p>
+<p>Here is a pipeline containing everything we have run so far; <a
+href="http://bifx-core.bio.ed.ac.uk/training/ChIP-seq_workshop/pipeline.sh">pipeline.sh</a></p>
+<p>Looking at this pipeline script you’ll notice we are not running
+parallel every time we run a command, instead we launch the script using
+parallel and the sample names are passed using the special ‘$1’ bash
+variable. This is more efficient as the samples will run through each
+command independently.</p>
 <p>Using this we can re-run everything from start to end in one go.</p>
 <pre class="bash"><code>mkdir CS_workshop_tmp #Create a temporary directory
 cd CS_workshop_tmp #Move into that directory
@@ -311,22 +345,32 @@ cp ../samples.txt . #Copy the samples file
 nohup cat samples.txt | parallel -j 4 bash pipeline.sh {} &gt; pipeline.log &amp; #Run the shell script (See Below) 
 cd .. #Move back to the main directory</code></pre>
 <ul>
-<li>The <strong>nohup</strong> command stands for <em>no hangup</em> and keeps the process running even if you log out of your command line session.</li>
-<li>We use the tool <strong>bash</strong> and the name of our script to run our commands through the shell (‘sh’ will also work).</li>
-<li>We then redirect <strong>&gt;</strong> the output to a log file to keep track of any errors.</li>
-<li>We use the <strong>&amp;</strong> to run everything in the background to continue using the terminal.</li>
+<li>The <strong>nohup</strong> command stands for <em>no hangup</em> and
+keeps the process running even if you log out of your command line
+session.</li>
+<li>We use the tool <strong>bash</strong> and the name of our script to
+run our commands through the shell (‘sh’ will also work).</li>
+<li>We then redirect <strong>&gt;</strong> the output to a log file to
+keep track of any errors.</li>
+<li>We use the <strong>&amp;</strong> to run everything in the
+background to continue using the terminal.</li>
 </ul>
-<p>You can keep track of your pipeline by using <strong>ps</strong> or looking at the log file.</p>
+<p>You can keep track of your pipeline by using <strong>ps</strong> or
+looking at the log file.</p>
 <pre class="bash"><code>ps f
-tail CS_workshop_tmp/pipeline.log #Shows the end of a file</code></pre>
-<p>Note any commands run on multiple samples will need be to run separately (after pipeline finished)</p>
-<pre class="bash"><code>multiqc CS_workshop_tmp/fastq -o CS_workshop_tmp/fastq
-multiqc CS_workshop_tmp/cutadapt -o CS_workshop_tmp/cutadapt</code></pre>
+tail CS_workshop_tmp/pipeline.log # Shows the end of a file</code></pre>
+<p>Note any commands run on multiple samples will need be to run
+separately (after pipeline finished)</p>
+<pre class="bash"><code>multiqc CS_workshop_tmp/fastq -o CS_workshop_tmp/fastq</code></pre>
 <p><br></p>
 </div>
 <div id="tidy-up" class="section level3">
 <h3>Tidy Up!</h3>
-<p>Files are large, disk space is expensive, remove any unwanted or temporary files from your folder. We should always keep the raw data (fastq) and our final processed datasets (BAM, bigWig etc) and the script we used to generate them. SAM files are large and should be removed once converted to BAM.</p>
+<p>Files are large, disk space is expensive, remove any unwanted or
+temporary files from your folder. We should always keep the raw data
+(fastq) and our final processed datasets (BAM, bigWig etc) and the
+script we used to generate them. SAM files are large and should be
+removed once converted to BAM.</p>
 <div class="blue">
 <pre class="bash"><code>rm fastq/*trim*fq.gz #Remove trimmed fastq temp files
 rm bwa_out/*/*.sam #Remove sam files</code></pre>
@@ -335,46 +379,69 @@ rm bwa_out/*/*.sam #Remove sam files</code></pre>
 </div>
 <div id="integrative-genomics-viewer-igv" class="section level3">
 <h3>Integrative Genomics Viewer (IGV)</h3>
-<p><a href="https://www.broadinstitute.org/igv/">IGV</a> (Integrative genomics viewer) is a powerful genome browser from the Broad institute. It is perfect for viewing your sequencing files as loading data is easy, common formats are understood, views are customisable and navigation is quick.</p>
+<p><a href="https://www.broadinstitute.org/igv/">IGV</a> (Integrative
+genomics viewer) is a powerful genome browser from the Broad institute.
+It is perfect for viewing your sequencing files as loading data is easy,
+common formats are understood, views are customisable and navigation is
+quick.</p>
 <p>First let’s put all of our visualisation files in one folder.</p>
 <div class="blue">
 <pre class="bash"><code>mkdir visualisation
 ln -s $PWD/bwa_out/*/*bw visualisation
 ln -s $PWD/bwa_out/*/*uniq.bam* visualisation</code></pre>
 </div>
-<p>It is best to download the <a href="https://www.broadinstitute.org/igv/">desktop app</a> for use on your own machine but if you are using a university managed computer you can access the web app at <a href="https://igv.org/app/">https://igv.org/app/</a>.</p>
-<p>Open IGV and set the genome to <strong>sacCer3</strong>, then find your <em>visualisation</em> folder online. In the desktop version you can drag and drop files into IGV. If you are using the webapp you will need to download the files you require and open them using the <em>tracks</em> menu.</p>
-<p>Open a BAM file and a corresponding bigWig file into IGV. Make sure the .bai index file is in the same folder as the BAM.</p>
+<p>It is best to download the <a
+href="https://www.broadinstitute.org/igv/">desktop app</a> for use on
+your own machine but if you are using a university managed computer you
+can access the web app at <a
+href="https://igv.org/app/">https://igv.org/app/</a>.</p>
+<p>Open IGV and set the genome to <strong>sacCer3</strong>, then find
+your <em>visualisation</em> folder online. In the desktop version you
+can drag and drop files into IGV. If you are using the webapp you will
+need to download the files you require and open them using the
+<em>tracks</em> menu.</p>
+<p>Open a BAM file and a corresponding bigWig file into IGV. Make sure
+the .bai index file is in the same folder as the BAM.</p>
 <p><img src="images/IGV.png" width=1200></p>
 <p>First, let’s navigate the chromosome:</p>
 <ul>
 <li>Use the <em>+</em> / <em>-</em> zoom bar at the top right</li>
 <li>Drag and highlight an area to zoom on the genome ruler</li>
 <li>Type a position or gene identifier in to the search box</li>
-<li>If we zoom in close enough our BAM file will load and we can investigate alignments of individual reads</li>
+<li>If we zoom in close enough our BAM file will load and we can
+investigate alignments of individual reads</li>
 </ul>
 <p>Now let’s customise our view:</p>
 <p>DESKTOP APP</p>
 <ol style="list-style-type: decimal">
-<li>Select <strong>Tracks-&gt;Fit Data To Window</strong> To automatically set track heights to fill the view</li>
-<li>Right click on the Refseq genes track and switch between display modes <strong>Collapsed</strong>, <strong>Expanded</strong> and <strong>Squished</strong>. (Use the horizontal panel divider to adjust height)</li>
-<li>Use the right click menu on the bigwig track name to customise the display. Try the following:</li>
+<li>Select <strong>Tracks-&gt;Fit Data To Window</strong> To
+automatically set track heights to fill the view</li>
+<li>Right click on the Refseq genes track and switch between display
+modes <strong>Collapsed</strong>, <strong>Expanded</strong> and
+<strong>Squished</strong>. (Use the horizontal panel divider to adjust
+height)</li>
+<li>Use the right click menu on the bigwig track name to customise the
+display. Try the following:</li>
 <li>Rename the track</li>
 <li>Change the track colour</li>
 <li>Change the graph type</li>
 <li>Change the windowing function</li>
 <li>Adjust the data range</li>
-<li>Set the scale to <strong>Autoscale</strong>. This automatically sets the Y-axis to the height of the tallest peak in your view.</li>
+<li>Set the scale to <strong>Autoscale</strong>. This automatically sets
+the Y-axis to the height of the tallest peak in your view.</li>
 </ol>
 <p>WEB APP</p>
 <ol style="list-style-type: decimal">
-<li>Use the cog on the Ensembl genes track to switch between display modes <strong>Collapsed</strong>, <strong>Expanded</strong> and <strong>Squished</strong>.</li>
+<li>Use the cog on the Ensembl genes track to switch between display
+modes <strong>Collapsed</strong>, <strong>Expanded</strong> and
+<strong>Squished</strong>.</li>
 <li>Customise the bigwig track by trying the following:</li>
 <li>Rename the track</li>
 <li>Change the track colour</li>
 <li>Change the track height</li>
 <li>Set a minimum and maximum Y-axis</li>
-<li>Set the scale to <strong>Autoscale</strong>. This automatically sets the Y-axis to the height of the tallest peak in your view.</li>
+<li>Set the scale to <strong>Autoscale</strong>. This automatically sets
+the Y-axis to the height of the tallest peak in your view.</li>
 </ol>
 <p><br></p>
 <div class="challenge">
@@ -385,7 +452,8 @@ ln -s $PWD/bwa_out/*/*uniq.bam* visualisation</code></pre>
 <ul>
 <li><p>Why are the coverage profiles different?</p></li>
 <li><p>Which format is faster to view?</p></li>
-<li><p>Can you identify <strong>mismatches</strong> in read alignment?</p></li>
+<li><p>Can you identify <strong>mismatches</strong> in read
+alignment?</p></li>
 <li><p>What other information do the BAM files give us?</p></li>
 </ul>
 <p>Now let’s load all our bigwig files</p>
@@ -410,7 +478,10 @@ Solution
 <div id="other-genome-browsers" class="section level3">
 <h3>Other genome browsers</h3>
 <ul>
-<li><a href="http://www.ensembl.org">Ensembl</a> and <a href="https://genome.ucsc.edu/">UCSC</a> websites have online genome browsers where you can view your data alongside published experimental data and genomic annotations in their databases.</li>
+<li><a href="http://www.ensembl.org">Ensembl</a> and <a
+href="https://genome.ucsc.edu/">UCSC</a> websites have online genome
+browsers where you can view your data alongside published experimental
+data and genomic annotations in their databases.</li>
 </ul>
 <p><br></p>
 <div class="key-points">
