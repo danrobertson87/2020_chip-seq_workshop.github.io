@@ -13,8 +13,8 @@
 
 <title>Mapping and Filtering</title>
 
-<script src="site_libs/header-attrs-2.8/header-attrs.js"></script>
-<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<script src="site_libs/header-attrs-2.24/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/yeti.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
@@ -59,6 +59,7 @@ if (window.hljs) {
 
 
 
+
 <link rel="stylesheet" href="style.css" type="text/css" />
 
 
@@ -83,6 +84,9 @@ button.code-folding-btn:focus {
 }
 summary {
   display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
 }
 pre code {
   padding: 0;
@@ -140,11 +144,15 @@ $(document).ready(function () {
     href = "index.html";
   var menuAnchor = $('a[href="' + href + '"]');
 
-  // mark it active
-  menuAnchor.tab('show');
-
-  // if it's got a parent navbar menu mark it active as well
-  menuAnchor.closest('li.dropdown').addClass('active');
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
 
   // Navbar adjustments
   var navHeight = $(".navbar").first().height() + 15;
@@ -173,8 +181,8 @@ $(document).ready(function () {
   border-radius: 4px;
 }
 
-.tabset-dropdown > .nav-tabs > li.active:before {
-  content: "";
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
   font-family: 'Glyphicons Halflings';
   display: inline-block;
   padding: 10px;
@@ -182,16 +190,9 @@ $(document).ready(function () {
 }
 
 .tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
-  content: "&#xe258;";
-  border: none;
-}
-
-.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
-  content: "";
+  content: "\e258";
   font-family: 'Glyphicons Halflings';
-  display: inline-block;
-  padding: 10px;
-  border-right: 1px solid #ddd;
+  border: none;
 }
 
 .tabset-dropdown > .nav-tabs > li.active {
@@ -235,7 +236,7 @@ $(document).ready(function () {
 <div class="navbar navbar-default  navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
@@ -282,13 +283,28 @@ $(document).ready(function () {
 <p><br></p>
 <div id="read-alignment" class="section level3">
 <h3>6. Read Alignment</h3>
-<p>In this workshop we are going to align our ChIP-seq reads to the yeast reference genome. There are many tools available for mapping reads each with their own purposes and strengths. We are going to use <a href="http://bio-bwa.sourceforge.net/bwa.shtml">BWA</a> as it is suitable for aligning single end short ChIP-seq reads and has a reasonable balance of accuracy and speed.</p>
+<p>In this workshop we are going to align our ChIP-seq reads to the
+yeast reference genome. There are many tools available for mapping reads
+each with their own purposes and strengths. We are going to use <a
+href="http://bio-bwa.sourceforge.net/bwa.shtml">BWA</a> as it is
+suitable for aligning single end short ChIP-seq reads and has a
+reasonable balance of accuracy and speed.</p>
 <p><br></p>
 </div>
 <div id="genome-assemblies-and-indexing" class="section level3">
 <h3>Genome assemblies and indexing</h3>
-<p>First, we need to select a reference genome to align to. Every time a reference genome is released or updated it is given a new name, often referred to as the genome build or assembly (..hg18, hg19, hg38). It is important to realise that different builds of the same genome are different sequences and thus their co-ordinate sytems are incompatable. For instance position 10000000 on chr1 is T in hg19 and G in hg38.</p>
-<p>We are going to map our reads to the latest release of the yeast genome <strong>sacCer3</strong>. We need to create an index file from the sacCer3 sequence so that BWA can quickly access the reference sequences. Luckily many of these indexes are pre-computed on our servers and stored under the ~genomes directory so you would only need to run this step for a new genome:</p>
+<p>First, we need to select a reference genome to align to. Every time a
+reference genome is released or updated it is given a new name, often
+referred to as the genome build or assembly (..hg18, hg19, hg38). It is
+important to realise that different builds of the same genome are
+different sequences and thus their co-ordinate sytems are incompatable.
+For instance position 10000000 on chr1 is T in hg19 and G in hg38.</p>
+<p>We are going to map our reads to the latest release of the yeast
+genome <strong>sacCer3</strong>. We need to create an index file from
+the sacCer3 sequence so that BWA can quickly access the reference
+sequences. Luckily many of these indexes are pre-computed on our servers
+and stored under the ~genomes directory so you would only need to run
+this step for a new genome:</p>
 <div class="blue">
 <pre class="bash"><code>#bwa index -p /homes/genomes/s.cerevisiae/sacCer3/bwa_indexes/sacCer3 -a is /homes/genomes/s.cerevisiae/sacCer3/sacCer3.fa</code></pre>
 </div>
@@ -296,37 +312,68 @@ $(document).ready(function () {
 </div>
 <div id="mapping-reads-with-bwa" class="section level3">
 <h3>Mapping reads with BWA</h3>
-<p>Once we have an index we can align our reads to the sacCer3 genome with BWA. This will take ~5 minutes to run so let’s get it started:</p>
-<p>First create a new directory for the alignments and sub directories for each sample to keep your data organsied:</p>
+<p>Once we have an index we can align our reads to the sacCer3 genome
+with BWA. This will take ~5 minutes to run so let’s get it started:</p>
+<p>First create a new directory for the alignments and sub directories
+for each sample to keep your data organsied:</p>
 <div class="blue">
 <pre class="bash"><code>mkdir bwa_out
 cat samples.txt | parallel -j 4 mkdir bwa_out/{}</code></pre>
 </div>
-<p>Then run bwa on each of your samples. Note that we are redirecting the output to a file using <strong>&gt;</strong> so we put the full command in quotes for parallel to execute.</p>
+<p>Then run bwa on each of your samples. Note that we are redirecting
+the output to a file using <strong>&gt;</strong> so we put the full
+command in quotes for parallel to execute.</p>
 <div class="blue">
 <pre class="bash"><code>cat samples.txt | parallel -j 4 &quot;bwa mem -t 5 -a -R &#39;@RG\tID:{}\tPL:ILLUMINA&#39; -M /homes/genomes/s.cerevisiae/sacCer3/bwa_indexes/sacCer3 fastq/{}.trim.fq.gz &gt; bwa_out/{}/{}.sam&quot;</code></pre>
 </div>
 <p><br></p>
-<p>This will take slightly longer to run. <!--This is a good time to go make a **coffee**! --></p>
+<p>This will take slightly longer to run.
+<!--This is a good time to go make a **coffee**! --></p>
 <p><br></p>
 </div>
 <div id="sambamcram-format-and-samtools" class="section level3">
 <h3>SAM/BAM/CRAM format and Samtools</h3>
-<p>The standard output for most mapping software is SAM (sequence alignment/map format). SAM files contain many columns that describe the position of each alignment as well as information on the quality of the alignment, mismatches, the number of times a read mapped, mapping of paired ends and other custom flags and statistics. SAM files can be very large so there are compressed alternatives BAM and CRAM. The <a href="http://www.htslib.org/doc/samtools.html">samtools</a> package has many useful tools for viewing and manipulating files in SAM format. We will use some of these below.</p>
-<p>Take a look at the <a href="https://samtools.github.io/hts-specs/SAMv1.pdf">SAM format specification</a> and the first few lines of your SAM output using samtools:</p>
+<p>The standard output for most mapping software is SAM (sequence
+alignment/map format). SAM files contain many columns that describe the
+position of each alignment as well as information on the quality of the
+alignment, mismatches, the number of times a read mapped, mapping of
+paired ends and other custom flags and statistics. SAM files can be very
+large so there are compressed alternatives BAM and CRAM. The <a
+href="http://www.htslib.org/doc/samtools.html">samtools</a> package has
+many useful tools for viewing and manipulating files in SAM format. We
+will use some of these below.</p>
+<p>Take a look at the <a
+href="https://samtools.github.io/hts-specs/SAMv1.pdf">SAM format
+specification</a> and the first few lines of your SAM output using
+samtools:</p>
 <pre class="bash"><code>samtools view bwa_out/Reb1_R1/Reb1_R1.sam | less </code></pre>
-<p>The second column is the <strong>SAM flag</strong> and contains coded information about each alignment. Use the <a href="https://broadinstitute.github.io/picard/explain-flags.html">Explain SAM flags</a> resource to find out more about the alignments in your file.</p>
-<p>We can also see the samtools header using the -h flag which contains information on the parameters and indexes used to create the file.</p>
+<p>The second column is the <strong>SAM flag</strong> and contains coded
+information about each alignment. Use the <a
+href="https://broadinstitute.github.io/picard/explain-flags.html">Explain
+SAM flags</a> resource to find out more about the alignments in your
+file.</p>
+<p>We can also see the samtools header using the -h flag which contains
+information on the parameters and indexes used to create the file.</p>
 <pre class="bash"><code>samtools view -h bwa_out/Reb1_R1/Reb1_R1.sam | less</code></pre>
-<p>We can use samtools to sort the sam file by co-ordinate and output in the binary format BAM to save disk space. The BAM file can also be indexed to allow quick programmatic access for visualisation and processing. We can feed multiple commands into our call to parallel by separating them with a semi colon <strong>;</strong>.</p>
+<p>We can use samtools to sort the sam file by co-ordinate and output in
+the binary format BAM to save disk space. The BAM file can also be
+indexed to allow quick programmatic access for visualisation and
+processing. We can feed multiple commands into our call to parallel by
+separating them with a semi colon <strong>;</strong>.</p>
 <div class="blue">
 <pre class="bash"><code>cat samples.txt | parallel -j 4 &quot;samtools sort bwa_out/{}/{}.sam -o bwa_out/{}/{}.bam -T bwa_out/{}/{} -O BAM; samtools index bwa_out/{}/{}.bam&quot;</code></pre>
 </div>
-<p>Take a look at the contents of the <em>bwa_out</em> directory now. The -lh flag prints out a directory in list view with human readable file sizes.</p>
+<p>Take a look at the contents of the <em>bwa_out</em> directory now.
+The -lh flag prints out a directory in list view with human readable
+file sizes.</p>
 <pre class="bash"><code>ls -lh bwa_out/*  </code></pre>
-<p>Notice the difference in size between the SAM and BAM files and the .bai file which is the bam index. Let’s look at one of the BAM files using <code>samtools idxstats</code> to see where our reads align</p>
+<p>Notice the difference in size between the SAM and BAM files and the
+.bai file which is the bam index. Let’s look at one of the BAM files
+using <code>samtools idxstats</code> to see where our reads align</p>
 <pre class="bash"><code>samtools idxstats bwa_out/Reb1_R1/Reb1_R1.bam</code></pre>
-<p>The third column represents the number of alignments to each chromosome and at the bottom we can see some reads which have not mapped at all.</p>
+<p>The third column represents the number of alignments to each
+chromosome and at the bottom we can see some reads which have not mapped
+at all.</p>
 <p><br></p>
 </div>
 <div id="post-processing" class="section level3">
@@ -335,47 +382,121 @@ cat samples.txt | parallel -j 4 mkdir bwa_out/{}</code></pre>
 </div>
 <div id="filtering-reads-with-samtools" class="section level3">
 <h3>Filtering reads with samtools</h3>
-<p>Now that we have aligned our reads we may want to do some filtering before any downstream analysis. Make sure you are aware of the alignments that are reported by your mapping program and the parameters used. For instance, are unmapped reads reported? Are all alignments to repeats reported or just one? Are paired-end alignments still reported if only one end maps?</p>
-<p>There are many ways to filter your BAM files with samtools and other programs to remove unwanted alignments that may negatively affect your downstream analysis. This will not be covered in depth here, instead we will simply remove all non-uniquely mapped reads. These reads map to multiple regions of the genome and can skew classification of peaks in our data. In this case we are not interested in looking at repeat regions of the genome so we will remove these reads. This can be done by filtering out all reads with <a href="http://genome.sph.umich.edu/wiki/Mapping_Quality_Scores">mapping quality</a> less than 20.</p>
+<p>Now that we have aligned our reads we may want to do some filtering
+before any downstream analysis. Make sure you are aware of the
+alignments that are reported by your mapping program and the parameters
+used. For instance, are unmapped reads reported? Are all alignments to
+repeats reported or just one? Are paired-end alignments still reported
+if only one end maps?</p>
+<p>There are many ways to filter your BAM files with samtools and other
+programs to remove unwanted alignments that may negatively affect your
+downstream analysis. This will not be covered in depth here, instead we
+will simply remove all non-uniquely mapped reads. These reads map to
+multiple regions of the genome and can skew classification of peaks in
+our data. In this case we are not interested in looking at repeat
+regions of the genome so we will remove these reads. This can be done by
+filtering out all reads with <a
+href="http://genome.sph.umich.edu/wiki/Mapping_Quality_Scores">mapping
+quality</a> less than 20.</p>
 <p><br></p>
 </div>
 <div id="multimap-reads-and-duplicate-reads" class="section level3">
 <h3>Multimap reads and Duplicate reads</h3>
-<p>Multimap and duplicate reads are often confused so it is important to understand what these are and how they affect your data:</p>
+<p>Multimap and duplicate reads are often confused so it is important to
+understand what these are and how they affect your data:</p>
 <ul>
-<li><strong>Multimap reads</strong> = The read exists once in your library and aligns to multiple repeat locations in the reference genome</li>
-<li><strong>Duplicate reads</strong> = Multiple reads with the same sequence align to identical locations in the genome.</li>
+<li><strong>Multimap reads</strong> = The read exists once in your
+library and aligns to multiple repeat locations in the reference
+genome</li>
+<li><strong>Duplicate reads</strong> = Multiple reads with the same
+sequence align to identical locations in the genome.</li>
 </ul>
 <p><img src="images/multi.png" alt="pic" width="600"/></p>
-<p><strong>Multimap reads</strong> are difficult to analyse as their ambiguity can confound results. Many applications require the use of <strong>unique</strong> alignments only, thus multimap reads need to be removed from your BAM file. Aligners assign a <strong>mapping quality</strong> to each read (column 5 in BAM) between 0 and 255 that describes its confidence in the alignment position. Assigned <a href="https://sequencing.qcfail.com/articles/mapq-values-are-really-useful-but-their-implementation-is-a-mess/">mapping qualities differ between mappers</a> and BWA uses a phred score to measure the accuracy of an alignment. Filtering out reads with a mapping quality &lt; 20 means that all remaining alignment positions are 99% accurate. We can use <code>samtools view -q</code> to filter based on mapping quality</p>
+<p><strong>Multimap reads</strong> are difficult to analyse as their
+ambiguity can confound results. Many applications require the use of
+<strong>unique</strong> alignments only, thus multimap reads need to be
+removed from your BAM file. Aligners assign a <strong>mapping
+quality</strong> to each read (column 5 in BAM) between 0 and 255 that
+describes its confidence in the alignment position. Assigned <a
+href="https://sequencing.qcfail.com/articles/mapq-values-are-really-useful-but-their-implementation-is-a-mess/">mapping
+qualities differ between mappers</a> and BWA uses a phred score to
+measure the accuracy of an alignment. Filtering out reads with a mapping
+quality &lt; 20 means that all remaining alignment positions are 99%
+accurate. We can use <code>samtools view -q</code> to filter based on
+mapping quality</p>
 <div class="blue">
 <pre class="bash"><code>cat samples.txt | parallel -j 4 &quot;samtools view -b -q 20 bwa_out/{}/{}.bam -o bwa_out/{}/{}.uniq.bam; samtools index bwa_out/{}/{}.uniq.bam&quot;</code></pre>
 </div>
-<p>Note that there are aligners and analysis packages that attempt to deal with multimap reads and assign weights to each alignment, although methods are still in development. If you are interested in repeat elements or don’t want to discard any potentially useful information then you will need a strategy to deal with these reads.</p>
-<p><strong>Duplicate reads</strong> are often observed as tall spikes in your read depth profile where reads are stacked directly on top of each other. A high level of duplication in your library is often a sign of over amplification by PCR and we may want to remove this bias from our result. However, these reads may also derive from separate fragments of DNA in your sample, thus we would be removing real data. It is often a good idea to <strong>mark</strong> your duplicate reads and produce outputs both with and without duplicates for comparison. Read more about duplication bias <a href="https://sequencing.qcfail.com/articles/libraries-can-contain-technical-duplication/">here</a>.</p>
-<p>The <a href="https://broadinstitute.github.io/picard/index.html">Picard</a> package has many useful utilities for manipulating SAM/BAM files. The MarkDuplicates tool will check the alignment positions for duplicate reads and mark or remove them from your data depending on how you wish to treat them.</p>
-<p>Using paired-end reads or random primers in your library preparation can help separate some of the original reads from PCR duplicates.</p>
+<p>Note that there are aligners and analysis packages that attempt to
+deal with multimap reads and assign weights to each alignment, although
+methods are still in development. If you are interested in repeat
+elements or don’t want to discard any potentially useful information
+then you will need a strategy to deal with these reads.</p>
+<p><strong>Duplicate reads</strong> are often observed as tall spikes in
+your read depth profile where reads are stacked directly on top of each
+other. A high level of duplication in your library is often a sign of
+over amplification by PCR and we may want to remove this bias from our
+result. However, these reads may also derive from separate fragments of
+DNA in your sample, thus we would be removing real data. It is often a
+good idea to <strong>mark</strong> your duplicate reads and produce
+outputs both with and without duplicates for comparison. Read more about
+duplication bias <a
+href="https://sequencing.qcfail.com/articles/libraries-can-contain-technical-duplication/">here</a>.</p>
+<p>The <a
+href="https://broadinstitute.github.io/picard/index.html">Picard</a>
+package has many useful utilities for manipulating SAM/BAM files. The
+MarkDuplicates tool will check the alignment positions for duplicate
+reads and mark or remove them from your data depending on how you wish
+to treat them.</p>
+<p>Using paired-end reads or random primers in your library preparation
+can help separate some of the original reads from PCR duplicates.</p>
 <p><br></p>
 </div>
 <div id="genome-blacklists" class="section level3">
 <h3>Genome blacklists</h3>
-<p>The ENCODE project produced 100s of NGS datasets and found that certain regions of the genome were consistently prone to overinflated read depths regardless of the sample or preparation. Some of these are repeats of variable copy number, others are likely to be similar to <a href="https://sequencing.qcfail.com/articles/genomic-sequence-not-in-the-genome-assembly-creates-mapping-artefacts/">repeat regions in unsequenced portions of the genome</a> (telomeres, centromeres, satellites etc.). These are typically seen as large towers of reads that dominate your read profiles. It is probably a good idea to remove these regions from downstream analyses or remove the reads that align all together. ENCODE subsequently released genome blacklists for human and mouse, for other species you can identify these regions by eye.</p>
-<p><a href="http://bedtools.readthedocs.org/en/latest/">BedTools</a> is an extremely useful tool suite for performing operations on genomic intervals and alignments and comparing multiple datasets. The intersect tool can find overlaps between reads in a BAM file <code>-abam</code> and blacklist regions in a <a href="https://genome.ucsc.edu/FAQ/FAQformat.html#format1">bed</a> file <code>-b</code> and output all the reads that DON’T intersect <code>-v</code>.</p>
+<p>The ENCODE project produced 100s of NGS datasets and found that
+certain regions of the genome were consistently prone to overinflated
+read depths regardless of the sample or preparation. Some of these are
+repeats of variable copy number, others are likely to be similar to <a
+href="https://sequencing.qcfail.com/articles/genomic-sequence-not-in-the-genome-assembly-creates-mapping-artefacts/">repeat
+regions in unsequenced portions of the genome</a> (telomeres,
+centromeres, satellites etc.). These are typically seen as large towers
+of reads that dominate your read profiles. It is probably a good idea to
+remove these regions from downstream analyses or remove the reads that
+align all together. ENCODE subsequently released genome blacklists for
+human and mouse, for other species you can identify these regions by
+eye.</p>
+<p><a href="http://bedtools.readthedocs.org/en/latest/">BedTools</a> is
+an extremely useful tool suite for performing operations on genomic
+intervals and alignments and comparing multiple datasets. The intersect
+tool can find overlaps between reads in a BAM file <code>-abam</code>
+and blacklist regions in a <a
+href="https://genome.ucsc.edu/FAQ/FAQformat.html#format1">bed</a> file
+<code>-b</code> and output all the reads that DON’T intersect
+<code>-v</code>.</p>
 <p><img src="images/intersect-glyph.png" width=700></p>
-<p>In some cases you may also want to remove ribosomal RNA/DNA reads that make up a bulk of your sample.</p>
+<p>In some cases you may also want to remove ribosomal RNA/DNA reads
+that make up a bulk of your sample.</p>
 <p><br></p>
 </div>
 <div id="how-many-reads" class="section level3">
 <h3>How many reads?</h3>
-<p>As we used the -a flag when aligning <strong>bwa</strong> outputs multiple alignments per read if they exist, meaning a read may have many entries within a BAM file. However, bwa will assign one of the best hits as a primary alignment and all the others as secondary. Unmapped reads are also printed to the output file and these two factors mean that the total number of lines does not correspond to the total number of mapped reads.</p>
-<p><code>samtools view</code> can tell us how many lines are in a bam file using the -c flag to count. We can filter alignments using -f (keep) or -F (discard) on the SAM flag column.</p>
+<p>As we used the -a flag when aligning <strong>bwa</strong> outputs
+multiple alignments per read if they exist, meaning a read may have many
+entries within a BAM file. However, bwa will assign one of the best hits
+as a primary alignment and all the others as secondary. Unmapped reads
+are also printed to the output file and these two factors mean that the
+total number of lines does not correspond to the total number of mapped
+reads.</p>
+<p><code>samtools view</code> can tell us how many lines are in a bam
+file using the -c flag to count. We can filter alignments using -f
+(keep) or -F (discard) on the SAM flag column.</p>
 <pre class="bash"><code>samtools view -c bwa_out/Reb1_R1/Reb1_R1.bam</code></pre>
 <p>5444557</p>
 <pre class="bash"><code>samtools view -c -f 4 bwa_out/Reb1_R1/Reb1_R1.bam 
 # counts number of unmapped reads (flag = &#39;4&#39;)</code></pre>
 <p>144915</p>
 <p><br></p>
-###Challenge
 <div class="challenge">
 <h2>
 <i class="fas fa-pencil-alt"></i> Challenge:
@@ -401,14 +522,18 @@ Solution
 <p>2572126 reads map to a single ‘unique’ location</p>
 <pre class="bash"><code>samtools view -c -q 20 bwa_out/Reb1_R1/Reb1_R1.bam</code></pre>
 <p>1967026 reads have a MAPQ &gt; 20</p>
-<p>Note our filtered uniq.bams have excluded unmapped/non primary and MAPQ &lt; 20 all in one.</p>
+<p>Note our filtered uniq.bams have excluded unmapped/non primary and
+MAPQ &lt; 20 all in one.</p>
 <pre class="bash"><code>samtools view -c bwa_out/Reb1_R1/Reb1_R1.uniq.bam</code></pre>
 <p>1967026</p>
 </div>
 </details>
 </div>
-<p><br> <strong>Hint:</strong> Use the <a href="https://broadinstitute.github.io/picard/explain-flags.html">Explain SAM flags</a> resource.</p>
-<p>We can also use <strong>fastqc</strong> on bam files to look at the quality and statistics for our uniquely mapped reads.</p>
+<p><br> <strong>Hint:</strong> Use the <a
+href="https://broadinstitute.github.io/picard/explain-flags.html">Explain
+SAM flags</a> resource.</p>
+<p>We can also use <strong>fastqc</strong> on bam files to look at the
+quality and statistics for our uniquely mapped reads.</p>
 <div class="blue">
 <pre class="bash"><code>cat samples.txt | parallel -j 4 fastqc bwa_out/{}/{}.uniq.bam
 multiqc -o bwa_out bwa_out</code></pre>

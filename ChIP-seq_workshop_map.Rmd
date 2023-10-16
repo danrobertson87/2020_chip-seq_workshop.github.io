@@ -169,7 +169,7 @@ samtools view -c -f 4 bwa_out/Reb1_R1/Reb1_R1.bam
 
 <br>
 
-###Challenge
+
 <div class="challenge">
 <h2><i class="fas fa-pencil-alt"></i> Challenge:</h2>
 
